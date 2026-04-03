@@ -1,3 +1,5 @@
+@extends('includes.main')
+@section('content')
 
 
 <!-- ════════════════ HERO ════════════════ -->
@@ -153,3 +155,5 @@
   </div>
 </section>
 
+
+@endsection
