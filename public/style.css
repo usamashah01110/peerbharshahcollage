@@ -82,6 +82,13 @@
       line-height: 1.2;
     }
     .hero-title span { color: var(--gold); }
+    .hero-subtitle {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-top: 1rem;
+      line-height: 1.5;
+    }
     .hero-btns .btn-crimson {
       background: var(--crimson);
       color: #fff;
