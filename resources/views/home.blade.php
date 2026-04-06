@@ -11,8 +11,8 @@
         <h1 class="hero-title">
           Discover Your <span>True</span><br>
           Potential at Government<br>
-          Graduate College for<br>
-          Women Sheikhupura
+          Peer Bhar Shah College<br>
+          Sheikhupura
         </h1>
         <div class="hero-btns mt-4">
           <a href="#" class="btn btn-crimson">Intermediate</a>
