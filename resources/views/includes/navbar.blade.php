@@ -55,7 +55,7 @@
       </div>
 
       <div class="brand-text">
-        <div class="name">Govt. Peer Bhar Shah College</div>
+        <div class="name">Govt. Pir Bahar Shah Graduate College for Women</div>
         <div class="name" style="font-size:.85rem;">Sheikhupura</div>
         <div class="sub">Since 2002</div>
       </div>

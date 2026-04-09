@@ -9,8 +9,8 @@
       <div class="col-lg-8 col-xl-7">
         <h1 class="hero-title">
           About <span>Government</span><br>
-          Graduate College for<br>
-          Women Sheikhupura
+          Pir Bahar Shah Graduate College for Women<br>
+           Sheikhupura
         </h1>
         <p class="hero-subtitle">Excellence in Education, Empowerment Through Knowledge</p>
       </div>
@@ -26,7 +26,7 @@
       <div class="col-lg-6">
         <h2>Our Story</h2>
         <div class="divider"></div>
-        <p>Government Graduate College for Women, Sheikhupura, stands as a beacon of educational excellence and women's empowerment in Pakistan. Established with a vision to provide quality higher education to women in the region, our college has been nurturing bright minds and shaping future leaders for generations.</p>
+        <p>Government Pir Bahar Shah Graduate College for Women , Sheikhupura, stands as a beacon of educational excellence and women's empowerment in Pakistan. Established with a vision to provide quality higher education to women in the region, our college has been nurturing bright minds and shaping future leaders for generations.</p>
         <p>Our institution combines traditional values with modern educational approaches, creating an environment where academic rigor meets personal growth. We are committed to fostering intellectual curiosity, critical thinking, and social responsibility among our students.</p>
       </div>
       <!-- Image -->
@@ -104,26 +104,26 @@
       <div class="col-md-4">
         <div class="principal-img-wrap">
           <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&q=80" alt="Faculty Member"/>
-          <div class="principal-img-label">Dr. Sarah Ahmed</div>
+          <div class="principal-img-label">Dr. Asma Maqbol</div>
         </div>
-        <div class="principal-name">Dr. Sarah Ahmed</div>
-        <div class="principal-title">Principal & Head of Computer Science</div>
+        <div class="principal-name">Dr. Asma Maqbol </div>
+        <div class="principal-title">Principal & Head of Ziology</div>
       </div>
       <div class="col-md-4">
         <div class="principal-img-wrap">
           <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Faculty Member"/>
-          <div class="principal-img-label">Prof. Maria Khan</div>
+          <div class="principal-img-label">Dr. Faiza Bukhari</div>
         </div>
-        <div class="principal-name">Prof. Maria Khan</div>
-        <div class="principal-title">Head of English Literature</div>
+        <div class="principal-name">Dr. Faiza Bukhari</div>
+        <div class="principal-title"> Assisant Professor $ Head of English Literature</div>
       </div>
       <div class="col-md-4">
         <div class="principal-img-wrap">
           <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80" alt="Faculty Member"/>
-          <div class="principal-img-label">Dr. Aisha Malik</div>
+          <div class="principal-img-label">Mrs.Shahnaz Ijaz</div>
         </div>
-        <div class="principal-name">Dr. Aisha Malik</div>
-        <div class="principal-title">Head of Mathematics</div>
+        <div class="principal-name">Mrs.Shahnaz Ijaz</div>
+        <div class="principal-title">Assistant Professor $ Head of Political Science</div>
       </div>
     </div>
   </div>
