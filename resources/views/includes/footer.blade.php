@@ -7,18 +7,18 @@
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="46" height="46">
             <circle cx="50" cy="50" r="48" fill="#8b1a2e" stroke="#c9a84c" stroke-width="2.5"/>
             <text x="50" y="38" text-anchor="middle" font-family="serif" font-size="8" fill="#c9a84c" font-weight="bold">GOVT.</text>
-            <text x="50" y="48" text-anchor="middle" font-family="serif" font-size="7" fill="#fff">GRADUATE</text>
-            <text x="50" y="57" text-anchor="middle" font-family="serif" font-size="7" fill="#fff">COLLEGE FOR</text>
-            <text x="50" y="66" text-anchor="middle" font-family="serif" font-size="7" fill="#fff">WOMEN</text>
+            <text x="50" y="48" text-anchor="middle" font-family="serif" font-size="7" fill="#fff">Pir Bahar Shah Graduate College</text>
+            <text x="50" y="57" text-anchor="middle" font-family="serif" font-size="7" fill="#fff">for Women </text>
+            <text x="50" y="66" text-anchor="middle" font-family="serif" font-size="7" fill="#fff">sheikhupura</text>
             <text x="50" y="77" text-anchor="middle" font-family="serif" font-size="6.5" fill="#c9a84c">✦ 1968 ✦</text>
           </svg>
           <div>
-            <div class="footer-logo-text">Govt. Graduate College for Women</div>
+            <div class="footer-logo-text">Govt. Pir Bahar Shah Graduate College for Women</div>
             <div class="footer-logo-text" style="font-size:.85rem;">Sheikhupura</div>
             <div class="footer-sub">Since 1968</div>
           </div>
         </div>
-        <p class="tagline">Discover Your True Potential at Government Graduate College for Girls, Sheikhupura, Pakistan</p>
+        <p class="tagline">Discover Your True Potential at Government pir bahar shah graduate college for Women, Sheikhupura, Pakistan</p>
         <div class="social-icons mt-3">
           <a href="#"><i class="bi bi-facebook"></i></a>
           <a href="#"><i class="bi bi-instagram"></i></a>
@@ -31,8 +31,8 @@
         <h6>Get in Touch</h6>
         <div class="contact-info">
           <strong>056 3783273</strong>
-          Govt. Graduate College For Girls, Sheikhupura,<br>
-          Bhang Road,<br>Sheikhupura, Pakistan
+          Govt. pir bahar shah graduate college for women, Sheikhupura,<br>
+          Batichowk Road,<br>Sheikhupura, Pakistan
         </div>
         <a href="#" class="btn-view-all d-inline-block mt-3" style="font-size:.75rem;padding:7px 16px;">Get Directions</a>
       </div>
@@ -60,7 +60,7 @@
   </div>
 
   <div class="footer-bottom">
-    © 2025 Govt. Graduate College for Girls, Sheikhupura. All Rights Reserved.
+    © 2025 Govt. pir bahar shah, Sheikhupura. All Rights Reserved.
   </div>
 </footer>
 
