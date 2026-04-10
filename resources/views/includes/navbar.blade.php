@@ -19,7 +19,7 @@
 <!-- ════════════════ MAIN NAVBAR ════════════════ -->
 <nav class="main-nav navbar navbar-expand-lg sticky-top">
   <div class="container">
-    <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" href="#">
+    <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" href="{{ route('home') }}">
 
       <!-- SVG Logo: Govt. Peer Bhar Shah College -->
       <div class="college-logo">
@@ -67,8 +67,8 @@
 
     <div class="collapse navbar-collapse justify-content-end" id="mainNav">
       <ul class="navbar-nav align-items-lg-center">
-        <li class="nav-item"><a class="nav-link active" href="{{ route('home') }}">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('aboutus') }}">About Us</a></li>
+        <li class="nav-item"><a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a></li>
+        <li class="nav-item"><a class="nav-link {{ request()->routeIs('aboutus') ? 'active' : '' }}" href="{{ route('aboutus') }}">About Us</a></li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Admissions</a>
           <ul class="dropdown-menu">
@@ -89,6 +89,8 @@
         </li>
         <li class="nav-item"><a class="nav-link" href="#">Student Life</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        <li class="nav-item"><a class="btn btn-crimson ms-lg-3" href="{{ route('login') }}">Login</a></li>
+        <li class="nav-item"><a class="btn btn-outline-crimson ms-2" href="{{ route('register') }}">Register</a></li>
       </ul>
     </div>
   </div>
