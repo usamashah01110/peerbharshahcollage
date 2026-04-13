@@ -103,23 +103,23 @@
     <div class="row g-4">
       <div class="col-md-4">
         <div class="principal-img-wrap">
-          <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&q=80" alt="Faculty Member"/>
+          <img src="{{ asset('images/principal.jpeg')}}" alt="Faculty Member"/>
           <div class="principal-img-label">Dr. Asma Maqbol</div>
         </div>
         <div class="principal-name">Dr. Asma Maqbol </div>
-        <div class="principal-title">Principal & Head of Ziology</div>
+        <div class="principal-title">Principal & Head of Zoology</div>
       </div>
       <div class="col-md-4">
         <div class="principal-img-wrap">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Faculty Member"/>
+          <img src= alt="Faculty Member"/>
           <div class="principal-img-label">Dr. Faiza Bukhari</div>
         </div>
         <div class="principal-name">Dr. Faiza Bukhari</div>
-        <div class="principal-title"> Assisant Professor $ Head of English Literature</div>
+        <div class="principal-title"> Assisant Professor & Head of English Literature</div>
       </div>
       <div class="col-md-4">
         <div class="principal-img-wrap">
-          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80" alt="Faculty Member"/>
+          <img src= alt="Faculty Member"/>
           <div class="principal-img-label">Mrs.Shahnaz Ijaz</div>
         </div>
         <div class="principal-name">Mrs.Shahnaz Ijaz</div>

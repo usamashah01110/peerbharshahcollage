@@ -98,7 +98,7 @@
       </div>
       <div class="col-lg-4">
         <div class="principal-img-wrap">
-          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80" alt="Principal"/>
+          <img src="{{ asset('images/principal.jpeg') }}" alt="Principal"/>
           <div class="principal-img-label">Principal Message</div>
         </div>
       </div>

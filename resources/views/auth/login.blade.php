@@ -16,7 +16,7 @@
     <div class="row justify-content-center">
       <div class="col-lg-7 col-xl-6">
         <div class="auth-card">
-          <h1 class="hero-title text-center" style="color: var(--text-dark);">Sign In</h1>
+          <h1 class="hero-title text-center" style="color: var(--text-dark);">Login</h1>
           <br>
 
           @if (session('status'))
@@ -56,7 +56,7 @@
               </div>
             </div>
 
-            <button type="submit" class="btn btn-crimson">Sign In</button>
+            <button type="submit" class="btn btn-crimson">Login</button>
 
             <div class="auth-footer">
               New here? <a href="{{ route('register') }}">Create an account</a> and join our college community.

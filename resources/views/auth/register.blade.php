@@ -1,57 +1,3 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,56 +11,67 @@
 </head>
 <body>
 
-<section >
+<section>
   <div class="container hero-content">
     <div class="row justify-content-center">
       <div class="col-lg-7 col-xl-6">
         <div class="auth-card">
-          <h1 class="hero-title text-center" style="color: var(--text-dark);">Sign In</h1>
+          <h1 class="hero-title text-center" style="color: var(--text-dark);">Register</h1>
           <br>
 
-          @if (session('status'))
-            <div class="alert alert-success" role="alert">
-              {{ session('status') }}
-            </div>
-          @endif
-
-          <form method="POST" action="{{ route('login') }}">
+          <form method="POST" action="{{ route('register') }}">
             @csrf
 
+            {{-- Username --}}
+            <div class="mb-3">
+              <label for="name" class="form-label">Username</label>
+              <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus
+                class="form-control @error('name') is-invalid @enderror"
+                placeholder="Enter your username">
+              @error('name')
+                <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+            </div>
+
+            {{-- Email --}}
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
-              <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus class="form-control @error('email') is-invalid @enderror" placeholder="name@example.com">
+              <input id="email" type="email" name="email" value="{{ old('email') }}" required
+                class="form-control @error('email') is-invalid @enderror"
+                placeholder="name@example.com">
               @error('email')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror
             </div>
 
+            {{-- Password --}}
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
-              <input id="password" type="password" name="password" required class="form-control @error('password') is-invalid @enderror" placeholder="Enter your password">
+              <input id="password" type="password" name="password" required
+                class="form-control @error('password') is-invalid @enderror"
+                placeholder="Enter your password">
               @error('password')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror
             </div>
 
-            <div class="row align-items-center mb-4">
-              <div class="col-sm-6">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                  <label class="form-check-label" for="remember">Remember me</label>
-                </div>
-              </div>
-              <div class="col-sm-6 text-sm-end mt-3 mt-sm-0">
-                <a href="{{ route('password.request') }}" class="text-decoration-none" style="color: var(--crimson);">Forgot password?</a>
-              </div>
+            {{-- Confirm Password --}}
+            <div class="mb-4">
+              <label for="password_confirmation" class="form-label">Confirm Password</label>
+              <input id="password_confirmation" type="password" name="password_confirmation" required
+                class="form-control"
+                placeholder="Re-enter your password">
             </div>
 
-            <button type="submit" class="btn btn-crimson">Sign In</button>
+            <button type="submit" class="btn w-100" style="background-color: var(--crimson); color: white;">
+              Register
+            </button>
 
-            <div class="auth-footer">
-              New here? <a href="{{ route('register') }}">Create an account</a> and join our college community.
-            </div>
+            <p class="text-center mt-3" style="font-size: 0.9rem;">
+              Already have an account?
+              <a href="{{ route('login') }}" class="text-decoration-none" style="color: var(--crimson);">Sign In</a>
+            </p>
+
           </form>
         </div>
       </div>
@@ -122,5 +79,6 @@
   </div>
 </section>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
