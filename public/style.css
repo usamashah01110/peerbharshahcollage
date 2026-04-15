@@ -117,6 +117,42 @@
     }
     .hero-btns .btn-outline-light-custom:hover { background: #fff; color: var(--crimson); }
 
+    .btn-outline-crimson {
+      background: transparent;
+      color: var(--crimson);
+      border: 2px solid var(--crimson);
+      border-radius: 2px;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 9px 22px;
+      transition: all .2s;
+    }
+    .btn-outline-crimson:hover {
+      background: var(--crimson);
+      color: #fff;
+      border-color: var(--crimson);
+    }
+
+    .auth-card {
+      background: rgba(255,255,255,.96);
+      border-radius: 14px;
+      box-shadow: 0 32px 70px rgba(0,0,0,.15);
+      padding: 32px;
+      border: 1px solid rgba(0,0,0,.05);
+    }
+    .auth-card .hero-title { margin-bottom: 0.5rem; }
+    .auth-card .hero-subtitle { color: var(--text-mid); margin-bottom: 1.75rem; }
+    .auth-card .form-label { font-weight: 600; color: var(--text-dark); }
+    .auth-card .form-control { border-radius: 4px; padding: 12px 14px; border: 1px solid #ddd; }
+    .auth-card .form-control:focus { border-color: var(--crimson); box-shadow: 0 0 0 0.15rem rgba(139,26,46,.12); }
+    .auth-card .form-check-label { color: var(--text-mid); }
+    .auth-card .btn-crimson { width: 100%; }
+    .auth-card .auth-footer { font-size: .92rem; color: #666; margin-top: 20px; }
+    .auth-card .auth-footer a { color: var(--crimson); text-decoration: none; }
+    .auth-card .auth-footer a:hover { text-decoration: underline; }
+
     /* ── ABOUT SECTION ── */
     .about-section { padding: 70px 0 60px; background: #fff; }
     .about-section h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; color: var(--text-dark); }
