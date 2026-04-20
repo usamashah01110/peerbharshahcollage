@@ -72,22 +72,23 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Admissions</a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Intermediate</a></li>
-            <li><a class="dropdown-item" href="#">Bachelor of Science</a></li>
-            <li><a class="dropdown-item" href="#">How to Apply</a></li>
+            <li><a class="dropdown-item" href='/admissions/intermediate'>Intermediate</a></li>
+            <li><a class="dropdown-item" href='/admissions/bachelorofscience'>Bachelor of Science</a></li>
+            <li><a class="dropdown-item" href='/admissions/howtoapply'>How to Apply</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Programs &amp; Curriculum</a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Pre-Medical</a></li>
-            <li><a class="dropdown-item" href="#">Pre-Engineering</a></li>
-            <li><a class="dropdown-item" href="#">Arts</a></li>
-            <li><a class="dropdown-item" href="#">Commerce</a></li>
-            <li><a class="dropdown-item" href="#">BS Programs</a></li>
+   <a class="dropdown-item" href="{{ route('pre.medical') }}">Pre-Medical</a>
+<a class="dropdown-item" href="{{ route('pre.engineering') }}">Pre-Engineering</a>
+<a class="dropdown-item" href="{{ route('arts') }}">Arts</a>
+<a class="dropdown-item" href="{{ route('commerce') }}">Commerce</a>
+<a class="dropdown-item" href="{{ route('bs.programs') }}">BS Programs</a>
+<a class="dropdown-item" href="{{ route('general.science') }}">General Science</a>
           </ul>
         </li>
-        <li class="nav-item"><a class="nav-link" href="#">Student Life</a></li>
+        <li class="nav-item"><a class="nav-link" href='/studentlife'>Student Life</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
         <li class="nav-item"><a class="btn btn-crimson ms-lg-3" href="{{ route('login') }}">Login</a></li>
         <li class="nav-item"><a class="btn btn-outline-crimson ms-2" href="{{ route('register') }}">Register</a></li>
