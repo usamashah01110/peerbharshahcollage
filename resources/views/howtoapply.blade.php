@@ -1,70 +1,107 @@
 @extends('includes.main')
+
 @section('content')
 
 <style>
-.section {
-    padding: 100px 0;
+body {
+    background: #f7f6f6;
+    font-family: 'Poppins', sans-serif;
 }
 
-/* Heading */
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 80px 20px 30px;
+    background: linear-gradient(135deg, #fff5f5, #ffffff);
+    border-bottom: 2px solid #f0dede;
+}
+
+.hero h1 {
+    font-weight: 900;
+    color: #4a1c1c;
+}
+
+.hero p {
+    max-width: 700px;
+    margin: 10px auto;
+    color: #6b4b4b;
+}
+
+/* SECTION */
+.section {
+    padding: 60px 0;
+}
+
+/* TITLE */
 .section h2 {
-    font-size: 40px;
+    font-size: 36px;
     font-weight: 800;
-    color: #1f2937;
-    margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #4a1c1c;
     position: relative;
 }
 
-/* underline */
 .section h2::after {
     content: '';
-    width: 60px;
+    width: 70px;
     height: 4px;
-    background: #dc3545;
+    background: #7a1f1f;
     position: absolute;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     bottom: -10px;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
-/* text */
-.section ul li,
-.section p,
-.section ol li {
-    font-size: 18px;
-    line-height: 1.8;
-    color: #555;
+/* BOX */
+.box {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid #f0dede;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
-/* image */
-.section img {
-    width: 100%;
-    border-radius: 15px;
-    transition: 0.3s ease;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+/* STEP */
+.step {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 18px;
+    align-items: flex-start;
 }
 
-.section img:hover {
-    transform: scale(1.03);
+.step-number {
+    width: 42px;
+    height: 42px;
+    background: #7a1f1f;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
 }
 
-/* button */
-.btn-danger {
-    padding: 12px 25px;
-    font-size: 18px;
-    border-radius: 30px;
-    transition: 0.3s ease;
+/* CARD STYLE */
+.info-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 25px;
+    border: 1px solid #f0dede;
+    transition: 0.3s;
 }
 
-.btn-danger:hover {
-    background: #b02a37;
-    transform: translateY(-3px);
+.info-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(122, 31, 31, 0.15);
 }
 
-/* fade animation */
+/* FADE */
 .fade {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(40px);
     transition: 0.7s ease;
 }
 
@@ -72,112 +109,110 @@
     opacity: 1;
     transform: translateY(0);
 }
-
-/* spacing */
-.col-md-6 {
-    padding: 20px;
-}
 </style>
 
-<!-- ================= PROGRAMS ================= -->
-<div class="container section fade">
-    <div class="row align-items-center">
+<!-- HERO -->
+<div class="hero fade">
+    <h1>How to Apply</h1>
+    <p>
+        Admission process simple aur transparent hai. Neeche diye gaye steps follow karke aap asani se apply kar sakte hain.
+    </p>
+</div>
 
-        <div class="col-md-6">
-            <h2>Programs Offered</h2>
-            <ul>
-                <li>FSc Pre-Medical</li>
-                <li>FSc Pre-Engineering</li>
-                <li>ICS</li>
-                <li>FA</li>
-                <li>F.A IT</li>
-                <li>I.COM</li>
-            </ul>
+<!-- STEPS -->
+<div class="container section fade">
+    <h2>Admission Steps</h2>
+
+    <div class="box">
+
+        <div class="step">
+            <div class="step-number">1</div>
+            <p>Visit admission office ya online portal se form hasil karein.</p>
         </div>
 
-        <div class="col-md-6">
-            <img src="{{ asset('images/program-offered.png') }}" alt="Programs Offered">
+        <div class="step">
+            <div class="step-number">2</div>
+            <p>Form ko carefully apni personal aur academic details se fill karein.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">3</div>
+            <p>Required documents attach karein (CNIC/B-Form, result card, photos).</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">4</div>
+            <p>Form submit karein admission office ya online portal par.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">5</div>
+            <p>Merit list ka intezar karein.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">6</div>
+            <p>Selection ke baad fee submit karke admission confirm karein.</p>
         </div>
 
     </div>
 </div>
 
-<!-- ================= ELIGIBILITY ================= -->
+<!-- REQUIREMENTS -->
 <div class="container section fade">
-    <div class="row align-items-center">
+    <h2>Requirements</h2>
+
+    <div class="row g-4">
 
         <div class="col-md-6">
-            <img src="https://images.unsplash.com/photo-1588072432836-e10032774350" alt="Eligibility">
+            <div class="info-card">
+                <h5 class="fw-bold">📄 Documents Needed</h5>
+                <ul class="text-muted mb-0">
+                    <li>CNIC / B-Form</li>
+                    <li>Matric / Intermediate Result Card</li>
+                    <li>Passport Size Photos</li>
+                    <li>Domicile (if required)</li>
+                </ul>
+            </div>
         </div>
 
         <div class="col-md-6">
-            <h2>Eligibility Criteria</h2>
-            <p>Students must have passed Matric with required marks according to program requirements.</p>
+            <div class="info-card">
+                <h5 class="fw-bold">⚠️ Important Rules</h5>
+                <ul class="text-muted mb-0">
+                    <li>Incomplete forms rejected honge</li>
+                    <li>Late submissions not accepted</li>
+                    <li>Admission strictly merit basis par hoga</li>
+                    <li>False info = cancellation</li>
+                </ul>
+            </div>
         </div>
 
     </div>
 </div>
 
-<!-- ================= DOCUMENTS ================= -->
+<!-- HELP -->
 <div class="container section fade">
-    <div class="row align-items-center">
+    <div class="box text-center">
+        <h3 class="fw-bold mb-3">Need Help?</h3>
+        <p class="text-muted">
+            Agar aapko admission process me koi problem ho to admission office se contact karein ya help desk visit karein.
+        </p>
 
-        <div class="col-md-6">
-            <h2>Required Documents</h2>
-            <ul>
-                <li>Matric Result Card</li>
-                <li>B-Form / CNIC</li>
-                <li>Father CNIC</li>
-                <li>Passport Size Photos</li>
-            </ul>
-        </div>
-
-        <div class="col-md-6">
-            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40" alt="Documents">
-        </div>
-
+        <button class="btn btn-dark px-4 py-2" style="background:#7a1f1f;border:none;">
+            Contact Admission Office
+        </button>
     </div>
 </div>
 
-<!-- ================= HOW TO APPLY ================= -->
-<div class="container section fade">
-    <div class="row align-items-center">
-
-        <div class="col-md-6">
-            <h2>How to Apply</h2>
-
-            <ol>
-                <li>Visit college campus or official website.</li>
-                <li>Collect admission form from admission office.</li>
-                <li>Fill the form with correct details.</li>
-                <li>Attach required documents.</li>
-                <li>Submit form in admission office.</li>
-                <li>Wait for confirmation call/SMS.</li>
-            </ol>
-
-            <a href="#" class="btn btn-danger mt-3">Download Form</a>
-        </div>
-
-        <div class="col-md-6">
-            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644" alt="How to Apply">
-        </div>
-
-    </div>
-</div>
-
-<!-- ================= APPLY BUTTON ================= -->
-<div class="text-center mb-5">
-    <a href="#" class="btn btn-danger">Apply Now</a>
-</div>
-
-<!-- ================= ANIMATION SCRIPT ================= -->
+<!-- SCRIPT -->
 <script>
 const fadeElements = document.querySelectorAll('.fade');
 
 window.addEventListener('scroll', () => {
     fadeElements.forEach(el => {
         const top = el.getBoundingClientRect().top;
-        if(top < window.innerHeight - 100){
+        if(top < window.innerHeight - 80){
             el.classList.add('show');
         }
     });

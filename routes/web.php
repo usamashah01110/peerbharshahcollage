@@ -84,9 +84,31 @@ Route::get('/bs/{dept}', function ($dept) {
     return view('department.show', $data[$dept]);
 
 });
+Route::get('/admissions/howtoapply', function () {
+    return view('howtoapply');
+})->name('howtoapply');
+
+Route::get('/programs/curriculum/pre_medical', function () {
+    return view('profile.premedical');
+})->name('pre.medical');
+Route::get('/programs/curriculum/pre_engineering', function () {
+    return view('profile.preengineering');
+})->name('pre.engineering');
+
+Route::get('/programs/curriculum/arts', function () {
+    return view('profile.arts');
+})->name('arts');
+Route::get('/programs/curriculum/commerce', function () {
+    return view('profile.commerce');
+})->name('commerce');
+Route::get('/programs/curriculum/bs_programs', function () {
+    return view('profile.bsprograms');
+})->name('bs.programs');
+Route::get('/programs/curriculum/general_science', function () {
+    return view('profile.generalscience');
+})->name('general.science');
 
 
-// ================= DASHBOARD =================
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

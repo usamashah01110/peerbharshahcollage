@@ -90,10 +90,13 @@
     <div class="divider"></div>
     <div class="row g-4 align-items-start">
       <div class="col-lg-8">
-        <p><strong>Dear Students,</strong> In the present era, the progress of our nation depends on the acquisition of knowledge. To meet the demands of the modern world, it is essential to equip the women of our beloved country with the ornament of education because the active participation of women in all fields of life can set the nation on the path of rapid development. Government Girls Graduate College for Women Sheikhupura is a historic institution that has upheld remarkable academic and literary traditions in the field of women's education.</p>
-        <p>Here, expert teachers of every subject not only polish the students' various skills and abilities but also focus on their moral training in light of Islamic principles. A peaceful and conducive learning environment makes the learning process easier. Our institution is fully equipped with all the facilities necessary to make education and teaching more effective and attractive. Our prestigious campus offers spacious classrooms, laboratories equipped with scientific instruments, sports grounds, science and computer labs, a library with a vast collection of books, and hostel facilities for students coming from distant areas.</p>
-        <p>I warmly welcome you and advise you to be the custodians of Islamic values and our glorious cultural heritage. Prove your excellence in the fields of science and technology as per the demands of the modern age. Make intellectual beauty, moral excellence, and good deeds your guiding principles. Also, consider the honor and service of our beloved country as your faith.</p>
-        <p class="principal-name">Dr.Asma Maqbol</p>
+        <p><strong>Dear Students,</strong> My dear children, the history of Khushgawar is the story of a single individual’s passion. Khushgawar has written new stories of development. The children here are living a life of pride, and this institution is also a symbol of honor in the name of my father.
+Khushgawar Higher Secondary School for Girls has been continuously striving for the past twelve years to provide the best educational standards for children and has achieved success in this mission.</p>
+</p> Alhamdulillah, it is playing an important role in the field of education.
+Today, in this era, if we want to move forward, the role of social media cannot be denied. Through social media, our children can be influenced positively as well. It is a vast medium through which a person can convey their message to a large audience and make better decisions by gaining information. Khushgawar Higher Secondary School for Girls hopes that through social media, it will meet the educational expectations of the present era.
+High-quality education, modern technology, and the best educational environment are our priorities. Our aim is not only to educate children but also to prepare them according to modern demands so that they can face future challenges.
+Our goal is to achieve this great objective with consistency, and Khushgawar Higher Secondary School for Girls will continue its journey of development in this way.
+Ameen</p>
         <p class="principal-title">Principal</p>
       </div>
       <div class="col-lg-4">
