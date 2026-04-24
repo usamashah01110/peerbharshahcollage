@@ -9,6 +9,15 @@ use App\Http\Controllers\ScholarshipApplicationController;
 use App\Http\Controllers\MeritListController;
 use App\Http\Controllers\NewsEventController;
 
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+
+    
+    Route::resource('courses', CourseController::class);
+
+});
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,7 +51,7 @@ Route::get('/studentlife', fn () => view('studentlife'))->name('studentlife');
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth'])->group(function () {
-    Route::resource('courses', CourseController::class);
+    
     Route::resource('scholarships', ScholarshipController::class);
     Route::resource('scholarship-applications', ScholarshipApplicationController::class);
     Route::resource('merit-lists', MeritListController::class);
@@ -59,6 +68,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+});
+
 
 /*
 |--------------------------------------------------------------------------
