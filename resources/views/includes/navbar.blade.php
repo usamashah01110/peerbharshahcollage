@@ -19,41 +19,9 @@
 <!-- ════════════════ MAIN NAVBAR ════════════════ -->
 <nav class="main-nav navbar navbar-expand-lg sticky-top">
   <div class="container">
+
+    <!-- LOGO -->
     <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" href="{{ route('home') }}">
-
-      <!-- SVG Logo: Govt. Peer Bhar Shah College -->
-      <div class="college-logo">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <!-- Outer filled circle -->
-          <circle cx="50" cy="50" r="48" fill="#8b1a2e" stroke="#c9a84c" stroke-width="2.5"/>
-          <!-- Inner decorative rings -->
-          <circle cx="50" cy="50" r="40" fill="none" stroke="#c9a84c" stroke-width="1"/>
-          <circle cx="50" cy="50" r="37" fill="none" stroke="#c9a84c" stroke-width="0.4"/>
-
-          <!-- Mosque dome -->
-          <path d="M30 46 Q50 22 70 46" fill="#c9a84c"/>
-          <rect x="36" y="46" width="28" height="14" fill="#c9a84c"/>
-
-          <!-- Minaret left -->
-          <rect x="26" y="36" width="6" height="24" fill="#c9a84c"/>
-          <ellipse cx="29" cy="36" rx="3" ry="5" fill="#c9a84c"/>
-
-          <!-- Minaret right -->
-          <rect x="68" y="36" width="6" height="24" fill="#c9a84c"/>
-          <ellipse cx="71" cy="36" rx="3" ry="5" fill="#c9a84c"/>
-
-          <!-- Crescent on dome top -->
-          <circle cx="51" cy="21" r="3.5" fill="#c9a84c"/>
-          <circle cx="49.2" cy="20.2" r="2.4" fill="#8b1a2e"/>
-
-          <!-- College name text -->
-          <text x="50" y="68" text-anchor="middle" font-family="serif" font-size="6.5" fill="#c9a84c" font-weight="bold">PEER BHAR SHAH</text>
-          <text x="50" y="77" text-anchor="middle" font-family="serif" font-size="6.2" fill="#fff">COLLEGE</text>
-          <text x="50" y="86" text-anchor="middle" font-family="serif" font-size="6" fill="#fff">SHEIKHUPURA</text>
-          <text x="50" y="94" text-anchor="middle" font-family="serif" font-size="5.5" fill="#c9a84c">✦ 1968 ✦</text>
-        </svg>
-      </div>
-
       <div class="brand-text">
         <div class="name">Govt. Pir Bahar Shah Graduate College for Women</div>
         <div class="name" style="font-size:.85rem;">Sheikhupura</div>
@@ -61,37 +29,78 @@
       </div>
     </a>
 
+    <!-- TOGGLER -->
     <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- MENU -->
     <div class="collapse navbar-collapse justify-content-end" id="mainNav">
       <ul class="navbar-nav align-items-lg-center">
-        <li class="nav-item"><a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a></li>
-        <li class="nav-item"><a class="nav-link {{ request()->routeIs('aboutus') ? 'active' : '' }}" href="{{ route('aboutus') }}">About Us</a></li>
+
+        <!-- HOME -->
+        <li class="nav-item">
+          <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">
+            Home
+          </a>
+        </li>
+
+        <!-- ABOUT -->
+        <li class="nav-item">
+          <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">
+            About Us
+          </a>
+        </li>
+
+        <!-- ADMISSIONS -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Admissions</a>
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            Admissions
+          </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href='/admissions/intermediate'>Intermediate</a></li>
-            <li><a class="dropdown-item" href='/admissions/bachelorofscience'>Bachelor of Science</a></li>
-            <li><a class="dropdown-item" href='/admissions/howtoapply'>How to Apply</a></li>
+            <li><a class="dropdown-item" href="{{ route('admissions.intermediate') }}">Intermediate</a></li>
+            <li><a class="dropdown-item" href="{{ route('admissions.bs') }}">Bachelor of Science</a></li>
+            <li><a class="dropdown-item" href="{{ route('admissions.howtoapply') }}">How to Apply</a></li>
           </ul>
         </li>
+
+        <!-- PROGRAMS -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Programs &amp; Curriculum</a>
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            Programs & Curriculum
+          </a>
           <ul class="dropdown-menu">
-   <a class="dropdown-item" href="{{ route('pre.medical') }}">Pre-Medical</a>
-<a class="dropdown-item" href="{{ route('pre.engineering') }}">Pre-Engineering</a>
-<a class="dropdown-item" href="{{ route('arts') }}">Arts</a>
-<a class="dropdown-item" href="{{ route('commerce') }}">Commerce</a>
-<a class="dropdown-item" href="{{ route('bs.programs') }}">BS Programs</a>
-<a class="dropdown-item" href="{{ route('general.science') }}">General Science</a>
+            <li><a class="dropdown-item" href="{{ route('pre.medical') }}">Pre-Medical</a></li>
+            <li><a class="dropdown-item" href="{{ route('pre.engineering') }}">Pre-Engineering</a></li>
+            <li><a class="dropdown-item" href="{{ route('arts') }}">Arts</a></li>
+            <li><a class="dropdown-item" href="{{ route('commerce') }}">Commerce</a></li>
+            <li><a class="dropdown-item" href="{{ route('bs.programs') }}">BS Programs</a></li>
+            <li><a class="dropdown-item" href="{{ route('general.science') }}">General Science</a></li>
           </ul>
         </li>
-        <li class="nav-item"><a class="nav-link" href='/studentlife'>Student Life</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-        <li class="nav-item"><a class="btn btn-crimson ms-lg-3" href="{{ route('login') }}">Login</a></li>
-        <li class="nav-item"><a class="btn btn-outline-crimson ms-2" href="{{ route('register') }}">Register</a></li>
+
+        <!-- STUDENT LIFE -->
+        <li class="nav-item">
+          <a class="nav-link {{ request()->routeIs('studentlife') ? 'active' : '' }}" href="{{ route('studentlife') }}">
+            Student Life
+          </a>
+        </li>
+
+        <!-- CONTACT -->
+        <li class="nav-item">
+          <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">
+            Contact
+          </a>
+        </li>
+
+        <!-- AUTH -->
+        <li class="nav-item">
+          <a class="btn btn-crimson ms-lg-3" href="{{ route('login') }}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-crimson ms-2" href="{{ route('register') }}">Register</a>
+        </li>
+
       </ul>
     </div>
   </div>

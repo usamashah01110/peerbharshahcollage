@@ -1,8 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ScholarshipController;
+use App\Http\Controllers\ScholarshipApplicationController;
+use App\Http\Controllers\MeritListController;
+use App\Http\Controllers\NewsEventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,115 +15,54 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+// Public Pages
 Route::get('/', [MainController::class, 'index'])->name('home');
-Route::get('/about-us', [MainController::class, 'aboutus'])->name('aboutus');
+Route::get('/about-us', [MainController::class, 'about'])->name('about');
+Route::get('/contact-us', [MainController::class, 'contact'])->name('contact');
 
+// Admissions Pages
+Route::get('/admissions/intermediate', fn () => view('admissions.intermediate'))->name('admissions.intermediate');
+Route::get('/admissions/bachelorofscience', fn () => view('admissions.bs'))->name('admissions.bs');
+Route::get('/admissions/howtoapply', fn () => view('admissions.howtoapply'))->name('admissions.howtoapply');
 
-// ================= ADMISSIONS =================
-Route::get('/admissions/intermediate', function () {
-    return view('intermediate');
-})->name('intermediate');
+// Programs Pages
+Route::get('/programs/pre-medical', fn () => view('programs.pre-medical'))->name('pre.medical');
+Route::get('/programs/pre-engineering', fn () => view('programs.pre-engineering'))->name('pre.engineering');
+Route::get('/programs/arts', fn () => view('programs.arts'))->name('arts');
+Route::get('/programs/commerce', fn () => view('programs.commerce'))->name('commerce');
+Route::get('/programs/bs', fn () => view('programs.bs'))->name('bs.programs');
+Route::get('/programs/general-science', fn () => view('programs.general-science'))->name('general.science');
 
-Route::get('/admissions/bachelorofscience', function () {
-    return view('bachelorofscience');
-})->name('bachelorofscience');
+// Student Life
+Route::get('/studentlife', fn () => view('studentlife'))->name('studentlife');
 
-Route::get('/programs', function () {
-    return view('programs');
-})->name('programs');
-
-
-// ================= BS DEPARTMENTS (NEW ADD) =================
-Route::get('/bs/{dept}', function ($dept) {
-
-    $data = [
-
-        'physics' => [
-            'title' => 'BS Physics',
-            'overview' => 'Physics is the study of matter, energy and natural laws.',
-            'subjects' => 'Mechanics, Electromagnetism, Quantum Physics',
-            'books' => 'Halliday & Resnick, Young Freedman'
-        ],
-
-        'chemistry' => [
-            'title' => 'BS Chemistry',
-            'overview' => 'Chemistry studies substances and chemical reactions.',
-            'subjects' => 'Organic, Inorganic, Physical Chemistry',
-            'books' => 'Atkins, Morrison Boyd'
-        ],
-
-        'mathematics' => [
-            'title' => 'BS Mathematics',
-            'overview' => 'Mathematics is the study of numbers and logic.',
-            'subjects' => 'Algebra, Calculus, Statistics',
-            'books' => 'Kreyszig, Thomas Calculus'
-        ],
-
-        'computer-science' => [
-            'title' => 'BS Computer Science',
-            'overview' => 'CS focuses on programming, AI and software systems.',
-            'subjects' => 'Programming, AI, DBMS, Web Development',
-            'books' => 'CLRS, Clean Code'
-        ],
-
-        'zoology' => [
-            'title' => 'BS Zoology',
-            'overview' => 'Study of animals and biological systems.',
-            'subjects' => 'Animal Biology, Genetics, Ecology',
-            'books' => 'Zoology by Miller'
-        ],
-
-        'botany' => [
-            'title' => 'BS Botany',
-            'overview' => 'Study of plants and plant science.',
-            'subjects' => 'Plant Physiology, Taxonomy, Ecology',
-            'books' => 'Botany by Raven'
-        ],
-
-    ];
-
-    if (!isset($data[$dept])) {
-        abort(404);
-    }
-
-    return view('department.show', $data[$dept]);
-
+/*
+|--------------------------------------------------------------------------
+| Dashboard Protected Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])->group(function () {
+    Route::resource('courses', CourseController::class);
+    Route::resource('scholarships', ScholarshipController::class);
+    Route::resource('scholarship-applications', ScholarshipApplicationController::class);
+    Route::resource('merit-lists', MeritListController::class);
+    Route::resource('news-events', NewsEventController::class);
 });
-Route::get('/admissions/howtoapply', function () {
-    return view('howtoapply');
-})->name('howtoapply');
 
-Route::get('/programs/curriculum/pre_medical', function () {
-    return view('profile.premedical');
-})->name('pre.medical');
-Route::get('/programs/curriculum/pre_engineering', function () {
-    return view('profile.preengineering');
-})->name('pre.engineering');
-
-Route::get('/programs/curriculum/arts', function () {
-    return view('profile.arts');
-})->name('arts');
-Route::get('/programs/curriculum/commerce', function () {
-    return view('profile.commerce');
-})->name('commerce');
-Route::get('/programs/curriculum/bs_programs', function () {
-    return view('profile.bsprograms');
-})->name('bs.programs');
-Route::get('/programs/curriculum/general_science', function () {
-    return view('profile.generalscience');
-})->name('general.science');
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-
-// ================= PROFILE =================
+/*
+|--------------------------------------------------------------------------
+| Profile Routes
+|--------------------------------------------------------------------------
+*/
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+/*
+|--------------------------------------------------------------------------
+| Auth Routes
+|--------------------------------------------------------------------------
+*/
 require __DIR__.'/auth.php';
