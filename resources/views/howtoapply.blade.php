@@ -9,19 +9,19 @@ body {
 }
 
 /* HERO */
-.hero {
+.hero-section {
     text-align: center;
-    padding: 80px 20px 30px;
+    padding: 50px 20px 30px;
     background: linear-gradient(135deg, #fff5f5, #ffffff);
     border-bottom: 2px solid #f0dede;
 }
 
-.hero h1 {
+.hero-section h1 {
     font-weight: 900;
     color: #4a1c1c;
 }
 
-.hero p {
+.hero-section p {
     max-width: 700px;
     margin: 10px auto;
     color: #6b4b4b;
@@ -112,7 +112,7 @@ body {
 </style>
 
 <!-- HERO -->
-<div class="hero fade">
+<div class="hero-section fade">
     <h1>How to Apply</h1>
     <p>
         Admission process simple aur transparent hai. Neeche diye gaye steps follow karke aap asani se apply kar sakte hain.
