@@ -14,10 +14,9 @@ use App\Http\Controllers\NewsEventController;
 | Web Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/dashboard', function () {
+Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+});
 // Public Pages
 Route::get('/', [MainController::class, 'index'])->name('home');
 Route::get('/about-us', [MainController::class, 'about'])->name('about');
@@ -29,16 +28,15 @@ Route::get('/admissions/bachelorofscience', [MainController::class, 'bachelorofs
 Route::get('/admissions/howtoapply', [MainController::class, 'howtoapply'])->name('admissions.howtoapply');
 
 // Programs Pages
-Route::get('/programs/pre-medical', [MainController::class, 'preMedical'])->name('pre.medical');
-Route::get('/programs/pre-engineering', [MainController::class, 'preEngineering'])->name('pre.engineering');
-Route::get('/programs/arts', [MainController::class, 'arts'])->name('arts');
-Route::get('/programs/commerce', [MainController::class, 'commerce'])->name('commerce');
-Route::get('/programs/bs', [MainController::class, 'bs'])->name('bs.programs');
-Route::get('/programs/general-science', [MainController::class, 'generalScience'])->name('general.science');
+Route::get('/profile/pre-medical', [MainController::class, 'preMedical'])->name('pre.medical');
+Route::get('/profile/pre-engineering', [MainController::class, 'preEngineering'])->name('pre.engineering');
+Route::get('/profile/arts', [MainController::class, 'arts'])->name('arts');
+Route::get('/profile/commerce', [MainController::class, 'commerce'])->name('commerce');
+Route::get('/profile/bs', [MainController::class, 'bs'])->name('bs.programs');
+Route::get('/profile/general-science', [MainController::class, 'generalScience'])->name('general.science');
 
 // Student Life
-Route::get('/studentlife', fn () => view('studentlife'))->name('studentlife');
-
+Route::get('/studentlife', fn () => view('student-life'))->name('studentlife');
 
 /*
 |--------------------------------------------------------------------------

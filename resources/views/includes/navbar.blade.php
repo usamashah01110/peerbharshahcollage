@@ -46,9 +46,12 @@
         </li>
 
         <!-- ABOUT -->
-        <li class="nav-item">
-          <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">
-            About Us
+          <li class="nav-item">
+  <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">
+    About Us
+  </a>
+</li>
+          
           </a>
         </li>
 
