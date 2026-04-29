@@ -39,10 +39,6 @@ body {
     position: relative;
     overflow: hidden;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
 .hero::before {
     content: '';
     position: absolute;
@@ -59,10 +55,7 @@ body {
     bottom: -80px; right: -80px;
     border-radius: 50%;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
 .hero-badge {
     display: inline-flex;
     align-items: center;
@@ -78,10 +71,7 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.06em;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
 .hero h1 {
     font-size: clamp(32px, 5vw, 52px);
     font-weight: 800;
@@ -89,15 +79,13 @@ body {
     line-height: 1.15;
     margin-bottom: 18px;
 }
-<<<<<<< HEAD
+
 
 .hero h1 span {
     color: var(--red);
-}
 
-=======
 .hero h1 span { color: var(--red); }
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
+
 .hero p {
     font-size: 17px;
     color: var(--muted);
@@ -105,10 +93,7 @@ body {
     margin: 0 auto 36px;
     line-height: 1.7;
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
 .hero-stats {
     display: inline-flex;
     gap: 40px;
@@ -118,7 +103,7 @@ body {
     padding: 18px 36px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
-<<<<<<< HEAD
+
 
 .stat-item { text-align: center; }
 .stat-num {
@@ -146,7 +131,7 @@ body {
 
 /* ─── SECTION ─── */
 .section { padding: 80px 0; }
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
+
 
 .section-tag {
     display: inline-block;
@@ -161,7 +146,7 @@ body {
     border: 1px solid #fecaca;
     margin-bottom: 14px;
 }
-<<<<<<< HEAD
+
 
 .section-title {
     font-size: clamp(24px, 3vw, 34px);
@@ -180,7 +165,7 @@ body {
 =======
 .section-title { font-size: clamp(24px, 3vw, 34px); font-weight: 800; color: var(--text); margin-bottom: 8px; line-height: 1.2; }
 .section-sub { font-size: 16px; color: var(--muted); margin-bottom: 36px; line-height: 1.6; }
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
+
 
 /* ─── CARDS ─── */
 .card {
@@ -190,7 +175,7 @@ body {
     padding: 36px;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
-<<<<<<< HEAD
+
 
 .card:hover {
     box-shadow: 0 16px 48px rgba(0,0,0,0.08);
@@ -361,14 +346,14 @@ body {
 }
 =======
 .card:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.08); transform: translateY(-4px); }
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
+
 
 /* ─── TABLES ─── */
 .table-wrap {
     overflow-x: auto;
     border-radius: 14px;
     border: 1px solid var(--border);
-<<<<<<< HEAD
+
     margin: 16px 0 28px;
 }
 
@@ -433,7 +418,7 @@ body {
     padding: 3px 12px;
     border-radius: 50px;
 }
-=======
+
     margin: 12px 0 20px;
 }
 .styled-table { width: 100%; border-collapse: collapse; font-size: 14px; }
@@ -448,7 +433,7 @@ body {
 .styled-table tbody tr:nth-child(even) td { background: #fafafa; }
 .yes-badge { display: inline-block; background: #dcfce7; color: #15803d; font-size: 12px; font-weight: 700; padding: 3px 12px; border-radius: 50px; }
 .no-badge  { display: inline-block; background: #f1f5f9; color: #94a3b8; font-size: 12px; font-weight: 600; padding: 3px 12px; border-radius: 50px; }
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
+
 
 /* ─── NOTE BOX ─── */
 .note-box {
@@ -458,16 +443,16 @@ body {
     padding: 16px 20px;
     font-size: 14px;
     color: #1e40af;
-<<<<<<< HEAD
+
     margin: 8px 0 24px;
-=======
+
     margin: 8px 0;
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
+
     display: flex;
     gap: 10px;
     align-items: flex-start;
 }
-<<<<<<< HEAD
+
 
 .note-box::before {
     content: 'ℹ';
@@ -697,27 +682,27 @@ body {
 .prog-cta-right { display: flex; gap: 12px; align-items: center; flex-shrink: 0; flex-wrap: wrap; }
 
 /* Buttons */
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
+
 .btn-apply {
     display: inline-block;
     background: linear-gradient(90deg, var(--red), #ff6b6b);
     color: #fff;
-<<<<<<< HEAD
+
     font-size: 16px;
     font-weight: 700;
     padding: 16px 40px;
-=======
+
     font-size: 15px;
     font-weight: 700;
     padding: 14px 36px;
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
+
     border-radius: 50px;
     text-decoration: none;
     border: none;
     cursor: pointer;
     box-shadow: 0 8px 24px rgba(224,53,53,0.3);
     transition: all 0.25s ease;
-<<<<<<< HEAD
+
 }
 
 .btn-apply:hover {
@@ -737,7 +722,7 @@ body {
     opacity: 1;
     transform: translateY(0);
 }
-=======
+
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 .btn-apply:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(224,53,53,0.4); color: #fff; text-decoration: none; }
@@ -820,13 +805,12 @@ body {
 /* ─── FADE ANIMATION ─── */
 .fade-section { opacity: 0; transform: translateY(50px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .fade-section.show { opacity: 1; transform: translateY(0); }
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
+
 
 @media (max-width: 768px) {
     .hero-stats { flex-direction: column; gap: 20px; padding: 20px; }
     .card { padding: 24px; }
-<<<<<<< HEAD
-=======
+
     .faq-q { font-size: 14px; padding: 15px 16px; }
     .faq-body { padding: 4px 16px 18px; }
     .prog-topbar { flex-direction: column; }
@@ -835,7 +819,7 @@ body {
     .prog-stats { grid-template-columns: repeat(3,1fr); gap: 8px; }
     .prog-cta { flex-direction: column; text-align: center; }
     .prog-cta-right { justify-content: center; }
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
+
 }
 </style>
 
@@ -848,7 +832,7 @@ body {
         </div>
         <h1>Intermediate <span>Admissions</span><br>2026–27</h1>
         <p>Build your future with our modern Intermediate programs — designed for academic excellence and professional success.</p>
-<<<<<<< HEAD
+
         <div class="hero-stats">
             <div class="stat-item">
                 <span class="stat-num">6+</span>
@@ -1514,7 +1498,7 @@ body {
 <!-- ══ END COMBINED SECTION ══ -->
 
 <!-- ══ SUBJECTS OF STUDY — FAQ ══ -->
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
+
 <div class="section fade-section" style="background:#fff; border-top:1px solid var(--border);">
     <div class="container">
         <div class="text-center mb-5">
@@ -1522,7 +1506,7 @@ body {
             <h2 class="section-title">Subjects of Study</h2>
             <p class="section-sub" style="max-width:540px;margin:0 auto;">Subject groups and combinations available for first year and second shift admissions.</p>
         </div>
-<<<<<<< HEAD
+
 
         <div class="card">
             <!-- First Year Groups -->
@@ -1714,7 +1698,7 @@ body {
                 <div class="note-card">
                     <div class="note-num">4</div>
                     <p>Final decision will be made by the college administration.</p>
-=======
+
         <div class="faq-wrap">
             <div class="faq-item active">
                 <button class="faq-q" type="button">
@@ -1824,14 +1808,14 @@ body {
                         <li>Subject combinations may change if required.</li>
                         <li>Final decision will be made by the college administration.</li>
                     </ul>
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<<<<<<< HEAD
+
 <!-- ══ APPLY CTA ══ -->
 <div class="apply-strip fade-section">
     <div class="container">
@@ -1859,7 +1843,6 @@ body {
 <!-- ══ SCRIPTS ══ -->
 <script>
 // Scroll fade animation
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
 const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
 }, { threshold: 0.08 });
@@ -1878,7 +1861,7 @@ document.querySelectorAll('.faq-wrap').forEach(wrap => {
         });
     });
 });
->>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
+
 </script>
 
 @endsection
