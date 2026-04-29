@@ -9,21 +9,19 @@ return new class extends Migration
     
     public function up(): void
     {
-        Schema::create('course_outlines', function (Blueprint $table) {
+       Schema::create('course_outlines', function (Blueprint $table) {
             $table->id();
 
-          
-            $table->foreignId('course_id')
+            $table->foreignId('program_id')
+                  ->unique() 
                   ->constrained()
-                  ->onDelete('cascade');
+                  ->cascadeOnDelete();
 
-           
-            $table->text('outline_text');
-            $table->string('week')->nullable(); // Week 1, Week 2 etc
-            $table->string('topic_title')->nullable(); // optional heading
+            $table->text('description')->nullable();
+            $table->text('objectives')->nullable();
+            $table->text('topics')->nullable();
 
-           
-            $table->boolean('status')->default(1);
+            $table->string('file')->nullable();
 
             $table->timestamps();
         });

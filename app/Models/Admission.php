@@ -4,14 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ScholarshipApplication extends Model
+class Admission extends Model
 {
     protected $fillable = [
         'student_id',
-        'scholarship_id',
-        'document_path',
-        'status',
-        'applied_at'
+        'program_id',
+        'admission_date',
+        'status'
     ];
 
     public function student()
@@ -19,8 +18,8 @@ class ScholarshipApplication extends Model
         return $this->belongsTo(Student::class);
     }
 
-    public function scholarship()
+    public function program()
     {
-        return $this->belongsTo(Scholarship::class);
+        return $this->belongsTo(Program::class);
     }
 }

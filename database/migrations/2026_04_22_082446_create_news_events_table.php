@@ -9,20 +9,18 @@ return new class extends Migration
    
     public function up(): void
     {
-        Schema::create('news_events', function (Blueprint $table) {
+       Schema::create('news_events', function (Blueprint $table) {
             $table->id();
 
-            
             $table->string('title');
-            $table->text('description')->nullable();
+            $table->text('description');
 
-         
-            $table->string('type'); 
-            
             $table->date('event_date')->nullable();
-            $table->string('location')->nullable();
-            $table->string('image')->nullable();
-            $table->boolean('status')->default(1);
+            $table->string('type')->default('news');
+            $table->foreignId('department_id')
+                  ->nullable()
+                  ->constrained()
+                  ->nullOnDelete();
 
             $table->timestamps();
         });

@@ -6,28 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    
     public function up(): void
     {
         Schema::create('merit_lists', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->id();
-
-           
-            $table->string('student_name');
-            $table->string('father_name')->nullable();
-            $table->string('roll_no')->nullable();
-
+$table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
+$table->foreignId('program_id')->constrained('programs')->cascadeOnDelete();
             $table->integer('marks');
-            $table->float('percentage')->nullable();
-            $table->string('program')->nullable(); // BSCS, BSIT etc
-            $table->year('year');
-            $table->string('status')->default('selected'); // selected / waiting / rejected
 
             $table->timestamps();
         });
     }
 
-  
     public function down(): void
     {
         Schema::dropIfExists('merit_lists');

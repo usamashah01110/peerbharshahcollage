@@ -4,18 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CourseOutline extends Model
+class Material extends Model
 {
     protected $fillable = [
+        'title',
+        'file',
         'program_id',
-        'description',
-        'objectives',
-        'topics',
-        'file'
+        'teacher_id'
     ];
 
     public function program()
     {
         return $this->belongsTo(Program::class);
+    }
+
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
     }
 }
