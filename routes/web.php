@@ -3,40 +3,55 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CourseController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ScholarshipController;
 use App\Http\Controllers\ScholarshipApplicationController;
 use App\Http\Controllers\MeritListController;
 use App\Http\Controllers\NewsEventController;
+
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 */
+ HEAD
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 });
+
+ 8ad216a225dce3c77928aaa18704db34d68968b6
 // Public Pages
 Route::get('/', [MainController::class, 'index'])->name('home');
-Route::get('/about-us', [MainController::class, 'about'])->name('about');
-Route::get('/contact-us', [MainController::class, 'contact'])->name('contact');
+Route::get('/aboutus', [MainController::class, 'aboutus'])->name('about');
+Route::get('/contactus', [MainController::class, 'contact'])->name('contact');
 
 // Admissions Pages
-Route::get('/admissions/intermediate', [MainController::class, 'intermediate'])->name('admissions.intermediate');
-Route::get('/admissions/bachelorofscience', [MainController::class, 'bachelorofscience'])->name('admissions.bs');
-Route::get('/admissions/howtoapply', [MainController::class, 'howtoapply'])->name('admissions.howtoapply');
+Route::get('/admissions/intermediate', fn () => view('admissions.intermediate'))->name('admissions.intermediate');
+Route::get('/admissions/bachelorofscience', fn () => view('admissions.bachelorofscience'))->name('admissions.bachelorofscience');
+Route::get('/admissions/howtoapply', fn () => view('admissions.howtoapply'))->name('admissions.howtoapply');
 
 // Programs Pages
+<<<<<<< HEAD
 Route::get('/profile/pre-medical', [MainController::class, 'preMedical'])->name('pre.medical');
 Route::get('/profile/pre-engineering', [MainController::class, 'preEngineering'])->name('pre.engineering');
 Route::get('/profile/arts', [MainController::class, 'arts'])->name('arts');
 Route::get('/profile/commerce', [MainController::class, 'commerce'])->name('commerce');
 Route::get('/profile/bs', [MainController::class, 'bs'])->name('bs.programs');
 Route::get('/profile/general-science', [MainController::class, 'generalScience'])->name('general.science');
+=======
+Route::get('/profile/pre-medical', fn () => view('profile.premedical'))->name('pre.medical');
+Route::get('/profile/pre-engineering', fn () => view('profile.preengineering'))->name('pre.engineering');
+Route::get('/profile/arts', fn () => view('profile.arts'))->name('arts');
+Route::get('/profile/commerce', fn () => view('profile.commerce'))->name('commerce');
+Route::get('/profile/bs', fn () => view('profile.bs'))->name('bs.programs');
+Route::get('/profile/general-science', fn () => view('profile.generalscience'))->name('general.science');
+>>>>>>> 8ad216a225dce3c77928aaa18704db34d68968b6
 
 // Student Life
 Route::get('/studentlife', fn () => view('student-life'))->name('studentlife');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -51,8 +66,17 @@ Route::middleware('auth')->group(function () {
     Route::resource('scholarship-applications', ScholarshipApplicationController::class);
     Route::resource('merit-lists', MeritListController::class);
     Route::resource('news-events', NewsEventController::class);
-    Route::resource('courses', CourseController::class);
+
+    Route::prefix('admin')->group(function () {
+        Route::resource('programs', ProgramController::class);
+        Route::resource('students', StudentController::class);
+    });
+
 });
+Route::get('/dashboard', function () {
+    return view('admin.dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 /*
 |--------------------------------------------------------------------------

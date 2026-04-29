@@ -62,7 +62,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{{ route('admissions.intermediate') }}">Intermediate</a></li>
-            <li><a class="dropdown-item" href="{{ route('admissions.bs') }}">Bachelor of Science</a></li>
+            <li><a class="dropdown-item" href="{{ route('admissions.bachelorofscience') }}">Bachelor of Science</a></li>
             <li><a class="dropdown-item" href="{{ route('admissions.howtoapply') }}">How to Apply</a></li>
           </ul>
         </li>
@@ -70,7 +70,7 @@
         <!-- PROGRAMS -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-            Programs & Curriculum
+            Programs 
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{{ route('pre.medical') }}">Pre-Medical</a></li>
