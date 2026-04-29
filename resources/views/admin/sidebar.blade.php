@@ -19,12 +19,17 @@
                     <span>Dashboard</span></a>
             </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{ route('courses.index') }}">
+    <a class="nav-link" href="{{ route('programs.index') }}">
         <i class="fas fa-book"></i>
-        <span>Courses</span>
+        <span>Programs</span>
     </a>
 </li>
-
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('students.index') }}">
+        <i class="fas fa-user-graduate"></i>
+        <span>Students</span>
+    </a>
+</li>
 
 
         </ul>
