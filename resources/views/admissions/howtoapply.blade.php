@@ -10,20 +10,20 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-/* HERO */
-.hero {
+/* hero-how*/
+.hero-how {
     text-align: center;
     padding: 70px 20px 30px;
     background: linear-gradient(135deg, #fff5f5, #ffffff);
     border-bottom: 2px solid #f0dede;
 }
-.hero h1 {
+.hero-how h1 {
     font-weight: 900;
     color: #4a1c1c;
     font-size: 2.4rem;
     margin-bottom: 10px;
 }
-.hero p {
+.hero-how p {
     max-width: 680px;
     margin: 0 auto;
     color: #6b4b4b;
@@ -257,8 +257,8 @@ body {
 .fade.show { opacity: 1; transform: translateY(0); }
 </style>
 
-<!-- HERO -->
-<div class="hero fade">
+<!-- hero-how-->
+<div class="hero-how fade">
     <h1>How to Apply</h1>
     <p>Our admission process is simple and transparent. Browse the sections below to find everything you need.</p>
 </div>

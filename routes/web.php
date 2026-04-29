@@ -10,14 +10,6 @@ use App\Http\Controllers\ScholarshipApplicationController;
 use App\Http\Controllers\MeritListController;
 use App\Http\Controllers\NewsEventController;
 
-Route::prefix('admin')->middleware(['auth'])->group(function () {
-Route::resource('programs', ProgramController::class);
- Route::resource('students', StudentController::class);
-
-
-});
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -46,18 +38,7 @@ Route::get('/profile/general-science', fn () => view('profile.generalscience'))-
 // Student Life
 Route::get('/studentlife', fn () => view('studentlife'))->name('studentlife');
 
-/*
-|--------------------------------------------------------------------------
-| Dashboard Protected Routes
-|--------------------------------------------------------------------------
-*/
-Route::middleware(['auth'])->group(function () {
-    
-    Route::resource('scholarships', ScholarshipController::class);
-    Route::resource('scholarship-applications', ScholarshipApplicationController::class);
-    Route::resource('merit-lists', MeritListController::class);
-    Route::resource('news-events', NewsEventController::class);
-});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -68,11 +49,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+    Route::resource('scholarships', ScholarshipController::class);
+    Route::resource('scholarship-applications', ScholarshipApplicationController::class);
+    Route::resource('merit-lists', MeritListController::class);
+    Route::resource('news-events', NewsEventController::class);
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
+    Route::prefix('admin')->group(function () {
+        Route::resource('programs', ProgramController::class);
+        Route::resource('students', StudentController::class);
+    });
+
 });
+Route::get('/dashboard', function () {
+    return view('admin.dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 /*
