@@ -2,63 +2,66 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Teacher;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Show all teachers
     public function index()
     {
-        //
+        $teachers = Teacher::with('department')->get();
+        return view('admin.teachers.index', compact('teachers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Create form
     public function create()
     {
-        //
+        $departments = Department::all();
+        return view('admin.teachers.create', compact('departments'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Store
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'department_id' => 'required'
+        ]);
+
+        Teacher::create($request->all());
+
+        return redirect()->route('teachers.index')->with('success', 'Teacher Added');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Edit
+    public function edit($id)
     {
-        //
+        $teacher = Teacher::findOrFail($id);
+        $departments = Department::all();
+
+        return view('admin.teachers.edit', compact('teacher', 'departments'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Update
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'department_id' => 'required'
+        ]);
+
+        $teacher = Teacher::findOrFail($id);
+        $teacher->update($request->all());
+
+        return redirect()->route('teachers.index')->with('success', 'Updated Successfully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // Delete
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        Teacher::destroy($id);
+        return redirect()->route('teachers.index')->with('success', 'Deleted Successfully');
     }
 }

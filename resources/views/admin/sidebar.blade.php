@@ -30,7 +30,24 @@
         <span>Students</span>
     </a>
 </li>
-
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('departments.index') }}">
+        <i class="fas fa-user-graduate"></i>
+        <span>Departments</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('scholarships.index') }}">
+        <i class="fas fa-user-graduate"></i>
+        <span>Scholarships</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('teachers.index') }}">
+        <i class="fas fa-user-graduate"></i>
+        <span>Teachers</span>
+    </a>
+</li>
 
         </ul>
         <!-- End of Sidebar -->

@@ -6,9 +6,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ScholarshipController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\ScholarshipApplicationController;
 use App\Http\Controllers\MeritListController;
 use App\Http\Controllers\NewsEventController;
+
+
 
 
 /*
@@ -57,6 +61,9 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::resource('programs', ProgramController::class);
         Route::resource('students', StudentController::class);
+        Route::resource('departments', DepartmentController::class);
+        Route::resource('scholarships', ScholarshipController::class);
+        Route::resource('teachers', TeacherController::class);
     });
 
 });

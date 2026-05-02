@@ -2,63 +2,64 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Scholarship;
 use Illuminate\Http\Request;
 
 class ScholarshipController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Show all
     public function index()
     {
-        //
+        $scholarships = Scholarship::all();
+        return view('admin.scholarships.index', compact('scholarships'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Create form
     public function create()
     {
-        //
+        return view('admin.scholarships.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Store
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'year' => 'required'
+        ]);
+
+        Scholarship::create($request->all());
+
+        return redirect()->route('scholarships.index')->with('success', 'Scholarship Added');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Edit form
+    public function edit($id)
     {
-        //
+        $scholarship = Scholarship::findOrFail($id);
+        return view('admin.scholarships.edit', compact('scholarship'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Update
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'year' => 'required'
+        ]);
+
+        $scholarship = Scholarship::findOrFail($id);
+        $scholarship->update($request->all());
+
+        return redirect()->route('scholarships.index')->with('success', 'Updated Successfully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // Delete
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        Scholarship::destroy($id);
+        return redirect()->route('scholarships.index')->with('success', 'Deleted Successfully');
     }
 }
