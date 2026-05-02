@@ -9,6 +9,8 @@ use App\Http\Controllers\ScholarshipController;
 use App\Http\Controllers\ScholarshipApplicationController;
 use App\Http\Controllers\MeritListController;
 use App\Http\Controllers\NewsEventController;
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\CourseOutlineController;
 
 
 /*
@@ -61,10 +63,16 @@ Route::middleware('auth')->group(function () {
     Route::resource('scholarship-applications', ScholarshipApplicationController::class);
     Route::resource('merit-lists', MeritListController::class);
     Route::resource('news-events', NewsEventController::class);
+    Route::resource('course_outlines', CourseOutlineController::class);
 
     Route::prefix('admin')->group(function () {
         Route::resource('programs', ProgramController::class);
         Route::resource('students', StudentController::class);
+        Route::resource('merit_lists', MeritListController::class);
+         Route::resource('scholarship_applications', scholarshipapplicationController::class);
+Route::prefix('admin')->group(function () {
+    Route::resource('materials', MaterialController::class);
+});
     });
 
 });
