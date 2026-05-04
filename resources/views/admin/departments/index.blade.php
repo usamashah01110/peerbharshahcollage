@@ -22,7 +22,7 @@
         <td>{{ $dept->id }}</td>
         <td>{{ $dept->name }}</td>
         <td>
-            <a href="{{ route('departments.edit', $dept->id) }}" class="btn btn-warning btn-sm">Edit</a>
+            <a href="{{ route('admin.departments.edit', $dept->id) }}" class="btn btn-warning btn-sm">Edit</a>
 
             <form action="{{ route('departments.destroy', $dept->id) }}" method="POST" style="display:inline;">
                 @csrf

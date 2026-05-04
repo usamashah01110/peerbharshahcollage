@@ -33,7 +33,7 @@ class ProgramController extends Controller
         'department_id' => $request->department_id,
     ]);
 
-    return redirect()->route('programs.index')
+    return redirect()->route('admin.programs.index')
         ->with('success', 'Program created successfully');
 }
 
@@ -53,7 +53,7 @@ class ProgramController extends Controller
 
         $program->update($request->all());
 
-        return redirect()->route('programs.index')
+        return redirect()->route('admin.programs.index')
             ->with('success', 'Program updated successfully');
     }
 

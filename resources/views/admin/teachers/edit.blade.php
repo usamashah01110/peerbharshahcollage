@@ -4,7 +4,7 @@
 
 <h2>Edit Teacher</h2>
 
-<form method="POST" action="{{ route('teachers.update', $teacher->id) }}">
+<form method="POST" action="{{ route('admin.teachers.update', $teacher->id) }}">
     @csrf
     @method('PUT')
 

@@ -4,7 +4,7 @@
 
 <h2>Add Teacher</h2>
 
-<form method="POST" action="{{ route('teachers.store') }}">
+<form method="POST" action="{{ route('admin.teachers.store') }}">
     @csrf
 
     <div class="mb-3">

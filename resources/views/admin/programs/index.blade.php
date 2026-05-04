@@ -4,7 +4,7 @@
 <div class="container">
     <h2>Programs</h2>
 
-    <a href="{{ route('programs.create') }}" class="btn btn-primary mb-3">
+    <a href="{{ route('admin.programs.create') }}" class="btn btn-primary mb-3">
         Add Program
     </a>
 

@@ -4,7 +4,7 @@
 
 <h2>Add Department</h2>
 
-<form action="{{ route('departments.store') }}" method="POST">
+<form action="{{ route('admin.departments.store') }}" method="POST">
     @csrf
 
     <div class="mb-3">
