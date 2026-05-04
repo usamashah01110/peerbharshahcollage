@@ -49,6 +49,6 @@ class MainController extends Controller
     }
 
     public function generalScience() {
-        return view('profile.general-science');
+        return view('profile.generalscience');
     }
 }
