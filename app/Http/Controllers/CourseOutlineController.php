@@ -2,63 +2,75 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CourseOutline;
+use App\Models\Program;
 use Illuminate\Http\Request;
 
 class CourseOutlineController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
-    {
-        //
-    }
+{
+    $outlines = CourseOutline::with('program')->get();
+    return view('admin.course_outlines.index', compact('outlines'));
+}
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+public function create()
+{
+    $programs = Program::all();
+    return view('admin.course_outlines.create', compact('programs'));
+}
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'program_id' => 'required|unique:course_outlines',
+            'description' => 'nullable',
+            'objectives' => 'nullable',
+            'topics' => 'nullable',
+            'file' => 'nullable|file'
+        ]);
+
+        if ($request->hasFile('file')) {
+            $data['file'] = $request->file('file')->store('uploads', 'public');
+        }
+
+        CourseOutline::create($data);
+
+        return redirect()->route('course_outlines.index')->with('success', 'Created');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $outline = CourseOutline::findOrFail($id);
+        $programs = Program::all();
+
+        return view('course_outlines.edit', compact('outline', 'programs'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $outline = CourseOutline::findOrFail($id);
+
+        $data = $request->validate([
+            'program_id' => 'required|unique:course_outlines,program_id,' . $id,
+            'description' => 'nullable',
+            'objectives' => 'nullable',
+            'topics' => 'nullable',
+            'file' => 'nullable|file'
+        ]);
+
+        if ($request->hasFile('file')) {
+            $data['file'] = $request->file('file')->store('uploads', 'public');
+        }
+
+        $outline->update($data);
+
+        return redirect()->route('course_outlines.index')->with('success', 'Updated');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        CourseOutline::findOrFail($id)->delete();
+        return redirect()->route('course_outlines.index')->with('success', 'Deleted');
     }
 }

@@ -48,6 +48,31 @@
         <span>Teachers</span>
     </a>
 </li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('merit_lists.index') }}">
+        <i class="fas fa-user-graduate"></i>
+        <span>merit_lists</span>
+    </a>
+</li>
 
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('scholarship_applications.index') }}">
+        <i class="fas fa-user-graduate"></i>
+        <span>scholarship_applications</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('materials.index') }}">
+        <i class="fas fa-user-graduate"></i>
+        <span>materials</span>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('course_outlines.index') }}">
+        <i class="fas fa-user-graduate"></i>
+        <span>course_outlines</span>
+    </a>
+</li>
         </ul>
         <!-- End of Sidebar -->
