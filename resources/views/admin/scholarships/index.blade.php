@@ -4,7 +4,7 @@
 
 <h2 class="mb-3">Scholarships</h2>
 
-<a href="{{ route('scholarships.create') }}" class="btn btn-primary mb-3">Add Scholarship</a>
+<a href="{{ route('admin.scholarships.create') }}" class="btn btn-primary mb-3">Add Scholarship</a>
 
 @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
@@ -24,9 +24,9 @@
         <td>{{ $sch->title }}</td>
         <td>{{ $sch->year }}</td>
         <td>
-            <a href="{{ route('scholarships.edit', $sch->id) }}" class="btn btn-warning btn-sm">Edit</a>
+            <a href="{{ route('admin.scholarships.edit', $sch->id) }}" class="btn btn-warning btn-sm">Edit</a>
 
-            <form action="{{ route('scholarships.destroy', $sch->id) }}" method="POST" style="display:inline;">
+            <form action="{{ route('admin.scholarships.destroy', $sch->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger btn-sm">Delete</button>

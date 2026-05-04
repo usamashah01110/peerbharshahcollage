@@ -14,16 +14,21 @@ use App\Http\Controllers\NewsEventController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\CourseOutlineController;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 */
 
+
 // Admin Dashboard
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 });
+
+
 
 // Public Pages
 Route::get('/', [MainController::class, 'index'])->name('home');
@@ -43,6 +48,14 @@ Route::get('/profile/commerce', [MainController::class, 'commerce'])->name('comm
 Route::get('/profile/bs', [MainController::class, 'bs'])->name('bs.programs');
 Route::get('/profile/general-science', [MainController::class, 'generalScience'])->name('general.science');
 
+Route::get('/profile/pre-medical', fn () => view('profile.premedical'))->name('pre.medical');
+Route::get('/profile/pre-engineering', fn () => view('profile.preengineering'))->name('pre.engineering');
+Route::get('/profile/arts', fn () => view('profile.arts'))->name('arts');
+Route::get('/profile/commerce', fn () => view('profile.commerce'))->name('commerce');
+Route::get('/profile/bs', fn () => view('profile.bs'))->name('bs.programs');
+Route::get('/profile/general-science', fn () => view('profile.generalscience'))->name('general.science');
+
+
 // Student Life
 Route::get('/studentlife', fn () => view('student-life'))->name('studentlife');
 
@@ -59,6 +72,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+
     // Resources (User side)
     Route::resource('scholarships', ScholarshipController::class);
     Route::resource('scholarship-applications', ScholarshipApplicationController::class);
@@ -66,16 +80,28 @@ Route::middleware('auth')->group(function () {
     Route::resource('news-events', NewsEventController::class);
     Route::resource('course_outlines', CourseOutlineController::class);
 
+
     // Admin Routes (FIXED with name prefix)
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('programs', ProgramController::class);
         Route::resource('students', StudentController::class);
+
         Route::resource('departments', DepartmentController::class);
         Route::resource('scholarships', ScholarshipController::class);
         Route::resource('teachers', TeacherController::class);
         Route::resource('merit_lists', MeritListController::class);
         Route::resource('scholarship_applications', ScholarshipApplicationController::class);
         Route::resource('materials', MaterialController::class);
+
+        Route::resource('merit_lists', MeritListController::class);
+        Route::resource('scholarship_applications', scholarshipapplicationController::class);
+        Route::resource('materials', MaterialController::class);
+        Route::resource('departments', DepartmentController::class);
+        Route::resource('scholarships', ScholarshipController::class);
+        Route::resource('teachers', TeacherController::class);
+        Route::resource('news-events', NewsEventController::class);
+        Route::resource('course_outlines', CourseOutlineController::class);
+
     });
 
 });

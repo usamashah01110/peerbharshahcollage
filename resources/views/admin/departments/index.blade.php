@@ -4,7 +4,7 @@
 
 <h2 class="mb-3">Departments</h2>
 
-<a href="{{ route('departments.create') }}" class="btn btn-primary mb-3">Add Department</a>
+<a href="{{ route('admin.departments.create') }}" class="btn btn-primary mb-3">Add Department</a>
 
 @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
@@ -24,7 +24,7 @@
         <td>
             <a href="{{ route('admin.departments.edit', $dept->id) }}" class="btn btn-warning btn-sm">Edit</a>
 
-            <form action="{{ route('departments.destroy', $dept->id) }}" method="POST" style="display:inline;">
+            <form action="{{ route('admin.departments.destroy', $dept->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger btn-sm">Delete</button>

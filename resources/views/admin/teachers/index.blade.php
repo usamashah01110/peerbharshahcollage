@@ -4,7 +4,7 @@
 
 <h2 class="mb-3">Teachers</h2>
 
-<a href="{{ route('teachers.create') }}" class="btn btn-primary mb-3">Add Teacher</a>
+<a href="{{ route('admin.teachers.create') }}" class="btn btn-primary mb-3">Add Teacher</a>
 
 @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
@@ -24,9 +24,9 @@
         <td>{{ $teacher->name }}</td>
         <td>{{ $teacher->department->name ?? 'N/A' }}</td>
         <td>
-            <a href="{{ route('teachers.edit', $teacher->id) }}" class="btn btn-warning btn-sm">Edit</a>
+            <a href="{{ route('admin.teachers.edit', $teacher->id) }}" class="btn btn-warning btn-sm">Edit</a>
 
-            <form action="{{ route('teachers.destroy', $teacher->id) }}" method="POST" style="display:inline;">
+            <form action="{{ route('admin.teachers.destroy', $teacher->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger btn-sm">Delete</button>

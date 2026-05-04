@@ -86,7 +86,7 @@
 
     <!-- Course Outlines -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('course_outlines.index') }}">
+        <a class="nav-link" href="{{ route('admin.course_outlines.index') }}">
             <i class="fas fa-book-open"></i>
             <span>Course Outlines</span>
         </a>

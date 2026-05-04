@@ -4,7 +4,7 @@
 
 <h2>Merit List</h2>
 
-<a href="{{ route('merit_lists.create') }}" class="btn btn-primary mb-3">Add Merit</a>
+<a href="{{ route('admin.merit_lists.create') }}" class="btn btn-primary mb-3">Add Merit</a>
 
 @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
@@ -26,9 +26,9 @@
         <td>{{ $merit->program->name }}</td>
         <td>{{ $merit->marks }}</td>
         <td>
-            <a href="{{ route('merit_lists.edit', $merit->id) }}" class="btn btn-warning btn-sm">Edit</a>
+            <a href="{{ route('admini.merit_lists.edit', $merit->id) }}" class="btn btn-warning btn-sm">Edit</a>
 
-            <form action="{{ route('merit_lists.destroy', $merit->id) }}" method="POST" style="display:inline;">
+            <form action="{{ route('admin.merit_lists.destroy', $merit->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger btn-sm">Delete</button>

@@ -4,7 +4,7 @@
 
 <h2>Materials List</h2>
 
-<a href="{{ route('materials.create') }}" class="btn btn-primary mb-3">Add Material</a>
+<a href="{{ route('admin.materials.create') }}" class="btn btn-primary mb-3">Add Material</a>
 
 @if(session('success'))
 <div class="alert alert-success">{{ session('success') }}</div>
@@ -26,9 +26,9 @@
         <td>{{ $m->teacher->name ?? '' }}</td>
         <td><a href="/files/{{ $m->file }}" target="_blank">View</a></td>
         <td>
-            <a href="{{ route('materials.edit', $m->id) }}" class="btn btn-warning btn-sm">Edit</a>
+            <a href="{{ route('admin.materials.edit', $m->id) }}" class="btn btn-warning btn-sm">Edit</a>
 
-            <form action="{{ route('materials.destroy', $m->id) }}" method="POST" style="display:inline;">
+            <form action="{{ route('admin.materials.destroy', $m->id) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger btn-sm">Delete</button>
