@@ -4,7 +4,7 @@
 
 <h2>Apply for Scholarship</h2>
 
-<form action="{{ route('scholarship_applications.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('admin.scholarship_applications.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
     <div class="mb-3">

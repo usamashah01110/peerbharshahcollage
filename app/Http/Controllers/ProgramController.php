@@ -61,7 +61,7 @@ class ProgramController extends Controller
     {
         $program->delete();
 
-        return redirect()->route('programs.index')
+        return redirect()->route('admin.programs.index')
             ->with('success', 'Program deleted successfully');
     }
     public function delete(Program $program)

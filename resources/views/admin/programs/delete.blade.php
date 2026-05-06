@@ -11,12 +11,12 @@
     <p><strong>Code:</strong> {{ $program->program_code }}</p>
     <p><strong>Name:</strong> {{ $program->program_name }}</p>
 
-    <form action="{{ route('programs.destroy', $program->id) }}" method="POST">
+    <form action="{{ route('admin.programs.destroy', $program->id) }}" method="POST">
         @csrf
         @method('DELETE')
 
         <button class="btn btn-danger">Yes, Delete</button>
-        <a href="{{ route('programs.index') }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ route('admin.programs.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 @endsection

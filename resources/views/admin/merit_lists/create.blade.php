@@ -4,7 +4,7 @@
 
 <h2>Add Merit</h2>
 
-<form action="{{ route('merit_lists.store') }}" method="POST">
+<form action="{{ route('admin.merit_lists.store') }}" method="POST">
     @csrf
 
     <div class="mb-3">

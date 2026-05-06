@@ -30,7 +30,7 @@ class StudentController extends Controller
 
         Student::create($request->all());
 
-        return redirect()->route('students.index')
+        return redirect()->route('admin.students.index')
             ->with('success', 'Student created successfully');
     }
 

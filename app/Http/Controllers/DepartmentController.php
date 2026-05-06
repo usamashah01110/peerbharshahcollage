@@ -29,7 +29,7 @@ class DepartmentController extends Controller
 
         Department::create($request->all());
 
-        return redirect()->route('departments.index')->with('success', 'Department Added');
+        return redirect()->route('admin.departments.index')->with('success', 'Department Added');
     }
 
     // Edit form
@@ -49,13 +49,13 @@ class DepartmentController extends Controller
         $department = Department::findOrFail($id);
         $department->update($request->all());
 
-        return redirect()->route('departments.index')->with('success', 'Updated Successfully');
+        return redirect()->route('admin.departments.index')->with('success', 'Updated Successfully');
     }
 
     // Delete
     public function destroy($id)
     {
         Department::destroy($id);
-        return redirect()->route('departments.index')->with('success', 'Deleted Successfully');
+        return redirect()->route('admin.departments.index')->with('success', 'Deleted Successfully');
     }
 }

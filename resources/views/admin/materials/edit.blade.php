@@ -4,7 +4,7 @@
 
 <h2>Edit Material</h2>
 
-<form action="{{ route('materials.update', $material->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('admin.materials.update', $material->id) }}" method="POST" enctype="multipart/form-data">
 @csrf
 @method('PUT')
 

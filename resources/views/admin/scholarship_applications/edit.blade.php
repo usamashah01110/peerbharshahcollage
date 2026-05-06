@@ -4,7 +4,7 @@
 
 <h2>Edit Application</h2>
 
-<form action="{{ route('scholarships.update',$application->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('admin.scholarships.update',$application->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 

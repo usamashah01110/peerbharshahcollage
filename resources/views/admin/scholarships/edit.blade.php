@@ -4,7 +4,7 @@
 
 <h2>Add Scholarship</h2>
 
-<form action="{{ route('scholarships.store') }}" method="POST">
+<form action="{{ route('admin.scholarships.store') }}" method="POST">
     @csrf
 
     <div class="mb-3">

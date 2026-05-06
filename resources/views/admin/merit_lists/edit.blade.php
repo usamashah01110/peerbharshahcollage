@@ -4,7 +4,7 @@
 
 <h2>Edit Merit</h2>
 
-<form action="{{ route('merit_lists.update', $meritList->id) }}" method="POST">
+<form action="{{ route('admin.merit_lists.update', $meritList->id) }}" method="POST">
     @csrf
     @method('PUT')
 

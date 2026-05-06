@@ -4,7 +4,7 @@
 
 <h2>Scholarship Applications</h2>
 
-<a href="{{ route('scholarship_applications.create') }}" class="btn btn-primary mb-3">Apply</a>
+<a href="{{ route('admin.scholarship_applications.create') }}" class="btn btn-primary mb-3">Apply</a>
 
 @if(session('success'))
 <div class="alert alert-success">{{ session('success') }}</div>
@@ -26,7 +26,7 @@
         <td>{{ $app->scholarship->title ?? 'N/A' }}</td>
         <td>{{ $app->status }}</td>
         <td>
-            <form action="{{ route('scholarships_applications.delete',$app->id) }}" method="POST">
+            <form action="{{ route('admin.scholarships_applications.delete',$app->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger btn-sm">Delete</button>
