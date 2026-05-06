@@ -52,7 +52,7 @@ Route::get('/profile/pre-medical', fn () => view('profile.premedical'))->name('p
 Route::get('/profile/pre-engineering', fn () => view('profile.preengineering'))->name('pre.engineering');
 Route::get('/profile/arts', fn () => view('profile.arts'))->name('arts');
 Route::get('/profile/commerce', fn () => view('profile.commerce'))->name('commerce');
-Route::get('/profile/bs', fn () => view('profile.bs'))->name('bs.programs');
+Route::get('/profile/bs', fn () => view('profile.bsprograms'))->name('bs.programs');
 Route::get('/profile/general-science', fn () => view('profile.generalscience'))->name('general.science');
 
 

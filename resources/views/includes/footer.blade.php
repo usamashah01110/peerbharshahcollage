@@ -1,98 +1,108 @@
+
+
 <footer>
-  <div class="container">
-    <div class="row g-5">
-      <!-- About col -->
-      <div class="col-lg-4 col-md-6">
-        <div class="d-flex align-items-center gap-2 mb-3">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="46" height="46">
-            <circle cx="50" cy="50" r="48" fill="#8b1a2e" stroke="#c9a84c" stroke-width="2.5"/>
-            <text x="50" y="38" text-anchor="middle" font-family="serif" font-size="8" fill="#c9a84c" font-weight="bold">GOVT.</text>
-            <text x="50" y="48" text-anchor="middle" font-family="serif" font-size="7" fill="#fff">Pir Bahar Shah Graduate College</text>
-            <text x="50" y="57" text-anchor="middle" font-family="serif" font-size="7" fill="#fff">for Women </text>
-            <text x="50" y="66" text-anchor="middle" font-family="serif" font-size="7" fill="#fff">sheikhupura</text>
-            <text x="50" y="77" text-anchor="middle" font-family="serif" font-size="6.5" fill="#c9a84c">✦ 1968 ✦</text>
-          </svg>
-          <div>
-            <div class="footer-logo-text">Govt. Pir Bahar Shah Graduate College for Women</div>
-            <div class="footer-logo-text" style="font-size:.85rem;">Sheikhupura</div>
-            <div class="footer-sub">Since 1968</div>
-          </div>
+    <div class="container">
+        <div class="row g-4 g-lg-5">
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-mark">
+                    <div class="brand-seal">PB</div>
+                    <div>
+                        <div class="name">Pir Bahar Shah</div>
+                        <div class="sub">College for Women</div>
+                    </div>
+                </div>
+                <p>
+                    A Government graduate college for women in Sheikhupura, dedicated to academic excellence, character building, and empowering young women to lead.
+                </p>
+                <div class="social-row mt-4">
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#"><i class="bi bi-youtube"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-6">
+                <h6>Explore</h6>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Academics</a></li>
+                    <li><a href="#">Admissions</a></li>
+                    <li><a href="#">Faculty</a></li>
+                    <li><a href="#">News</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 col-6">
+                <h6>Programs</h6>
+                <ul>
+                    <li><a href="#">FSc Pre-Medical</a></li>
+                    <li><a href="#">FSc Pre-Engineering</a></li>
+                    <li><a href="#">FA / ICS</a></li>
+                    <li><a href="#">BS Programs</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <h6>Get in Touch</h6>
+                <p style="font-family:'Fraunces',serif; font-size:1.4rem; font-style:italic; color:var(--ivory); margin-bottom: 8px;">+92 56 0000000</p>
+                <p style="margin-bottom: 18px;">info@gpbsgcw.edu.pk</p>
+                <p style="font-size: .88rem; line-height: 1.7;">
+                    Govt. Pir Bahar Shah Graduate College for Women,<br>
+                    Sheikhupura, Punjab, Pakistan.
+                </p>
+            </div>
         </div>
-        <p class="tagline">Discover Your True Potential at Government pir bahar shah graduate college for Women, Sheikhupura, Pakistan</p>
-        <div class="social-icons mt-3">
-          <a href="#"><i class="bi bi-facebook"></i></a>
-          <a href="#"><i class="bi bi-instagram"></i></a>
-          <a href="#"><i class="bi bi-youtube"></i></a>
+        <div class="footer-bottom d-flex justify-content-between flex-wrap gap-3">
+            <div>© 2026 Govt. Pir Bahar Shah Graduate College for Women. All rights reserved.</div>
+            <div>
+                <a href="#">Privacy</a> &nbsp;·&nbsp;
+                <a href="#">Terms</a> &nbsp;·&nbsp;
+                <a href="#">Sitemap</a>
+            </div>
         </div>
-      </div>
-
-      <!-- Get in Touch -->
-      <div class="col-lg-2 col-md-6">
-        <h6>Get in Touch</h6>
-        <div class="contact-info">
-          <strong>056 3783273</strong>
-          Govt. pir bahar shah graduate college for women, Sheikhupura,<br>
-          Batichowk Road,<br>Sheikhupura, Pakistan
-        </div>
-        <a href="#" class="btn-view-all d-inline-block mt-3" style="font-size:.75rem;padding:7px 16px;">Get Directions</a>
-      </div>
-
-      <!-- About Links -->
-      <div class="col-lg-2 col-md-4">
-        <h6>About</h6>
-        <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Admissions</a></li>
-          <li><a href="#">Student Life</a></li>
-        </ul>
-      </div>
-
-      <!-- Links -->
-      <div class="col-lg-2 col-md-4">
-        <h6>Links</h6>
-        <ul>
-          <li><a href="#">Faculty &amp; Staff</a></li>
-          <li><a href="#">BS Courses</a></li>
-          <li><a href="#">Intermediate Programs</a></li>
-        </ul>
-      </div>
     </div>
-  </div>
-
-  <div class="footer-bottom">
-    © 2025 Govt. pir bahar shah, Sheikhupura. All Rights Reserved.
-  </div>
 </footer>
 
-<!-- Back to top -->
-<a href="#" class="back-to-top" title="Back to Top"><i class="bi bi-arrow-up"></i></a>
-
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
-  // Smooth back-to-top
-  document.querySelector('.back-to-top').addEventListener('click', e => {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+    // Reveal-on-scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('in-view');
+                revealObserver.unobserve(e.target);
+            }
+        });
+    }, { threshold: .14 });
+    revealEls.forEach(el => revealObserver.observe(el));
 
-  // Animate stats on scroll
-  const statNums = document.querySelectorAll('.stat-item .number');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  statNums.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity .6s ease, transform .6s ease';
-    observer.observe(el);
-  });
+    // Animated counters
+    const statCells = document.querySelectorAll('[data-stat]');
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                const numEl = entry.target.querySelector('.num');
+                const target = parseInt(numEl.dataset.target, 10);
+                const plus = numEl.querySelector('.plus');
+                let current = 0;
+                const duration = 1800;
+                const startTime = performance.now();
+                const tick = (now) => {
+                    const t = Math.min((now - startTime) / duration, 1);
+                    const eased = 1 - Math.pow(1 - t, 3);
+                    current = Math.round(eased * target);
+                    numEl.firstChild.textContent = current.toLocaleString();
+                    if (t < 1) requestAnimationFrame(tick);
+                };
+                requestAnimationFrame(tick);
+                counterObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: .4 });
+    statCells.forEach(c => counterObserver.observe(c));
 </script>
 </body>
 </html>
+
