@@ -4,7 +4,7 @@
 <div class="container">
     <h2>Create Program</h2>
 
-    <form action="{{ route('programs.store') }}" method="POST">
+    <form action="{{ route('admin.programs.store') }}" method="POST">
         @csrf
 
         <div class="mb-3">

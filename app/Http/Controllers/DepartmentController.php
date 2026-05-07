@@ -2,63 +2,60 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Show all
     public function index()
     {
-        //
+        $departments = Department::all();
+        return view('admin.departments.index', compact('departments'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Create form
     public function create()
     {
-        //
+        return view('admin.departments.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Store data
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        Department::create($request->all());
+
+        return redirect()->route('admin.departments.index')->with('success', 'Department Added');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Edit form
+    public function edit($id)
     {
-        //
+        $department = Department::findOrFail($id);
+        return view('admin.departments.edit', compact('department'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Update data
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $department = Department::findOrFail($id);
+        $department->update($request->all());
+
+        return redirect()->route('admin.departments.index')->with('success', 'Updated Successfully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // Delete
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        Department::destroy($id);
+        return redirect()->route('admin.departments.index')->with('success', 'Deleted Successfully');
     }
 }

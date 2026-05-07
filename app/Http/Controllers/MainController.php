@@ -10,9 +10,16 @@ class MainController extends Controller
         return view('home');
     }
 
+public function about()
+{
+    return view('aboutus');
+}
+
+
     public function aboutus() {
     return view('aboutus');
 }
+
 
     // Admissions methods
     public function intermediate() {
@@ -43,10 +50,9 @@ class MainController extends Controller
     public function commerce() {
         return view('profile.commerce');
     }
-
-    public function bs() {
-        return view('profile.bs');
-    }
+public function bs() {
+    return view('profile.bsprograms');
+}
 
     public function generalScience() {
         return view('profile.generalscience');

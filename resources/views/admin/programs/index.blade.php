@@ -4,7 +4,7 @@
 <div class="container">
     <h2>Programs</h2>
 
-    <a href="{{ route('programs.create') }}" class="btn btn-primary mb-3">
+    <a href="{{ route('admin.programs.create') }}" class="btn btn-primary mb-3">
         Add Program
     </a>
 
@@ -32,9 +32,9 @@
                 <td>{{ $program->program_name }}</td>
                 <td>{{ $program->department->name }}</td>
                 <td>
-                    <a href="{{ route('programs.edit', $program->id) }}" class="btn btn-warning">Edit</a>
+                    <a href="{{ route('admin.programs.edit', $program->id) }}" class="btn btn-warning">Edit</a>
 
-                    <form action="{{ route('programs.destroy', $program->id) }}" method="POST" style="display:inline;">
+                    <form action="{{ route('admin.programs.destroy', $program->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger">Delete</button>

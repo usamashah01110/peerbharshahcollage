@@ -4,7 +4,7 @@
 <div class="container">
     <h2>Students</h2>
 
-    <a href="{{ route('students.create') }}" class="btn btn-primary">Add Student</a>
+    <a href="{{ route('admin.students.create') }}" class="btn btn-primary">Add Student</a>
 
     <table class="table mt-3">
         <tr>
@@ -22,9 +22,9 @@
             <td>{{ $student->email }}</td>
             <td>{{ $student->department->name }}</td>
             <td>
-                <a href="{{ route('students.edit', $student->id) }}" class="btn btn-warning">Edit</a>
+                <a href="{{ route('admin.students.edit', $student->id) }}" class="btn btn-warning">Edit</a>
 
-                <form action="{{ route('students.destroy', $student->id) }}" method="POST" style="display:inline;">
+                <form action="{{ route('admin.students.destroy', $student->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger">Delete</button>
