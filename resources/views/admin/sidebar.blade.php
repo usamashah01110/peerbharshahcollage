@@ -20,6 +20,21 @@
         </a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.departments.index') }}">
+            <i class="fas fa-building"></i>
+            <span>Departments</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.academic-sessions.index') }}">
+            <i class="fas fa-building"></i>
+            <span>Admission Session</span>
+        </a>
+    </li>
+
+
     <!-- Programs -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.programs.index') }}">
@@ -37,12 +52,6 @@
     </li>
 
     <!-- Departments -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.departments.index') }}">
-            <i class="fas fa-building"></i>
-            <span>Departments</span>
-        </a>
-    </li>
 
     <!-- Scholarships -->
     <li class="nav-item">

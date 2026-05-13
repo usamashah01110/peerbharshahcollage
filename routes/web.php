@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AcademicSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
@@ -87,6 +88,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('students', StudentController::class);
 
         Route::resource('departments', DepartmentController::class);
+        Route::resource('academic-sessions', AcademicSessionController::class)->except(['show']);
+
         Route::resource('scholarships', ScholarshipController::class);
         Route::resource('teachers', TeacherController::class);
         Route::resource('merit_lists', MeritListController::class);

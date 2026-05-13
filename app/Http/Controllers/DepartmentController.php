@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreDepartmentRequest;
 use App\Models\Department;
 use Illuminate\Http\Request;
 
@@ -21,15 +22,16 @@ class DepartmentController extends Controller
     }
 
     // Store data
-    public function store(Request $request)
+    public function store(StoreDepartmentRequest  $request)
     {
-        $request->validate([
-            'name' => 'required'
-        ]);
+        $validated = $request->validated();
+        $validated['code'] = strtoupper($validated['code']);
 
-        Department::create($request->all());
+        Department::create($validated);
 
-        return redirect()->route('admin.departments.index')->with('success', 'Department Added');
+        return redirect()
+            ->route('admin.departments.index')
+            ->with('success', 'Department created successfully.');
     }
 
     // Edit form
@@ -42,14 +44,24 @@ class DepartmentController extends Controller
     // Update data
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required'
+        $department = Department::findOrFail($id);
+
+        $validated = $request->validate([
+            'name'             => 'required|string|min:2|max:150',
+            'code'             => 'required|string|min:2|max:20|regex:/^[A-Za-z0-9\-_]+$/|unique:departments,code,' . $department->id,
+            'description'      => 'nullable|string|max:1000',
+            'hod_id'           => 'nullable|integer|exists:users,id',
+            'established_date' => 'nullable|date|before_or_equal:today',
+            'is_active'        => 'required|boolean',
         ]);
 
-        $department = Department::findOrFail($id);
-        $department->update($request->all());
+        $validated['code'] = strtoupper($validated['code']);
 
-        return redirect()->route('admin.departments.index')->with('success', 'Updated Successfully');
+        $department->update($validated);
+
+        return redirect()
+            ->route('admin.departments.index')
+            ->with('success', 'Department updated successfully.');
     }
 
     // Delete

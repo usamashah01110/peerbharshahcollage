@@ -62,7 +62,7 @@
                                 <h6 class="dropdown-header">
                                     Alerts Center
                                 </h6>
-                       
+
     {{-- ✅ Static Default Alerts (optional) --}}
     <a class="dropdown-item d-flex align-items-center" href="#">
         <div class="mr-3">
@@ -74,7 +74,7 @@
             <div class="small text-gray-500">December 12, 2019</div>
             <span class="font-weight-bold">A new monthly report is ready to download!</span>
         </div>
-          
+
     </a>
 {{-- ✅ Dynamic Birthday Notifications --}}
 
@@ -175,10 +175,12 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
+                                <form method="POST" action="{{ route('logout') }}" class="m-0">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="icon-base bx bx-power-off icon-md me-3"></i>Logout
+                                    </button>
+                                </form>
                             </div>
                         </li>
 
