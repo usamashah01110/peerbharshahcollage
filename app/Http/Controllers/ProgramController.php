@@ -8,64 +8,84 @@ use Illuminate\Http\Request;
 
 class ProgramController extends Controller
 {
- public function index()
-{
-    $programs = Program::with('department')->get();
-    return view('admin.programs.index', compact('programs'));
-}
-   public function create()
-{
-    $departments = Department::all();
-    return view('admin.programs.create', compact('departments'));
-}
-
- public function store(Request $request)
-{
-    $request->validate([
-        'program_code' => 'required',
-        'program_name' => 'required',
-        'department_id' => 'required|exists:departments,id'
-    ]);
-
-    Program::create([
-        'program_code' => $request->program_code,
-        'program_name' => $request->program_name,
-        'department_id' => $request->department_id,
-    ]);
-
-    return redirect()->route('admin.programs.index')
-        ->with('success', 'Program created successfully');
-}
-
-    public function edit(Program $program)
+    // Show all programs
+    public function index()
     {
-        $departments = Department::all();
-        return view('admin.programs.edit', compact('program', 'departments'));
+        $programs = Program::with('department')->get();
+
+        return view('admin.programs.index', compact('programs'));
     }
 
-    public function update(Request $request, Program $program)
+    // Create form
+    public function create()
+    {
+        $departments = Department::all();
+
+        return view('admin.programs.create', compact('departments'));
+    }
+
+    // Store program
+    public function store(Request $request)
     {
         $request->validate([
-            'program_code' => 'required',
-            'program_name' => 'required',
-            'department_id' => 'required'
+            'department_id' => 'required',
+            'code' => 'required|unique:programs',
+            'name' => 'required',
+            'degree_level' => 'required',
+            'total_semesters' => 'required|numeric',
+            'duration_years' => 'required|numeric',
+        ]);
+
+        Program::create($request->all());
+
+        return redirect()
+            ->route('admin.programs.index')
+            ->with('success', 'Program Added Successfully');
+    }
+
+    // Edit form
+    public function edit($id)
+    {
+        $program = Program::findOrFail($id);
+
+        $departments = Department::all();
+
+        return view(
+            'admin.programs.edit',
+            compact('program', 'departments')
+        );
+    }
+
+    // Update program
+    public function update(Request $request, $id)
+    {
+        $program = Program::findOrFail($id);
+
+        $request->validate([
+            'department_id' => 'required',
+            'code' => 'required|unique:programs,code,' . $id,
+            'name' => 'required',
+            'degree_level' => 'required',
+            'total_semesters' => 'required|numeric',
+            'duration_years' => 'required|numeric',
         ]);
 
         $program->update($request->all());
 
-        return redirect()->route('admin.programs.index')
-            ->with('success', 'Program updated successfully');
+        return redirect()
+            ->route('admin.programs.index')
+            ->with('success', 'Program Updated Successfully');
     }
 
-    public function destroy(Program $program)
+    // Delete program
+    public function destroy($id)
     {
+        $program = Program::findOrFail($id);
+
         $program->delete();
 
-        return redirect()->route('admin.programs.index')
-            ->with('success', 'Program deleted successfully');
+        return redirect()
+            ->route('admin.programs.index')
+            ->with('success', 'Program Deleted Successfully');
     }
-    public function delete(Program $program)
-{
-    return view('admin.programs.delete', compact('program'));
-}
 }

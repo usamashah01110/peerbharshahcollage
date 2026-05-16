@@ -6,73 +6,89 @@
 
     <div class="d-flex justify-content-between mb-3">
 
-        <h2>Students</h2>
+        <h2>News & Events</h2>
 
-        <a href="{{ route('admin.students.create') }}"
+        <a href="{{ route('admin.newsevents.create') }}"
            class="btn btn-success">
-            Add Student
+
+            Add News/Event
+
         </a>
 
     </div>
 
     @if(session('success'))
+
         <div class="alert alert-success">
+
             {{ session('success') }}
+
         </div>
+
     @endif
 
     <table class="table table-bordered">
 
         <thead>
+
             <tr>
+
                 <th>ID</th>
-                <th>Reg No</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Program</th>
-                <th>Status</th>
+
+                <th>Title</th>
+
+                <th>Type</th>
+
+                <th>Department</th>
+
+                <th>Event Date</th>
+
                 <th>Action</th>
+
             </tr>
+
         </thead>
 
         <tbody>
 
-            @foreach($students as $student)
+            @forelse($newsEvents as $item)
 
             <tr>
 
-                <td>{{ $student->id }}</td>
-                <td>{{ $student->registration_number }}</td>
+                <td>{{ $item->id }}</td>
+
+                <td>{{ $item->title }}</td>
+
+                <td>{{ $item->type }}</td>
 
                 <td>
-                    {{ $student->first_name }} {{ $student->last_name }}
+                    {{ $item->department->name ?? '' }}
                 </td>
 
-                <td>{{ $student->email }}</td>
-                <td>{{ $student->phone }}</td>
-
-                <td>{{ $student->program->name ?? '' }}</td>
-
-                <td>{{ $student->status }}</td>
+                <td>{{ $item->event_date }}</td>
 
                 <td>
 
-                    <a href="{{ route('admin.students.edit', $student->id) }}"
+                    <a href="{{ route('admin.newsevents.edit', $item->id) }}"
                        class="btn btn-primary btn-sm">
+
                         Edit
+
                     </a>
 
-                    <form action="{{ route('admin.students.destroy', $student->id) }}"
+                    <form action="{{ route('admin.newsevents.destroy', $item->id) }}"
                           method="POST"
                           style="display:inline-block">
 
                         @csrf
+
                         @method('DELETE')
 
                         <button type="submit"
                                 class="btn btn-danger btn-sm">
+
                             Delete
+
                         </button>
 
                     </form>
@@ -81,7 +97,20 @@
 
             </tr>
 
-            @endforeach
+            @empty
+
+            <tr>
+
+                <td colspan="6"
+                    class="text-center">
+
+                    No Record Found
+
+                </td>
+
+            </tr>
+
+            @endforelse
 
         </tbody>
 

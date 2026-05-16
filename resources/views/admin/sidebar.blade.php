@@ -33,8 +33,6 @@
             <span>Admission Session</span>
         </a>
     </li>
-
-
     <!-- Programs -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.programs.index') }}">
@@ -42,7 +40,34 @@
             <span>Programs</span>
         </a>
     </li>
-
+     <!-- Semesters -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.semesters.index') }}">
+            <i class="fas fa-book"></i>
+            <span>Semesters</span>
+        </a>
+    </li>
+     <!-- Subjects -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.subjects.index') }}">
+            <i class="fas fa-book"></i>
+            <span>Subjects</span>
+        </a>
+    </li>
+        <!-- Admissionapplications -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.admissionapplications.index') }}">
+            <i class="fas fa-book"></i>
+            <span>Admissionapplications</span>
+        </a>
+    </li>
+         <!-- Application Qualification -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.applicationqualifications.index') }}">
+            <i class="fas fa-book"></i>
+            <span>Application Qualification</span>
+        </a>
+    </li>
     <!-- Students -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.students.index') }}">
@@ -50,9 +75,6 @@
             <span>Students</span>
         </a>
     </li>
-
-    <!-- Departments -->
-
     <!-- Scholarships -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.scholarships.index') }}">
@@ -60,7 +82,6 @@
             <span>Scholarships</span>
         </a>
     </li>
-
     <!-- Teachers -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.teachers.index') }}">
@@ -68,7 +89,6 @@
             <span>Teachers</span>
         </a>
     </li>
-
     <!-- Merit Lists -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.merit_lists.index') }}">
@@ -76,7 +96,6 @@
             <span>Merit Lists</span>
         </a>
     </li>
-
     <!-- Scholarship Applications -->
     <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.scholarship_applications.index') }}">
@@ -92,14 +111,20 @@
             <span>Materials</span>
         </a>
     </li>
-
     <!-- Course Outlines -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.course_outlines.index') }}">
+        <a class="nav-link" href="{{ route('admin.courseoutlines.index') }}">
             <i class="fas fa-book-open"></i>
             <span>Course Outlines</span>
         </a>
     </li>
-
+     <!-- News Events -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.newsevents.index') }}">
+            <i class="fas fa-book-open"></i>
+            <span>News Events</span>
+        </a>
+    </li>
 </ul>
+
 <!-- End of Sidebar -->

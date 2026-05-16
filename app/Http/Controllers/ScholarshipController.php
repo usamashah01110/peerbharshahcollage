@@ -2,64 +2,76 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Scholarship;
 use Illuminate\Http\Request;
+use App\Models\Scholarship;
 
 class ScholarshipController extends Controller
 {
-    // Show all
     public function index()
     {
-        $scholarships = Scholarship::all();
-        return view('admin.scholarships.index', compact('scholarships'));
+        $scholarships = Scholarship::latest()->get();
+
+        return view('scholarships.index', compact('scholarships'));
     }
 
-    // Create form
     public function create()
     {
-        return view('admin.scholarships.create');
+        return view('scholarships.create');
     }
 
-    // Store
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'name' => 'required',
+            'slug' => 'required|unique:scholarships',
             'description' => 'required',
-            'year' => 'required'
+            'type' => 'required',
+            'eligibility_criteria' => 'required',
+            'application_open_date' => 'required',
+            'application_close_date' => 'required',
         ]);
 
         Scholarship::create($request->all());
 
-        return redirect()->route('scholarships.index')->with('success', 'Scholarship Added');
+        return redirect()
+            ->route('scholarships.index')
+            ->with('success', 'Scholarship Added Successfully');
     }
 
-    // Edit form
     public function edit($id)
     {
         $scholarship = Scholarship::findOrFail($id);
-        return view('admin.scholarships.edit', compact('scholarship'));
+
+        return view('scholarships.edit', compact('scholarship'));
     }
 
-    // Update
     public function update(Request $request, $id)
     {
+        $scholarship = Scholarship::findOrFail($id);
+
         $request->validate([
-            'title' => 'required',
+            'name' => 'required',
+            'slug' => 'required|unique:scholarships,slug,' . $id,
             'description' => 'required',
-            'year' => 'required'
+            'type' => 'required',
+            'eligibility_criteria' => 'required',
         ]);
 
-        $scholarship = Scholarship::findOrFail($id);
         $scholarship->update($request->all());
 
-        return redirect()->route('scholarships.index')->with('success', 'Updated Successfully');
+        return redirect()
+            ->route('scholarships.index')
+            ->with('success', 'Scholarship Updated Successfully');
     }
 
-    // Delete
     public function destroy($id)
     {
-        Scholarship::destroy($id);
-        return redirect()->route('scholarships.index')->with('success', 'Deleted Successfully');
+        $scholarship = Scholarship::findOrFail($id);
+
+        $scholarship->delete();
+
+        return redirect()
+            ->route('scholarships.index')
+            ->with('success', 'Deleted Successfully');
     }
 }

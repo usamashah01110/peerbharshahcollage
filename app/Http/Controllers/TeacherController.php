@@ -12,6 +12,7 @@ class TeacherController extends Controller
     public function index()
     {
         $teachers = Teacher::with('department')->get();
+
         return view('admin.teachers.index', compact('teachers'));
     }
 
@@ -19,49 +20,72 @@ class TeacherController extends Controller
     public function create()
     {
         $departments = Department::all();
+
         return view('admin.teachers.create', compact('departments'));
     }
 
-    // Store
+    // Store teacher
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'department_id' => 'required'
+            'employee_id' => 'required|unique:teachers',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email|unique:teachers',
+            'department_id' => 'required',
+            'designation' => 'required',
+            'status' => 'required',
         ]);
 
         Teacher::create($request->all());
 
-        return redirect()->route('teachers.index')->with('success', 'Teacher Added');
+        return redirect()
+            ->route('admin.teachers.index')
+            ->with('success', 'Teacher Added Successfully');
     }
 
-    // Edit
+    // Edit form
     public function edit($id)
     {
         $teacher = Teacher::findOrFail($id);
+
         $departments = Department::all();
 
-        return view('admin.teachers.edit', compact('teacher', 'departments'));
+        return view(
+            'admin.teachers.edit',
+            compact('teacher', 'departments')
+        );
     }
 
-    // Update
+    // Update teacher
     public function update(Request $request, $id)
     {
+        $teacher = Teacher::findOrFail($id);
+
         $request->validate([
-            'name' => 'required',
-            'department_id' => 'required'
+            'employee_id' => 'required|unique:teachers,employee_id,' . $id,
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email|unique:teachers,email,' . $id,
+            'department_id' => 'required',
         ]);
 
-        $teacher = Teacher::findOrFail($id);
         $teacher->update($request->all());
 
-        return redirect()->route('teachers.index')->with('success', 'Updated Successfully');
+        return redirect()
+            ->route('admin.teachers.index')
+            ->with('success', 'Teacher Updated Successfully');
     }
 
-    // Delete
+    // Delete teacher
     public function destroy($id)
     {
-        Teacher::destroy($id);
-        return redirect()->route('teachers.index')->with('success', 'Deleted Successfully');
+        $teacher = Teacher::findOrFail($id);
+
+        $teacher->delete();
+
+        return redirect()
+            ->route('admin.teachers.index')
+            ->with('success', 'Teacher Deleted Successfully');
     }
 }

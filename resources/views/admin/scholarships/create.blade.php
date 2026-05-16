@@ -2,27 +2,78 @@
 
 @section('content')
 
-<h2>Add Scholarship</h2>
+<div class="container mt-4">
 
-<form action="{{ route('admin.scholarships.store') }}" method="POST">
-    @csrf
+    <h2>Add Scholarship</h2>
 
-    <div class="mb-3">
-        <label>Title:</label>
-        <input type="text" name="title" class="form-control">
-    </div>
+    <form action="{{ route('scholarships.store') }}"
+          method="POST">
 
-    <div class="mb-3">
-        <label>Description:</label>
-        <textarea name="description" class="form-control"></textarea>
-    </div>
+        @csrf
 
-    <div class="mb-3">
-        <label>Year:</label>
-        <input type="number" name="year" class="form-control">
-    </div>
+        <div class="mb-3">
+            <label>Name</label>
+            <input type="text"
+                   name="name"
+                   class="form-control">
+        </div>
 
-    <button class="btn btn-success">Save</button>
-</form>
+        <div class="mb-3">
+            <label>Slug</label>
+            <input type="text"
+                   name="slug"
+                   class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label>Description</label>
+            <textarea name="description"
+                      class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label>Type</label>
+
+            <select name="type" class="form-control">
+                <option value="merit">Merit</option>
+                <option value="need_based">Need Based</option>
+                <option value="sports">Sports</option>
+                <option value="minority">Minority</option>
+                <option value="disability">Disability</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Eligibility Criteria</label>
+
+            <textarea name="eligibility_criteria"
+                      class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label>Open Date</label>
+
+            <input type="datetime-local"
+                   name="application_open_date"
+                   class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label>Close Date</label>
+
+            <input type="datetime-local"
+                   name="application_close_date"
+                   class="form-control">
+        </div>
+
+        <button type="submit"
+                class="btn btn-primary">
+                Save
+        </button>
+
+    </form>
+
+</div>
 
 @endsection

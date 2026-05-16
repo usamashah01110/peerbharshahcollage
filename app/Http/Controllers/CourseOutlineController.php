@@ -2,75 +2,157 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\CourseOutline;
 use App\Models\Program;
-use Illuminate\Http\Request;
 
 class CourseOutlineController extends Controller
 {
     public function index()
-{
-    $outlines = CourseOutline::with('program')->get();
-    return view('admin.course_outlines.index', compact('outlines'));
-}
+    {
+        $courseOutlines = CourseOutline::with('program')
+            ->orderBy('id', 'desc')
+            ->get();
 
-public function create()
-{
-    $programs = Program::all();
-    return view('admin.course_outlines.create', compact('programs'));
-}
+        return view(
+            'admin.courseoutlines.index',
+            compact('courseOutlines')
+        );
+    }
+
+    public function create()
+    {
+        $programs = Program::all();
+
+        return view(
+            'admin.courseoutlines.create',
+            compact('programs')
+        );
+    }
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'program_id' => 'required|unique:course_outlines',
+        $request->validate([
+
+            'program_id' => 'required|unique:course_outlines,program_id',
+
             'description' => 'nullable',
+
             'objectives' => 'nullable',
+
             'topics' => 'nullable',
-            'file' => 'nullable|file'
+
+            'file' => 'nullable|file|mimes:pdf,doc,docx',
         ]);
 
+        $fileName = null;
+
         if ($request->hasFile('file')) {
-            $data['file'] = $request->file('file')->store('uploads', 'public');
+
+            $file = $request->file('file');
+
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+
+            $file->move(
+                public_path('course_outlines'),
+                $fileName
+            );
         }
 
-        CourseOutline::create($data);
+        CourseOutline::create([
 
-        return redirect()->route('course_outlines.index')->with('success', 'Created');
+            'program_id' => $request->program_id,
+
+            'description' => $request->description,
+
+            'objectives' => $request->objectives,
+
+            'topics' => $request->topics,
+
+            'file' => $fileName,
+        ]);
+
+        return redirect()
+            ->route('admin.courseoutlines.index')
+            ->with(
+                'success',
+                'Course Outline Added Successfully'
+            );
     }
 
     public function edit($id)
     {
-        $outline = CourseOutline::findOrFail($id);
+        $courseOutline = CourseOutline::findOrFail($id);
+
         $programs = Program::all();
 
-        return view('course_outlines.edit', compact('outline', 'programs'));
+        return view(
+            'admin.courseoutlines.edit',
+            compact(
+                'courseOutline',
+                'programs'
+            )
+        );
     }
 
     public function update(Request $request, $id)
     {
-        $outline = CourseOutline::findOrFail($id);
+        $courseOutline = CourseOutline::findOrFail($id);
 
-        $data = $request->validate([
-            'program_id' => 'required|unique:course_outlines,program_id,' . $id,
-            'description' => 'nullable',
-            'objectives' => 'nullable',
-            'topics' => 'nullable',
-            'file' => 'nullable|file'
+        $request->validate([
+
+            'program_id' =>
+                'required|unique:course_outlines,program_id,' . $id,
+
+            'file' => 'nullable|file|mimes:pdf,doc,docx',
         ]);
 
+        $fileName = $courseOutline->file;
+
         if ($request->hasFile('file')) {
-            $data['file'] = $request->file('file')->store('uploads', 'public');
+
+            $file = $request->file('file');
+
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+
+            $file->move(
+                public_path('course_outlines'),
+                $fileName
+            );
         }
 
-        $outline->update($data);
+        $courseOutline->update([
 
-        return redirect()->route('course_outlines.index')->with('success', 'Updated');
+            'program_id' => $request->program_id,
+
+            'description' => $request->description,
+
+            'objectives' => $request->objectives,
+
+            'topics' => $request->topics,
+
+            'file' => $fileName,
+        ]);
+
+        return redirect()
+            ->route('admin.courseoutlines.index')
+            ->with(
+                'success',
+                'Course Outline Updated Successfully'
+            );
     }
 
     public function destroy($id)
     {
-        CourseOutline::findOrFail($id)->delete();
-        return redirect()->route('course_outlines.index')->with('success', 'Deleted');
+        $courseOutline = CourseOutline::findOrFail($id);
+
+        $courseOutline->delete();
+
+        return redirect()
+            ->route('admin.courseoutlines.index')
+            ->with(
+                'success',
+                'Course Outline Deleted Successfully'
+            );
     }
 }

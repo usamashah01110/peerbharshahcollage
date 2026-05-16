@@ -14,8 +14,10 @@ use App\Http\Controllers\MeritListController;
 use App\Http\Controllers\NewsEventController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\CourseOutlineController;
-
-
+use App\Http\Controllers\SemesterController;
+use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\AdmissionapplicationController;
+use App\Http\Controllers\ApplicationQualificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,9 +104,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('departments', DepartmentController::class);
         Route::resource('scholarships', ScholarshipController::class);
         Route::resource('teachers', TeacherController::class);
-        Route::resource('news-events', NewsEventController::class);
-        Route::resource('course_outlines', CourseOutlineController::class);
-
+        Route::resource('newsevents', NewsEventController::class);
+        Route::resource('courseoutlines', CourseOutlineController::class);
+        Route::resource('semesters', semesterController::class);
+        Route::resource('subjects', subjectController::class);
+        Route::resource('admissionapplications', admissionapplicationController::class);
+         Route::resource('applicationqualifications', applicationqualificationController::class);
     });
 
 });

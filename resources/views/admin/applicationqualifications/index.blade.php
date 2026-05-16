@@ -6,64 +6,75 @@
 
     <div class="d-flex justify-content-between mb-3">
 
-        <h2>Students</h2>
+        <h2>Qualifications List</h2>
 
-        <a href="{{ route('admin.students.create') }}"
+        <a href="{{ route('admin.applicationqualifications.create') }}"
            class="btn btn-success">
-            Add Student
+            Add Qualification
         </a>
 
     </div>
 
     @if(session('success'))
+
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
+
     @endif
 
     <table class="table table-bordered">
 
         <thead>
+
             <tr>
+
                 <th>ID</th>
-                <th>Reg No</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Program</th>
-                <th>Status</th>
+                <th>Application No</th>
+                <th>Level</th>
+                <th>Institution</th>
+                <th>Board</th>
+                <th>Passing Year</th>
+                <th>Percentage</th>
+                <th>Grade</th>
                 <th>Action</th>
+
             </tr>
+
         </thead>
 
         <tbody>
 
-            @foreach($students as $student)
+            @foreach($qualifications as $qualification)
 
             <tr>
 
-                <td>{{ $student->id }}</td>
-                <td>{{ $student->registration_number }}</td>
+                <td>{{ $qualification->id }}</td>
 
                 <td>
-                    {{ $student->first_name }} {{ $student->last_name }}
+                    {{ $qualification->application->application_number ?? '' }}
                 </td>
 
-                <td>{{ $student->email }}</td>
-                <td>{{ $student->phone }}</td>
+                <td>{{ $qualification->level }}</td>
 
-                <td>{{ $student->program->name ?? '' }}</td>
+                <td>{{ $qualification->institution }}</td>
 
-                <td>{{ $student->status }}</td>
+                <td>{{ $qualification->board_university }}</td>
+
+                <td>{{ $qualification->passing_year }}</td>
+
+                <td>{{ $qualification->percentage }}</td>
+
+                <td>{{ $qualification->grade }}</td>
 
                 <td>
 
-                    <a href="{{ route('admin.students.edit', $student->id) }}"
+                    <a href="{{ route('admin.applicationqualifications.edit', $qualification->id) }}"
                        class="btn btn-primary btn-sm">
                         Edit
                     </a>
 
-                    <form action="{{ route('admin.students.destroy', $student->id) }}"
+                    <form action="{{ route('admin.applicationqualifications.destroy', $qualification->id) }}"
                           method="POST"
                           style="display:inline-block">
 

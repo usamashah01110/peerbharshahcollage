@@ -2,38 +2,71 @@
 
 @section('content')
 
-<h2 class="mb-3">Scholarships</h2>
+<div class="container mt-4">
 
-<a href="{{ route('admin.scholarships.create') }}" class="btn btn-primary mb-3">Add Scholarship</a>
+    <h2>Scholarships</h2>
 
-@if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-@endif
+    <a href="{{ route('scholarships.create') }}"
+       class="btn btn-primary mb-3">
+       Add Scholarship
+    </a>
 
-<table class="table table-bordered">
-    <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Year</th>
-        <th>Actions</th>
-    </tr>
+    <table class="table table-bordered">
 
-    @foreach($scholarships as $sch)
-    <tr>
-        <td>{{ $sch->id }}</td>
-        <td>{{ $sch->title }}</td>
-        <td>{{ $sch->year }}</td>
-        <td>
-            <a href="{{ route('admin.scholarships.edit', $sch->id) }}" class="btn btn-warning btn-sm">Edit</a>
+        <thead>
 
-            <form action="{{ route('admin.scholarships.destroy', $sch->id) }}" method="POST" style="display:inline;">
-                @csrf
-                @method('DELETE')
-                <button class="btn btn-danger btn-sm">Delete</button>
-            </form>
-        </td>
-    </tr>
-    @endforeach
-</table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach($scholarships as $scholarship)
+
+            <tr>
+
+                <td>{{ $scholarship->id }}</td>
+                <td>{{ $scholarship->name }}</td>
+                <td>{{ $scholarship->type }}</td>
+                <td>{{ $scholarship->status }}</td>
+
+                <td>
+
+                    <a href="{{ route('scholarships.edit', $scholarship->id) }}"
+                       class="btn btn-warning btn-sm">
+                       Edit
+                    </a>
+
+                    <form action="{{ route('scholarships.destroy', $scholarship->id) }}"
+                          method="POST"
+                          style="display:inline;">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit"
+                                class="btn btn-danger btn-sm">
+                                Delete
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+            @endforeach
+
+        </tbody>
+
+    </table>
+
+</div>
 
 @endsection
