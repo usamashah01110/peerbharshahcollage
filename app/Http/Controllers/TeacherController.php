@@ -8,84 +8,97 @@ use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
-    // Show all teachers
     public function index()
     {
-        $teachers = Teacher::with('department')->get();
-
+        $teachers = Teacher::with('department')->latest()->get();
         return view('admin.teachers.index', compact('teachers'));
     }
 
-    // Create form
     public function create()
     {
-        $departments = Department::all();
-
+        $departments = Department::orderBy('name')->get();
         return view('admin.teachers.create', compact('departments'));
     }
 
-    // Store teacher
     public function store(Request $request)
     {
-        $request->validate([
-            'employee_id' => 'required|unique:teachers',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email|unique:teachers',
-            'department_id' => 'required',
-            'designation' => 'required',
-            'status' => 'required',
+        $validated = $request->validate([
+            'employee_id'    => 'required|string|max:30|unique:teachers,employee_id',
+            'first_name'     => 'required|string|max:80',
+            'last_name'      => 'required|string|max:80',
+            'email'          => 'required|email|max:150|unique:teachers,email',
+            'phone'          => 'nullable|string|max:20',
+            'cnic'           => 'nullable|string|max:20|unique:teachers,cnic',
+            'gender'         => 'nullable|in:male,female,other',
+            'date_of_birth'  => 'nullable|date',
+            'department_id'  => 'required|exists:departments,id',
+            'designation'    => 'required|in:professor,associate_professor,assistant_professor,lecturer,instructor,visiting',
+            'qualification'  => 'nullable|string|max:200',
+            'specialisation' => 'nullable|string|max:200',
+            'joining_date'   => 'nullable|date',
+            'bio'            => 'nullable|string',
+            'status'         => 'required|in:active,inactive,on_leave,retired',
+            'profile_image'  => 'nullable|image|max:2048',
         ]);
 
-        Teacher::create($request->all());
+        if ($request->hasFile('profile_image')) {
+            $name = time() . '.' . $request->file('profile_image')->getClientOriginalExtension();
+            $request->file('profile_image')->move(public_path('teachers'), $name);
+            $validated['profile_image'] = $name;
+        }
 
-        return redirect()
-            ->route('admin.teachers.index')
-            ->with('success', 'Teacher Added Successfully');
+        Teacher::create($validated);
+
+        return redirect()->route('admin.teachers.index')
+            ->with('success', 'Teacher added successfully.');
     }
 
-    // Edit form
     public function edit($id)
     {
         $teacher = Teacher::findOrFail($id);
-
-        $departments = Department::all();
-
-        return view(
-            'admin.teachers.edit',
-            compact('teacher', 'departments')
-        );
+        $departments = Department::orderBy('name')->get();
+        return view('admin.teachers.edit', compact('teacher', 'departments'));
     }
 
-    // Update teacher
     public function update(Request $request, $id)
     {
         $teacher = Teacher::findOrFail($id);
 
-        $request->validate([
-            'employee_id' => 'required|unique:teachers,employee_id,' . $id,
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email|unique:teachers,email,' . $id,
-            'department_id' => 'required',
+        $validated = $request->validate([
+            'employee_id'    => 'required|string|max:30|unique:teachers,employee_id,' . $id,
+            'first_name'     => 'required|string|max:80',
+            'last_name'      => 'required|string|max:80',
+            'email'          => 'required|email|max:150|unique:teachers,email,' . $id,
+            'phone'          => 'nullable|string|max:20',
+            'cnic'           => 'nullable|string|max:20|unique:teachers,cnic,' . $id,
+            'gender'         => 'nullable|in:male,female,other',
+            'date_of_birth'  => 'nullable|date',
+            'department_id'  => 'required|exists:departments,id',
+            'designation'    => 'required|in:professor,associate_professor,assistant_professor,lecturer,instructor,visiting',
+            'qualification'  => 'nullable|string|max:200',
+            'specialisation' => 'nullable|string|max:200',
+            'joining_date'   => 'nullable|date',
+            'bio'            => 'nullable|string',
+            'status'         => 'required|in:active,inactive,on_leave,retired',
+            'profile_image'  => 'nullable|image|max:2048',
         ]);
 
-        $teacher->update($request->all());
+        if ($request->hasFile('profile_image')) {
+            $name = time() . '.' . $request->file('profile_image')->getClientOriginalExtension();
+            $request->file('profile_image')->move(public_path('teachers'), $name);
+            $validated['profile_image'] = $name;
+        }
 
-        return redirect()
-            ->route('admin.teachers.index')
-            ->with('success', 'Teacher Updated Successfully');
+        $teacher->update($validated);
+
+        return redirect()->route('admin.teachers.index')
+            ->with('success', 'Teacher updated successfully.');
     }
 
-    // Delete teacher
     public function destroy($id)
     {
-        $teacher = Teacher::findOrFail($id);
-
-        $teacher->delete();
-
-        return redirect()
-            ->route('admin.teachers.index')
-            ->with('success', 'Teacher Deleted Successfully');
+        Teacher::findOrFail($id)->delete();
+        return redirect()->route('admin.teachers.index')
+            ->with('success', 'Teacher deleted successfully.');
     }
 }

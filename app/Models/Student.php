@@ -12,7 +12,6 @@ class Student extends Model
     protected $table = 'students';
 
     protected $fillable = [
-
         'registration_number',
         'roll_number',
         'first_name',
@@ -35,27 +34,38 @@ class Student extends Model
         'admission_application_id',
     ];
 
+    protected $casts = [
+        'date_of_birth'   => 'date',
+        'enrollment_date' => 'date',
+    ];
+
     public function program()
     {
-        return $this->belongsTo(
-            Program::class,
-            'program_id'
-        );
+        return $this->belongsTo(Program::class);
     }
 
     public function session()
     {
-        return $this->belongsTo(
-            AcademicSession::class,
-            'admission_session_id'
-        );
+        return $this->belongsTo(AcademicSession::class, 'admission_session_id');
     }
 
     public function application()
     {
-        return $this->belongsTo(
-            AdmissionApplication::class,
-            'admission_application_id'
-        );
+        return $this->belongsTo(AdmissionApplication::class, 'admission_application_id');
+    }
+
+    public function scholarshipApplications()
+    {
+        return $this->hasMany(ScholarshipApplication::class);
+    }
+
+    public function admissions()
+    {
+        return $this->hasMany(Admission::class);
+    }
+
+    public function meritLists()
+    {
+        return $this->hasMany(MeritList::class);
     }
 }

@@ -2,166 +2,109 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\AdmissionApplication;
 use App\Models\Program;
 use App\Models\AcademicSession;
+use App\Models\Student;
+use Illuminate\Http\Request;
 
 class AdmissionApplicationController extends Controller
 {
     public function index()
     {
-        $applications = AdmissionApplication::with([
-                'program',
-                'session'
-            ])
-            ->orderBy('id', 'desc')
-            ->get();
-
-        return view(
-            'admin.admissionapplications.index',
-            compact('applications')
-        );
+        $applications = AdmissionApplication::with(['program', 'session', 'student'])->latest()->get();
+        return view('admin.admission_applications.index', compact('applications'));
     }
 
     public function create()
     {
-        $programs = Program::all();
+        $programs = Program::orderBy('name')->get();
+        $sessions = AcademicSession::orderBy('start_date', 'desc')->get();
+        $students = Student::orderBy('first_name')->get();
+        return view('admin.admission_applications.create', compact('programs', 'sessions', 'students'));
+    }
 
-        $sessions = AcademicSession::all();
-
-        return view(
-            'admin.admissionapplications.create',
-            compact('programs', 'sessions')
-        );
+    public function show($id)
+    {
+        $application = AdmissionApplication::with(['program', 'session', 'student', 'qualifications', 'documents'])->findOrFail($id);
+        return view('admin.admission_applications.show', compact('application'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $this->validateApplication($request);
+        AdmissionApplication::create($validated);
 
-            'application_number' => 'required|unique:admission_applications',
-
-            'applied_program_id' => 'required|exists:programs,id',
-
-            'session_id' => 'required|exists:academic_sessions,id',
-
-            'first_name' => 'required|max:80',
-
-            'last_name' => 'required|max:80',
-
-            'father_name' => 'required|max:150',
-
-            'cnic' => 'required|max:20',
-
-            'date_of_birth' => 'required|date',
-
-            'gender' => 'required',
-
-            'email' => 'required|email',
-
-            'phone' => 'required|max:20',
-
-            'present_address' => 'required',
-
-            'city' => 'required|max:80',
-
-            'province' => 'required|max:80',
-
-            'guardian_name' => 'required|max:150',
-
-            'guardian_relation' => 'required|max:50',
-        ]);
-
-        AdmissionApplication::create($request->all());
-
-        return redirect()
-            ->route('admin.admissionapplications.index')
-            ->with(
-                'success',
-                'Application Created Successfully'
-            );
+        return redirect()->route('admin.admission-applications.index')
+            ->with('success', 'Application created successfully.');
     }
 
     public function edit($id)
     {
         $application = AdmissionApplication::findOrFail($id);
-
-        $programs = Program::all();
-
-        $sessions = AcademicSession::all();
-
-        return view(
-            'admin.admissionapplications.edit',
-            compact(
-                'application',
-                'programs',
-                'sessions'
-            )
-        );
+        $programs    = Program::orderBy('name')->get();
+        $sessions    = AcademicSession::orderBy('start_date', 'desc')->get();
+        $students    = Student::orderBy('first_name')->get();
+        return view('admin.admission_applications.edit', compact('application', 'programs', 'sessions', 'students'));
     }
 
     public function update(Request $request, $id)
     {
         $application = AdmissionApplication::findOrFail($id);
+        $validated = $this->validateApplication($request, $id);
+        $application->update($validated);
 
-        $request->validate([
-
-            'application_number' =>
-                'required|unique:admission_applications,application_number,' . $id,
-
-            'applied_program_id' => 'required',
-
-            'session_id' => 'required',
-
-            'first_name' => 'required',
-
-            'last_name' => 'required',
-
-            'father_name' => 'required',
-
-            'cnic' => 'required',
-
-            'date_of_birth' => 'required',
-
-            'gender' => 'required',
-
-            'email' => 'required|email',
-
-            'phone' => 'required',
-
-            'present_address' => 'required',
-
-            'city' => 'required',
-
-            'province' => 'required',
-
-            'guardian_name' => 'required',
-
-            'guardian_relation' => 'required',
-        ]);
-
-        $application->update($request->all());
-
-        return redirect()
-            ->route('admin.admissionapplications.index')
-            ->with(
-                'success',
-                'Application Updated Successfully'
-            );
+        return redirect()->route('admin.admission-applications.index')
+            ->with('success', 'Application updated successfully.');
     }
 
     public function destroy($id)
     {
-        $application = AdmissionApplication::findOrFail($id);
+        AdmissionApplication::findOrFail($id)->delete();
+        return redirect()->route('admin.admission-applications.index')
+            ->with('success', 'Application deleted successfully.');
+    }
 
-        $application->delete();
+    private function validateApplication(Request $request, $id = null): array
+    {
+        $unique = 'unique:admission_applications,application_number' . ($id ? ',' . $id : '');
 
-        return redirect()
-            ->route('admin.admissionapplications.index')
-            ->with(
-                'success',
-                'Application Deleted Successfully'
-            );
+        return $request->validate([
+            'application_number'      => 'required|string|max:30|' . $unique,
+            'applied_program_id'      => 'required|exists:programs,id',
+            'session_id'              => 'required|exists:academic_sessions,id',
+            'first_name'              => 'required|string|max:80',
+            'last_name'               => 'required|string|max:80',
+            'father_name'             => 'required|string|max:150',
+            'mother_name'             => 'nullable|string|max:150',
+            'cnic'                    => 'required|string|max:20',
+            'date_of_birth'           => 'required|date',
+            'gender'                  => 'required|in:male,female,other',
+            'nationality'             => 'nullable|string|max:50',
+            'religion'                => 'nullable|string|max:50',
+            'marital_status'          => 'nullable|in:single,married,divorced,widowed',
+            'email'                   => 'required|email|max:150',
+            'phone'                   => 'required|string|max:20',
+            'alternate_phone'         => 'nullable|string|max:20',
+            'present_address'         => 'required|string',
+            'permanent_address'       => 'nullable|string',
+            'city'                    => 'required|string|max:80',
+            'province'                => 'required|string|max:80',
+            'postal_code'             => 'nullable|string|max:15',
+            'guardian_name'           => 'required|string|max:150',
+            'guardian_relation'       => 'required|string|max:50',
+            'guardian_cnic'           => 'nullable|string|max:20',
+            'guardian_phone'          => 'nullable|string|max:20',
+            'guardian_occupation'     => 'nullable|string|max:100',
+            'guardian_monthly_income' => 'nullable|numeric|min:0',
+            'emergency_contact_name'  => 'nullable|string|max:150',
+            'emergency_contact_phone' => 'nullable|string|max:20',
+            'status'                  => 'required|in:draft,submitted,under_review,shortlisted,admitted,rejected,waitlisted,withdrawn',
+            'test_score'              => 'nullable|numeric|min:0|max:100',
+            'interview_score'         => 'nullable|numeric|min:0|max:100',
+            'merit_score'             => 'nullable|numeric|min:0|max:100',
+            'review_notes'            => 'nullable|string',
+            'student_id'              => 'nullable|exists:students,id',
+        ]);
     }
 }

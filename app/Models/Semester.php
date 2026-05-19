@@ -14,9 +14,13 @@ class Semester extends Model
         'name',
     ];
 
-    // Relationship
     public function program()
     {
         return $this->belongsTo(Program::class);
+    }
+
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class);
     }
 }

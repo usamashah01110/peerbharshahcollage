@@ -1,130 +1,51 @@
-<!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-    <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-        </div>
+        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
         <div class="sidebar-brand-text mx-3">Pir Bahar Shah</div>
     </a>
 
-    <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Dashboard -->
     <li class="nav-item active">
         <a class="nav-link" href="{{ route('dashboard') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+            <i class="fas fa-fw fa-tachometer-alt"></i><span>Dashboard</span>
         </a>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.departments.index') }}">
-            <i class="fas fa-building"></i>
-            <span>Departments</span>
-        </a>
-    </li>
+    <div class="sidebar-heading">Academics</div>
 
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.academic-sessions.index') }}">
-            <i class="fas fa-building"></i>
-            <span>Admission Session</span>
-        </a>
-    </li>
-    <!-- Programs -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.programs.index') }}">
-            <i class="fas fa-book"></i>
-            <span>Programs</span>
-        </a>
-    </li>
-     <!-- Semesters -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.semesters.index') }}">
-            <i class="fas fa-book"></i>
-            <span>Semesters</span>
-        </a>
-    </li>
-     <!-- Subjects -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.subjects.index') }}">
-            <i class="fas fa-book"></i>
-            <span>Subjects</span>
-        </a>
-    </li>
-        <!-- Admissionapplications -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.admissionapplications.index') }}">
-            <i class="fas fa-book"></i>
-            <span>Admissionapplications</span>
-        </a>
-    </li>
-         <!-- Application Qualification -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.applicationqualifications.index') }}">
-            <i class="fas fa-book"></i>
-            <span>Application Qualification</span>
-        </a>
-    </li>
-    <!-- Students -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.students.index') }}">
-            <i class="fas fa-user-graduate"></i>
-            <span>Students</span>
-        </a>
-    </li>
-    <!-- Scholarships -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.scholarships.index') }}">
-            <i class="fas fa-award"></i>
-            <span>Scholarships</span>
-        </a>
-    </li>
-    <!-- Teachers -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.teachers.index') }}">
-            <i class="fas fa-chalkboard-teacher"></i>
-            <span>Teachers</span>
-        </a>
-    </li>
-    <!-- Merit Lists -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.merit_lists.index') }}">
-            <i class="fas fa-list"></i>
-            <span>Merit Lists</span>
-        </a>
-    </li>
-    <!-- Scholarship Applications -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.scholarship_applications.index') }}">
-            <i class="fas fa-file-alt"></i>
-            <span>Scholarship Applications</span>
-        </a>
-    </li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.departments.index') }}"><i class="fas fa-building"></i><span>Departments</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.academic-sessions.index') }}"><i class="fas fa-calendar-alt"></i><span>Academic Sessions</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.teachers.index') }}"><i class="fas fa-chalkboard-teacher"></i><span>Teachers</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.programs.index') }}"><i class="fas fa-book"></i><span>Programs</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.semesters.index') }}"><i class="fas fa-layer-group"></i><span>Semesters</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.subjects.index') }}"><i class="fas fa-book-open"></i><span>Subjects</span></a></li>
 
-    <!-- Materials -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.materials.index') }}">
-            <i class="fas fa-folder"></i>
-            <span>Materials</span>
-        </a>
-    </li>
-    <!-- Course Outlines -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.courseoutlines.index') }}">
-            <i class="fas fa-book-open"></i>
-            <span>Course Outlines</span>
-        </a>
-    </li>
-     <!-- News Events -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.newsevents.index') }}">
-            <i class="fas fa-book-open"></i>
-            <span>News Events</span>
-        </a>
-    </li>
+    <div class="sidebar-heading">Assignments</div>
+
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.teacher-subject-assignments.index') }}"><i class="fas fa-link"></i><span>Teacher-Subject</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.teacher-programs.index') }}"><i class="fas fa-link"></i><span>Teacher-Program</span></a></li>
+
+    <div class="sidebar-heading">Admissions</div>
+
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.admission-applications.index') }}"><i class="fas fa-file-signature"></i><span>Applications</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.application-documents.index') }}"><i class="fas fa-file-upload"></i><span>App Documents</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.application-qualifications.index') }}"><i class="fas fa-graduation-cap"></i><span>App Qualifications</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.students.index') }}"><i class="fas fa-user-graduate"></i><span>Students</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.admissions.index') }}"><i class="fas fa-clipboard-check"></i><span>Admissions</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.merit-lists.index') }}"><i class="fas fa-list-ol"></i><span>Merit Lists</span></a></li>
+
+    <div class="sidebar-heading">Scholarships</div>
+
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.scholarships.index') }}"><i class="fas fa-award"></i><span>Scholarships</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.scholarship-applications.index') }}"><i class="fas fa-file-alt"></i><span>Scholarship Applications</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.scholarship-application-documents.index') }}"><i class="fas fa-file-upload"></i><span>Scholarship Documents</span></a></li>
+
+    <div class="sidebar-heading">Content</div>
+
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.course-outlines.index') }}"><i class="fas fa-scroll"></i><span>Course Outlines</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.news-events.index') }}"><i class="fas fa-newspaper"></i><span>News &amp; Events</span></a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ route('admin.materials.index') }}"><i class="fas fa-folder"></i><span>Materials</span></a></li>
+
 </ul>
-
-<!-- End of Sidebar -->

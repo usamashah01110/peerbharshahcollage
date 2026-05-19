@@ -28,9 +28,6 @@ class ApplicationQualification extends Model
 
     public function application()
     {
-        return $this->belongsTo(
-            AdmissionApplication::class,
-            'application_id'
-        );
+        return $this->belongsTo(AdmissionApplication::class, 'application_id');
     }
 }

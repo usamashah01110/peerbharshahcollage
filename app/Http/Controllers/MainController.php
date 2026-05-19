@@ -20,6 +20,10 @@ public function about()
     return view('aboutus');
 }
 
+    public function contact() {
+    return view('contact');
+}
+
 
     // Admissions methods
     public function intermediate() {

@@ -11,53 +11,59 @@ class MeritListController extends Controller
 {
     public function index()
     {
-        $meritLists = MeritList::with(['student', 'program'])->get();
+        $meritLists = MeritList::with(['student', 'program'])->latest()->get();
         return view('admin.merit_lists.index', compact('meritLists'));
     }
 
     public function create()
     {
-        $students = Student::all();
-        $programs = Program::all();
+        $students = Student::orderBy('first_name')->get();
+        $programs = Program::orderBy('name')->get();
         return view('admin.merit_lists.create', compact('students', 'programs'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'student_id' => 'required',
-            'program_id' => 'required',
-            'marks' => 'required|integer'
+        $validated = $request->validate([
+            'student_id' => 'required|exists:students,id',
+            'program_id' => 'required|exists:programs,id',
+            'marks'      => 'required|integer|min:0',
         ]);
 
-        MeritList::create($request->all());
+        MeritList::create($validated);
 
-        return redirect()->route('merit_lists.index')->with('success', 'Merit added!');
+        return redirect()->route('admin.merit-lists.index')
+            ->with('success', 'Merit list entry added.');
     }
 
-    public function edit(MeritList $meritList)
+    public function edit($id)
     {
-        $students = Student::all();
-        $programs = Program::all();
-        return view('merit_lists.edit', compact('meritList', 'students', 'programs'));
+        $meritList = MeritList::findOrFail($id);
+        $students  = Student::orderBy('first_name')->get();
+        $programs  = Program::orderBy('name')->get();
+        return view('admin.merit_lists.edit', compact('meritList', 'students', 'programs'));
     }
 
-    public function update(Request $request, MeritList $meritList)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'student_id' => 'required',
-            'program_id' => 'required',
-            'marks' => 'required|integer'
+        $meritList = MeritList::findOrFail($id);
+
+        $validated = $request->validate([
+            'student_id' => 'required|exists:students,id',
+            'program_id' => 'required|exists:programs,id',
+            'marks'      => 'required|integer|min:0',
         ]);
 
-        $meritList->update($request->all());
+        $meritList->update($validated);
 
-        return redirect()->route('merit_lists.index')->with('success', 'Updated!');
+        return redirect()->route('admin.merit-lists.index')
+            ->with('success', 'Merit list entry updated.');
     }
 
-    public function destroy(MeritList $meritList)
+    public function destroy($id)
     {
-        $meritList->delete();
-        return redirect()->route('merit_lists.index')->with('success', 'Deleted!');
+        MeritList::findOrFail($id)->delete();
+        return redirect()->route('admin.merit-lists.index')
+            ->with('success', 'Merit list entry deleted.');
     }
 }

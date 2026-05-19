@@ -1,66 +1,36 @@
 @extends('admin.main')
 
 @section('content')
+<h2 class="mb-3">Subjects</h2>
 
-<h2 class="mb-4">Subjects</h2>
+<a href="{{ route('admin.subjects.create') }}" class="btn btn-primary mb-3">Add Subject</a>
 
-<a href="{{ route('admin.subjects.create') }}" class="btn btn-primary mb-3">
-    Add Subject
-</a>
+@if(session('success'))<div class="alert alert-success">{{ session('success') }}</div>@endif
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Semester</th>
-            <th>Name</th>
-            <th>Code</th>
-            <th>Credit Hours</th>
-            <th>Elective</th>
-            <th>Status</th>
-            <th width="180">Action</th>
-        </tr>
-    </thead>
-
+<table class="table table-bordered table-striped">
+    <thead><tr><th>ID</th><th>Name</th><th>Code</th><th>Program</th><th>Semester</th><th>Credit Hrs</th><th>Elective</th><th>Active</th><th width="160">Actions</th></tr></thead>
     <tbody>
-        @foreach($subjects as $subject)
+    @forelse($subjects as $s)
         <tr>
-            <td>{{ $subject->id }}</td>
-            <td>{{ $subject->semester->name ?? '' }}</td>
-            <td>{{ $subject->name }}</td>
-            <td>{{ $subject->code }}</td>
-            <td>{{ $subject->credit_hours }}</td>
-
+            <td>{{ $s->id }}</td>
+            <td>{{ $s->name }}</td>
+            <td>{{ $s->code }}</td>
+            <td>{{ $s->semester->program->name ?? '-' }}</td>
+            <td>{{ $s->semester->name ?? '-' }}</td>
+            <td>{{ $s->credit_hours ?? '-' }}</td>
+            <td>{{ $s->is_elective ? 'Yes' : 'No' }}</td>
+            <td>@if($s->is_active)<span class="badge badge-success">Yes</span>@else<span class="badge badge-secondary">No</span>@endif</td>
             <td>
-                {{ $subject->is_elective ? 'Yes' : 'No' }}
-            </td>
-
-            <td>
-                {{ $subject->is_active ? 'Active' : 'Inactive' }}
-            </td>
-
-            <td>
-                <a href="{{ route('admin.subjects.edit', $subject->id) }}"
-                   class="btn btn-warning btn-sm">
-                    Edit
-                </a>
-
-                <form action="{{ route('admin.subjects.destroy', $subject->id) }}"
-                      method="POST"
-                      style="display:inline-block;">
-
-                    @csrf
-                    @method('DELETE')
-
-                    <button type="submit"
-                            class="btn btn-danger btn-sm">
-                        Delete
-                    </button>
+                <a href="{{ route('admin.subjects.edit', $s->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <form action="{{ route('admin.subjects.destroy', $s->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Delete this subject?');">
+                    @csrf @method('DELETE')
+                    <button class="btn btn-danger btn-sm">Delete</button>
                 </form>
             </td>
         </tr>
-        @endforeach
+    @empty
+        <tr><td colspan="9" class="text-center">No subjects found.</td></tr>
+    @endforelse
     </tbody>
 </table>
-
 @endsection

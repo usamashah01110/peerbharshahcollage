@@ -10,7 +10,7 @@ class Material extends Model
         'title',
         'file',
         'program_id',
-        'teacher_id'
+        'teacher_id',
     ];
 
     public function program()

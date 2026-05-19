@@ -10,12 +10,12 @@ class AcademicSessionController extends Controller
     public function index()
     {
         $sessions = AcademicSession::orderBy('start_date', 'desc')->get();
-        return view('admin.admissionsession.index', compact('sessions'));
+        return view('admin.academic_sessions.index', compact('sessions'));
     }
 
     public function create()
     {
-        return view('admin.admissionsession.create');
+        return view('admin.academic_sessions.create');
     }
 
     public function store(Request $request)
@@ -29,27 +29,22 @@ class AcademicSessionController extends Controller
             'is_admissions_open'    => 'required|boolean',
             'admissions_open_date'  => 'nullable|date',
             'admissions_close_date' => 'nullable|date|after_or_equal:admissions_open_date',
-        ], [
-            'end_date.after'                       => 'End date must be after the start date.',
-            'admissions_close_date.after_or_equal' => 'Admissions close date must be after the open date.',
         ]);
 
-        // Ensure only one session is marked as current
         if (!empty($validated['is_current'])) {
             AcademicSession::where('is_current', true)->update(['is_current' => false]);
         }
 
         AcademicSession::create($validated);
 
-        return redirect()
-            ->route('admin.academic-sessions.index')
+        return redirect()->route('admin.academic-sessions.index')
             ->with('success', 'Academic session created successfully.');
     }
 
     public function edit($id)
     {
         $session = AcademicSession::findOrFail($id);
-        return view('admin.admissionsession.edit', compact('session'));
+        return view('admin.academic_sessions.edit', compact('session'));
     }
 
     public function update(Request $request, $id)
@@ -65,12 +60,8 @@ class AcademicSessionController extends Controller
             'is_admissions_open'    => 'required|boolean',
             'admissions_open_date'  => 'nullable|date',
             'admissions_close_date' => 'nullable|date|after_or_equal:admissions_open_date',
-        ], [
-            'end_date.after'                       => 'End date must be after the start date.',
-            'admissions_close_date.after_or_equal' => 'Admissions close date must be after the open date.',
         ]);
 
-        // Ensure only one session is marked as current
         if (!empty($validated['is_current'])) {
             AcademicSession::where('is_current', true)
                 ->where('id', '!=', $session->id)
@@ -79,18 +70,14 @@ class AcademicSessionController extends Controller
 
         $session->update($validated);
 
-        return redirect()
-            ->route('admin.academic-sessions.index')
+        return redirect()->route('admin.academic-sessions.index')
             ->with('success', 'Academic session updated successfully.');
     }
 
     public function destroy($id)
     {
-        $session = AcademicSession::findOrFail($id);
-        $session->delete();
-
-        return redirect()
-            ->route('admin.academic-sessions.index')
+        AcademicSession::findOrFail($id)->delete();
+        return redirect()->route('admin.academic-sessions.index')
             ->with('success', 'Academic session deleted successfully.');
     }
 }

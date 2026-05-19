@@ -15,16 +15,14 @@ class Department extends Model
         'is_active',
     ];
 
-    // Optional: cast attributes to proper types
     protected $casts = [
         'established_date' => 'date',
         'is_active'        => 'boolean',
     ];
 
-    // Optional: relationship to the HOD user
     public function hod()
     {
-        return $this->belongsTo(User::class, 'hod_id');
+        return $this->belongsTo(Teacher::class, 'hod_id');
     }
 
     public function teachers()
@@ -37,8 +35,8 @@ class Department extends Model
         return $this->hasMany(Program::class);
     }
 
-    public function students()
+    public function newsEvents()
     {
-        return $this->hasMany(Student::class);
+        return $this->hasMany(NewsEvent::class);
     }
 }

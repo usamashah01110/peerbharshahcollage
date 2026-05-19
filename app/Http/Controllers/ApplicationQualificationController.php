@@ -2,140 +2,80 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\ApplicationQualification;
 use App\Models\AdmissionApplication;
+use Illuminate\Http\Request;
 
 class ApplicationQualificationController extends Controller
 {
-    /**
-     * Display listing
-     */
- public function index()
-{
-    $qualifications = ApplicationQualification::with('application')
-                        ->orderBy('id', 'desc')
-                        ->get();
-
-    return view(
-        'admin.applicationqualifications.index',
-        compact('qualifications')
-    );
-}
-
-    /**
-     * Show create form
-     */
-    public function create()
+    public function index()
     {
-        $applications = AdmissionApplication::all();
-
-        return view(
-            'admin.applicationqualifications.create',
-            compact('applications')
-        );
+        $qualifications = ApplicationQualification::with('application')->latest('id')->get();
+        return view('admin.application_qualifications.index', compact('qualifications'));
     }
 
-    /**
-     * Store data
-     */
+    public function create(Request $request)
+    {
+        $applications = AdmissionApplication::orderBy('id', 'desc')->get();
+        $selectedApplicationId = $request->query('application_id');
+        return view('admin.application_qualifications.create', compact('applications', 'selectedApplicationId'));
+    }
+
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'application_id'   => 'required|exists:admission_applications,id',
-            'level'            => 'required',
-            'institution'      => 'required|max:200',
-            'board_university' => 'required|max:150',
-            'passing_year'     => 'required|digits:4',
-            'obtained_marks'   => 'required|numeric',
-            'total_marks'      => 'required|numeric',
-            'percentage'       => 'required|numeric',
-            'grade'            => 'nullable|max:10',
-            'major_subjects'   => 'nullable|max:255',
+            'level'            => 'required|in:matric,o_level,intermediate,a_level,bachelor,master,other',
+            'institution'      => 'required|string|max:200',
+            'board_university' => 'required|string|max:150',
+            'passing_year'     => 'required|digits:4|integer|min:1950|max:' . (date('Y') + 1),
+            'obtained_marks'   => 'required|numeric|min:0',
+            'total_marks'      => 'required|numeric|min:1',
+            'percentage'       => 'required|numeric|min:0|max:100',
+            'grade'            => 'nullable|string|max:10',
+            'major_subjects'   => 'nullable|string|max:255',
         ]);
 
-        ApplicationQualification::create([
-            'application_id'   => $request->application_id,
-            'level'            => $request->level,
-            'institution'      => $request->institution,
-            'board_university' => $request->board_university,
-            'passing_year'     => $request->passing_year,
-            'obtained_marks'   => $request->obtained_marks,
-            'total_marks'      => $request->total_marks,
-            'percentage'       => $request->percentage,
-            'grade'            => $request->grade,
-            'major_subjects'   => $request->major_subjects,
-        ]);
+        ApplicationQualification::create($validated);
 
-        return redirect()
-            ->route('admin.applicationqualifications.index')
-            ->with('success', 'Qualification Added Successfully');
+        return redirect()->route('admin.application-qualifications.index')
+            ->with('success', 'Qualification added successfully.');
     }
 
-    /**
-     * Show edit form
-     */
     public function edit($id)
     {
         $qualification = ApplicationQualification::findOrFail($id);
-
-        $applications = AdmissionApplication::all();
-
-        return view(
-            'admin.applicationqualifications.edit',
-            compact('qualification', 'applications')
-        );
+        $applications  = AdmissionApplication::orderBy('id', 'desc')->get();
+        return view('admin.application_qualifications.edit', compact('qualification', 'applications'));
     }
 
-    /**
-     * Update data
-     */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'application_id'   => 'required|exists:admission_applications,id',
-            'level'            => 'required',
-            'institution'      => 'required|max:200',
-            'board_university' => 'required|max:150',
-            'passing_year'     => 'required|digits:4',
-            'obtained_marks'   => 'required|numeric',
-            'total_marks'      => 'required|numeric',
-            'percentage'       => 'required|numeric',
-            'grade'            => 'nullable|max:10',
-            'major_subjects'   => 'nullable|max:255',
-        ]);
-
         $qualification = ApplicationQualification::findOrFail($id);
 
-        $qualification->update([
-            'application_id'   => $request->application_id,
-            'level'            => $request->level,
-            'institution'      => $request->institution,
-            'board_university' => $request->board_university,
-            'passing_year'     => $request->passing_year,
-            'obtained_marks'   => $request->obtained_marks,
-            'total_marks'      => $request->total_marks,
-            'percentage'       => $request->percentage,
-            'grade'            => $request->grade,
-            'major_subjects'   => $request->major_subjects,
+        $validated = $request->validate([
+            'application_id'   => 'required|exists:admission_applications,id',
+            'level'            => 'required|in:matric,o_level,intermediate,a_level,bachelor,master,other',
+            'institution'      => 'required|string|max:200',
+            'board_university' => 'required|string|max:150',
+            'passing_year'     => 'required|digits:4|integer|min:1950|max:' . (date('Y') + 1),
+            'obtained_marks'   => 'required|numeric|min:0',
+            'total_marks'      => 'required|numeric|min:1',
+            'percentage'       => 'required|numeric|min:0|max:100',
+            'grade'            => 'nullable|string|max:10',
+            'major_subjects'   => 'nullable|string|max:255',
         ]);
 
-        return redirect()
-            ->route('admin.applicationqualifications.index')
-            ->with('success', 'Qualification Updated Successfully');
+        $qualification->update($validated);
+
+        return redirect()->route('admin.application-qualifications.index')
+            ->with('success', 'Qualification updated successfully.');
     }
 
-    /**
-     * Delete data
-     */
     public function destroy($id)
     {
-        $qualification = ApplicationQualification::findOrFail($id);
-
-        $qualification->delete();
-
-        return redirect()
-            ->route('admin.applicationqualifications.index')
-            ->with('success', 'Qualification Deleted Successfully');
+        ApplicationQualification::findOrFail($id)->delete();
+        return redirect()->route('admin.application-qualifications.index')
+            ->with('success', 'Qualification deleted successfully.');
     }
 }

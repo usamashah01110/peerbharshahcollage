@@ -23,12 +23,31 @@ class Teacher extends Model
         'profile_image',
         'bio',
         'status',
-        'address',
     ];
 
-    // Relationship
+    protected $casts = [
+        'date_of_birth' => 'date',
+        'joining_date'  => 'date',
+    ];
+
     public function department()
     {
         return $this->belongsTo(Department::class);
+    }
+
+    public function subjectAssignments()
+    {
+        return $this->hasMany(TeacherSubjectAssignment::class);
+    }
+
+    public function programs()
+    {
+        return $this->belongsToMany(Program::class, 'teacher_programs')
+            ->withPivot('assigned_date');
+    }
+
+    public function materials()
+    {
+        return $this->hasMany(Material::class);
     }
 }

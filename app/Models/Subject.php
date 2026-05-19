@@ -19,8 +19,18 @@ class Subject extends Model
         'is_active',
     ];
 
+    protected $casts = [
+        'is_elective' => 'boolean',
+        'is_active'   => 'boolean',
+    ];
+
     public function semester()
     {
         return $this->belongsTo(Semester::class);
+    }
+
+    public function teacherAssignments()
+    {
+        return $this->hasMany(TeacherSubjectAssignment::class);
     }
 }

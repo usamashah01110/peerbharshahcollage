@@ -19,11 +19,12 @@ class NewsEvent extends Model
         'department_id',
     ];
 
+    protected $casts = [
+        'event_date' => 'date',
+    ];
+
     public function department()
     {
-        return $this->belongsTo(
-            Department::class,
-            'department_id'
-        );
+        return $this->belongsTo(Department::class);
     }
 }

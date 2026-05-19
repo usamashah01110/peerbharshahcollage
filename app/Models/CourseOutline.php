@@ -21,9 +21,6 @@ class CourseOutline extends Model
 
     public function program()
     {
-        return $this->belongsTo(
-            Program::class,
-            'program_id'
-        );
+        return $this->belongsTo(Program::class);
     }
 }

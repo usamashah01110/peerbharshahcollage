@@ -9,7 +9,7 @@ class AcademicSession extends Model
 {
     use HasFactory;
 
-    public $timestamps = false; // migration only has created_at, no updated_at
+    public $timestamps = false;
 
     protected $fillable = [
         'name',
@@ -30,4 +30,19 @@ class AcademicSession extends Model
         'is_current'            => 'boolean',
         'is_admissions_open'    => 'boolean',
     ];
+
+    public function admissionApplications()
+    {
+        return $this->hasMany(AdmissionApplication::class, 'session_id');
+    }
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'admission_session_id');
+    }
+
+    public function teacherSubjectAssignments()
+    {
+        return $this->hasMany(TeacherSubjectAssignment::class, 'session_id');
+    }
 }

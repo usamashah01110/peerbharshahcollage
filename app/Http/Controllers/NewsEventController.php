@@ -2,133 +2,69 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\NewsEvent;
 use App\Models\Department;
+use Illuminate\Http\Request;
 
 class NewsEventController extends Controller
 {
     public function index()
     {
-        $newsEvents = NewsEvent::with('department')
-            ->latest()
-            ->get();
-
-        return view(
-            'admin.newsevents.index',
-            compact('newsEvents')
-        );
+        $newsEvents = NewsEvent::with('department')->latest()->get();
+        return view('admin.news_events.index', compact('newsEvents'));
     }
 
     public function create()
     {
-        $departments = Department::all();
-
-        return view(
-            'admin.newsevents.create',
-            compact('departments')
-        );
+        $departments = Department::orderBy('name')->get();
+        return view('admin.news_events.create', compact('departments'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-
-            'title' => 'required|max:255',
-
-            'description' => 'required',
-
-            'event_date' => 'nullable|date',
-
-            'type' => 'required',
-
-            'department_id' =>
-                'nullable|exists:departments,id',
+        $validated = $request->validate([
+            'title'         => 'required|string|max:255',
+            'description'   => 'required|string',
+            'event_date'    => 'nullable|date',
+            'type'          => 'required|string|max:50',
+            'department_id' => 'nullable|exists:departments,id',
         ]);
 
-        NewsEvent::create([
+        NewsEvent::create($validated);
 
-            'title' => $request->title,
-
-            'description' => $request->description,
-
-            'event_date' => $request->event_date,
-
-            'type' => $request->type,
-
-            'department_id' => $request->department_id,
-        ]);
-
-        return redirect()
-            ->route('admin.newsevents.index')
-            ->with(
-                'success',
-                'News/Event Added Successfully'
-            );
+        return redirect()->route('admin.news-events.index')
+            ->with('success', 'News/Event added successfully.');
     }
 
     public function edit($id)
     {
-        $newsEvent = NewsEvent::findOrFail($id);
-
-        $departments = Department::all();
-
-        return view(
-            'admin.newsevents.edit',
-            compact(
-                'newsEvent',
-                'departments'
-            )
-        );
+        $newsEvent   = NewsEvent::findOrFail($id);
+        $departments = Department::orderBy('name')->get();
+        return view('admin.news_events.edit', compact('newsEvent', 'departments'));
     }
 
     public function update(Request $request, $id)
     {
         $newsEvent = NewsEvent::findOrFail($id);
 
-        $request->validate([
-
-            'title' => 'required|max:255',
-
-            'description' => 'required',
-
-            'event_date' => 'nullable|date',
-
-            'type' => 'required',
+        $validated = $request->validate([
+            'title'         => 'required|string|max:255',
+            'description'   => 'required|string',
+            'event_date'    => 'nullable|date',
+            'type'          => 'required|string|max:50',
+            'department_id' => 'nullable|exists:departments,id',
         ]);
 
-        $newsEvent->update([
+        $newsEvent->update($validated);
 
-            'title' => $request->title,
-
-            'description' => $request->description,
-
-            'event_date' => $request->event_date,
-
-            'type' => $request->type,
-
-            'department_id' => $request->department_id,
-        ]);
-
-        return redirect()
-            ->route('admin.newsevents.index')
-            ->with(
-                'success',
-                'News/Event Updated Successfully'
-            );
+        return redirect()->route('admin.news-events.index')
+            ->with('success', 'News/Event updated successfully.');
     }
 
     public function destroy($id)
     {
-        $newsEvent = NewsEvent::findOrFail($id);
-
-        $newsEvent->delete();
-
-        return redirect()
-            ->route('admin.newsevents.index')
-            ->with(
-                'success',
-                'Deleted Successfully'
-            );
+        NewsEvent::findOrFail($id)->delete();
+        return redirect()->route('admin.news-events.index')
+            ->with('success', 'News/Event deleted successfully.');
     }
 }

@@ -2,227 +2,106 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Program;
 use App\Models\AcademicSession;
 use App\Models\AdmissionApplication;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class StudentController extends Controller
 {
     public function index()
     {
-        $students = Student::with([
-            'program',
-            'session',
-            'application'
-        ])->latest()->get();
-
-        return view(
-            'admin.students.index',
-            compact('students')
-        );
+        $students = Student::with(['program', 'session', 'application'])->latest()->get();
+        return view('admin.students.index', compact('students'));
     }
 
     public function create()
     {
-        $programs = Program::all();
-
-        $sessions = AcademicSession::all();
-
-        $applications = AdmissionApplication::all();
-
-        return view(
-            'admin.students.create',
-            compact(
-                'programs',
-                'sessions',
-                'applications'
-            )
-        );
+        $programs     = Program::orderBy('name')->get();
+        $sessions     = AcademicSession::orderBy('start_date', 'desc')->get();
+        $applications = AdmissionApplication::orderBy('id', 'desc')->get();
+        return view('admin.students.create', compact('programs', 'sessions', 'applications'));
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'registration_number' => 'required|unique:students',
-        'email' => 'required|email|unique:students',
-        'cnic' => 'nullable|unique:students',
-        'first_name' => 'required',
-        'last_name' => 'required',
-        'program_id' => 'required|exists:programs,id',
-        'admission_session_id' => 'required|exists:academic_sessions,id',
-        'enrollment_date' => 'required|date',
-    ]);
+    {
+        $validated = $this->validateStudent($request);
 
-    $imageName = null;
+        if ($request->hasFile('profile_image')) {
+            $name = time() . '.' . $request->file('profile_image')->getClientOriginalExtension();
+            $request->file('profile_image')->move(public_path('students'), $name);
+            $validated['profile_image'] = $name;
+        }
 
-    if ($request->hasFile('profile_image')) {
-        $image = $request->file('profile_image');
-        $imageName = time().'.'.$image->getClientOriginalExtension();
-        $image->move(public_path('students'), $imageName);
+        Student::create($validated);
+
+        return redirect()->route('admin.students.index')
+            ->with('success', 'Student added successfully.');
     }
-
-    Student::create([
-        'registration_number' => $request->registration_number,
-        'roll_number' => $request->roll_number,
-        'first_name' => $request->first_name,
-        'last_name' => $request->last_name,
-        'father_name' => $request->father_name,
-        'email' => $request->email,
-        'phone' => $request->phone,
-        'cnic' => $request->cnic,
-        'date_of_birth' => $request->date_of_birth,
-        'gender' => $request->gender,
-        'address' => $request->address,
-        'city' => $request->city,
-        'province' => $request->province,
-        'profile_image' => $imageName,
-        'program_id' => $request->program_id,
-        'admission_session_id' => $request->admission_session_id,
-        'current_semester' => $request->current_semester,
-        'enrollment_date' => $request->enrollment_date,
-        'status' => $request->status,
-        'admission_application_id' => $request->admission_application_id,
-    ]);
-
-    return redirect()->route('admin.students.index')
-        ->with('success', 'Student Added Successfully');
-}
 
     public function edit($id)
     {
-        $student = Student::findOrFail($id);
-
-        $programs = Program::all();
-
-        $sessions = AcademicSession::all();
-
-        $applications = AdmissionApplication::all();
-
-        return view(
-            'admin.students.edit',
-            compact(
-                'student',
-                'programs',
-                'sessions',
-                'applications'
-            )
-        );
+        $student      = Student::findOrFail($id);
+        $programs     = Program::orderBy('name')->get();
+        $sessions     = AcademicSession::orderBy('start_date', 'desc')->get();
+        $applications = AdmissionApplication::orderBy('id', 'desc')->get();
+        return view('admin.students.edit', compact('student', 'programs', 'sessions', 'applications'));
     }
 
     public function update(Request $request, $id)
     {
         $student = Student::findOrFail($id);
-
-        $request->validate([
-
-            'registration_number' =>
-                'required|unique:students,registration_number,' . $id,
-
-            'email' =>
-                'required|email|unique:students,email,' . $id,
-
-            'cnic' =>
-                'nullable|unique:students,cnic,' . $id,
-        ]);
-
-        $imageName = $student->profile_image;
+        $validated = $this->validateStudent($request, $id);
 
         if ($request->hasFile('profile_image')) {
-
-            $image = $request->file('profile_image');
-
-            $imageName =
-                time() . '.' .
-                $image->getClientOriginalExtension();
-
-            $image->move(
-                public_path('students'),
-                $imageName
-            );
+            if ($student->profile_image && File::exists(public_path('students/' . $student->profile_image))) {
+                File::delete(public_path('students/' . $student->profile_image));
+            }
+            $name = time() . '.' . $request->file('profile_image')->getClientOriginalExtension();
+            $request->file('profile_image')->move(public_path('students'), $name);
+            $validated['profile_image'] = $name;
         }
 
-        $student->update([
+        $student->update($validated);
 
-            'registration_number' =>
-                $request->registration_number,
-
-            'roll_number' =>
-                $request->roll_number,
-
-            'first_name' =>
-                $request->first_name,
-
-            'last_name' =>
-                $request->last_name,
-
-            'father_name' =>
-                $request->father_name,
-
-            'email' =>
-                $request->email,
-
-            'phone' =>
-                $request->phone,
-
-            'cnic' =>
-                $request->cnic,
-
-            'date_of_birth' =>
-                $request->date_of_birth,
-
-            'gender' =>
-                $request->gender,
-
-            'address' =>
-                $request->address,
-
-            'city' =>
-                $request->city,
-
-            'province' =>
-                $request->province,
-
-            'profile_image' =>
-                $imageName,
-
-            'program_id' =>
-                $request->program_id,
-
-            'admission_session_id' =>
-                $request->admission_session_id,
-
-            'current_semester' =>
-                $request->current_semester,
-
-            'enrollment_date' =>
-                $request->enrollment_date,
-
-            'status' =>
-                $request->status,
-
-            'admission_application_id' =>
-                $request->admission_application_id,
-        ]);
-
-        return redirect()
-            ->route('admin.students.index')
-            ->with(
-                'success',
-                'Student Updated Successfully'
-            );
+        return redirect()->route('admin.students.index')
+            ->with('success', 'Student updated successfully.');
     }
 
     public function destroy($id)
     {
         Student::findOrFail($id)->delete();
+        return redirect()->route('admin.students.index')
+            ->with('success', 'Student deleted successfully.');
+    }
 
-        return redirect()
-            ->route('admin.students.index')
-            ->with(
-                'success',
-                'Deleted Successfully'
-            );
+    private function validateStudent(Request $request, $id = null): array
+    {
+        $idSuffix = $id ? ',' . $id : '';
+
+        return $request->validate([
+            'registration_number'      => 'required|string|max:30|unique:students,registration_number' . $idSuffix,
+            'roll_number'              => 'nullable|string|max:30',
+            'first_name'               => 'required|string|max:80',
+            'last_name'                => 'required|string|max:80',
+            'father_name'              => 'nullable|string|max:150',
+            'email'                    => 'required|email|max:150|unique:students,email' . $idSuffix,
+            'phone'                    => 'nullable|string|max:20',
+            'cnic'                     => 'nullable|string|max:20|unique:students,cnic' . $idSuffix,
+            'date_of_birth'            => 'nullable|date',
+            'gender'                   => 'nullable|in:male,female,other',
+            'address'                  => 'nullable|string',
+            'city'                     => 'nullable|string|max:80',
+            'province'                 => 'nullable|string|max:80',
+            'profile_image'            => 'nullable|image|max:2048',
+            'program_id'               => 'required|exists:programs,id',
+            'admission_session_id'     => 'required|exists:academic_sessions,id',
+            'current_semester'         => 'nullable|integer|min:1|max:20',
+            'enrollment_date'          => 'required|date',
+            'status'                   => 'required|in:active,inactive,graduated,dropped,suspended,on_leave',
+            'admission_application_id' => 'nullable|exists:admission_applications,id',
+        ]);
     }
 }

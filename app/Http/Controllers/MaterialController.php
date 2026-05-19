@@ -6,73 +6,95 @@ use App\Models\Material;
 use App\Models\Program;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class MaterialController extends Controller
 {
     public function index()
     {
-        $materials = Material::with(['program', 'teacher'])->get();
-        return view(' admin.materials.index', compact('materials'));
+        $materials = Material::with(['program', 'teacher'])->latest()->get();
+        return view('admin.materials.index', compact('materials'));
     }
 
     public function create()
     {
-        $programs = Program::all();
-        $teachers = Teacher::all();
+        $programs = Program::orderBy('name')->get();
+        $teachers = Teacher::orderBy('first_name')->get();
         return view('admin.materials.create', compact('programs', 'teachers'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'file' => 'required|file',
-            'program_id' => 'required',
-            'teacher_id' => 'required',
+        $validated = $request->validate([
+            'title'      => 'required|string|max:255',
+            'file'       => 'required|file|max:10240',
+            'program_id' => 'required|exists:programs,id',
+            'teacher_id' => 'required|exists:teachers,id',
         ]);
 
-        $fileName = time().'.'.$request->file->extension();
-        $request->file->move(public_path('files'), $fileName);
+        $name = time() . '.' . $request->file('file')->getClientOriginalExtension();
+        $request->file('file')->move(public_path('materials'), $name);
 
         Material::create([
-            'title' => $request->title,
-            'file' => $fileName,
-            'program_id' => $request->program_id,
-            'teacher_id' => $request->teacher_id,
+            'title'      => $validated['title'],
+            'file'       => $name,
+            'program_id' => $validated['program_id'],
+            'teacher_id' => $validated['teacher_id'],
         ]);
 
-        return redirect()->route('materials.index')->with('success', 'Material Added');
+        return redirect()->route('admin.materials.index')
+            ->with('success', 'Material added successfully.');
     }
 
-    public function edit(Material $material)
+    public function edit($id)
     {
-        $programs = Program::all();
-        $teachers = Teacher::all();
-        return view('materials.edit', compact('material', 'programs', 'teachers'));
+        $material = Material::findOrFail($id);
+        $programs = Program::orderBy('name')->get();
+        $teachers = Teacher::orderBy('first_name')->get();
+        return view('admin.materials.edit', compact('material', 'programs', 'teachers'));
     }
 
-    public function update(Request $request, Material $material)
+    public function update(Request $request, $id)
     {
-        $data = $request->validate([
-            'title' => 'required',
-            'program_id' => 'required',
-            'teacher_id' => 'required',
+        $material = Material::findOrFail($id);
+
+        $validated = $request->validate([
+            'title'      => 'required|string|max:255',
+            'file'       => 'nullable|file|max:10240',
+            'program_id' => 'required|exists:programs,id',
+            'teacher_id' => 'required|exists:teachers,id',
         ]);
+
+        $data = [
+            'title'      => $validated['title'],
+            'program_id' => $validated['program_id'],
+            'teacher_id' => $validated['teacher_id'],
+        ];
 
         if ($request->hasFile('file')) {
-            $fileName = time().'.'.$request->file->extension();
-            $request->file->move(public_path('files'), $fileName);
-            $data['file'] = $fileName;
+            if ($material->file && File::exists(public_path('materials/' . $material->file))) {
+                File::delete(public_path('materials/' . $material->file));
+            }
+            $name = time() . '.' . $request->file('file')->getClientOriginalExtension();
+            $request->file('file')->move(public_path('materials'), $name);
+            $data['file'] = $name;
         }
 
         $material->update($data);
 
-        return redirect()->route('materials.index')->with('success', 'Material Updated');
+        return redirect()->route('admin.materials.index')
+            ->with('success', 'Material updated successfully.');
     }
 
-    public function destroy(Material $material)
+    public function destroy($id)
     {
+        $material = Material::findOrFail($id);
+        if ($material->file && File::exists(public_path('materials/' . $material->file))) {
+            File::delete(public_path('materials/' . $material->file));
+        }
         $material->delete();
-        return back()->with('success', 'Deleted');
+
+        return redirect()->route('admin.materials.index')
+            ->with('success', 'Material deleted successfully.');
     }
 }

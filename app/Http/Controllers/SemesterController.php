@@ -5,81 +5,69 @@ namespace App\Http\Controllers;
 use App\Models\Semester;
 use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class SemesterController extends Controller
 {
-    // Show all semesters
     public function index()
     {
-        $semesters = Semester::with('program')->get();
-
+        $semesters = Semester::with('program')->orderBy('program_id')->orderBy('semester_number')->get();
         return view('admin.semesters.index', compact('semesters'));
     }
 
-    // Create form
     public function create()
     {
-        $programs = Program::all();
-
+        $programs = Program::orderBy('name')->get();
         return view('admin.semesters.create', compact('programs'));
     }
 
-    // Store semester
     public function store(Request $request)
     {
-        $request->validate([
-            'program_id' => 'required',
-            'semester_number' => 'required|numeric|min:1|max:12',
-            'name' => 'required',
+        $validated = $request->validate([
+            'program_id'      => 'required|exists:programs,id',
+            'semester_number' => [
+                'required', 'integer', 'min:1', 'max:20',
+                Rule::unique('semesters')->where(fn ($q) => $q->where('program_id', $request->program_id)),
+            ],
+            'name'            => 'required|string|max:50',
         ]);
 
-        Semester::create($request->all());
+        Semester::create($validated);
 
-        return redirect()
-            ->route('admin.semesters.index')
-            ->with('success', 'Semester Added Successfully');
+        return redirect()->route('admin.semesters.index')
+            ->with('success', 'Semester added successfully.');
     }
 
-    // Edit form
     public function edit($id)
     {
         $semester = Semester::findOrFail($id);
-
-        $programs = Program::all();
-
-        return view(
-            'admin.semesters.edit',
-            compact('semester', 'programs')
-        );
+        $programs = Program::orderBy('name')->get();
+        return view('admin.semesters.edit', compact('semester', 'programs'));
     }
 
-    // Update semester
     public function update(Request $request, $id)
     {
         $semester = Semester::findOrFail($id);
 
-        $request->validate([
-            'program_id' => 'required',
-            'semester_number' => 'required|numeric|min:1|max:12',
-            'name' => 'required',
+        $validated = $request->validate([
+            'program_id'      => 'required|exists:programs,id',
+            'semester_number' => [
+                'required', 'integer', 'min:1', 'max:20',
+                Rule::unique('semesters')->where(fn ($q) => $q->where('program_id', $request->program_id))->ignore($id),
+            ],
+            'name'            => 'required|string|max:50',
         ]);
 
-        $semester->update($request->all());
+        $semester->update($validated);
 
-        return redirect()
-            ->route('admin.semesters.index')
-            ->with('success', 'Semester Updated Successfully');
+        return redirect()->route('admin.semesters.index')
+            ->with('success', 'Semester updated successfully.');
     }
 
-    // Delete semester
     public function destroy($id)
     {
-        $semester = Semester::findOrFail($id);
-
-        $semester->delete();
-
-        return redirect()
-            ->route('admin.semesters.index')
-            ->with('success', 'Semester Deleted Successfully');
+        Semester::findOrFail($id)->delete();
+        return redirect()->route('admin.semesters.index')
+            ->with('success', 'Semester deleted successfully.');
     }
 }

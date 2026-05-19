@@ -1,49 +1,45 @@
 <?php
 
-use App\Http\Controllers\AcademicSessionController;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\ProgramController;
-use App\Http\Controllers\ScholarshipController;
+
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\AcademicSessionController;
 use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\ScholarshipApplicationController;
-use App\Http\Controllers\MeritListController;
-use App\Http\Controllers\NewsEventController;
-use App\Http\Controllers\MaterialController;
-use App\Http\Controllers\CourseOutlineController;
+use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\SubjectController;
-use App\Http\Controllers\AdmissionapplicationController;
+use App\Http\Controllers\AdmissionApplicationController;
+use App\Http\Controllers\ApplicationDocumentController;
 use App\Http\Controllers\ApplicationQualificationController;
+use App\Http\Controllers\CourseOutlineController;
+use App\Http\Controllers\NewsEventController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ScholarshipController;
+use App\Http\Controllers\ScholarshipApplicationController;
+use App\Http\Controllers\ScholarshipApplicationDocumentController;
+use App\Http\Controllers\TeacherSubjectAssignmentController;
+use App\Http\Controllers\TeacherProgramController;
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\AdmissionController;
+use App\Http\Controllers\MeritListController;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Public Pages
 |--------------------------------------------------------------------------
 */
 
-
-// Admin Dashboard
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-});
-
-
-
-// Public Pages
 Route::get('/', [MainController::class, 'index'])->name('home');
 Route::get('/aboutus', [MainController::class, 'aboutus'])->name('about');
 Route::get('/contactus', [MainController::class, 'contact'])->name('contact');
 
-// Admissions Pages
 Route::get('/admissions/intermediate', fn () => view('admissions.intermediate'))->name('admissions.intermediate');
 Route::get('/admissions/bachelorofscience', fn () => view('admissions.bachelorofscience'))->name('admissions.bachelorofscience');
 Route::get('/admissions/howtoapply', fn () => view('admissions.howtoapply'))->name('admissions.howtoapply');
 
-// Profile Pages (ONLY ONE VERSION - duplicates removed)
 Route::get('/profile/pre-medical', [MainController::class, 'preMedical'])->name('pre.medical');
 Route::get('/profile/pre-engineering', [MainController::class, 'preEngineering'])->name('pre.engineering');
 Route::get('/profile/arts', [MainController::class, 'arts'])->name('arts');
@@ -51,17 +47,7 @@ Route::get('/profile/commerce', [MainController::class, 'commerce'])->name('comm
 Route::get('/profile/bs', [MainController::class, 'bs'])->name('bs.programs');
 Route::get('/profile/general-science', [MainController::class, 'generalScience'])->name('general.science');
 
-Route::get('/profile/pre-medical', fn () => view('profile.premedical'))->name('pre.medical');
-Route::get('/profile/pre-engineering', fn () => view('profile.preengineering'))->name('pre.engineering');
-Route::get('/profile/arts', fn () => view('profile.arts'))->name('arts');
-Route::get('/profile/commerce', fn () => view('profile.commerce'))->name('commerce');
-Route::get('/profile/bs', fn () => view('profile.bsprograms'))->name('bs.programs');
-Route::get('/profile/general-science', fn () => view('profile.generalscience'))->name('general.science');
-
-
-// Student Life
 Route::get('/studentlife', fn () => view('student-life'))->name('studentlife');
-
 
 /*
 |--------------------------------------------------------------------------
@@ -70,58 +56,60 @@ Route::get('/studentlife', fn () => view('student-life'))->name('studentlife');
 */
 Route::middleware('auth')->group(function () {
 
-    // User Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-
-    // Resources (User side)
-    Route::resource('scholarships', ScholarshipController::class);
-    Route::resource('scholarship-applications', ScholarshipApplicationController::class);
-    Route::resource('merit-lists', MeritListController::class);
-    Route::resource('news-events', NewsEventController::class);
-    Route::resource('course_outlines', CourseOutlineController::class);
-
-
-    // Admin Routes (FIXED with name prefix)
+    /*
+    |----------------------------------------------------------------------
+    | Admin Panel CRUDs (all entities from migrations)
+    |----------------------------------------------------------------------
+    */
     Route::prefix('admin')->name('admin.')->group(function () {
-        Route::resource('programs', ProgramController::class);
-        Route::resource('students', StudentController::class);
 
+        // Core academic structure
         Route::resource('departments', DepartmentController::class);
         Route::resource('academic-sessions', AcademicSessionController::class)->except(['show']);
-
-        Route::resource('scholarships', ScholarshipController::class);
         Route::resource('teachers', TeacherController::class);
-        Route::resource('merit_lists', MeritListController::class);
-        Route::resource('scholarship_applications', ScholarshipApplicationController::class);
-        Route::resource('materials', MaterialController::class);
+        Route::resource('programs', ProgramController::class);
+        Route::resource('semesters', SemesterController::class);
+        Route::resource('subjects', SubjectController::class);
 
-        Route::resource('merit_lists', MeritListController::class);
-        Route::resource('scholarship_applications', scholarshipapplicationController::class);
-        Route::resource('materials', MaterialController::class);
-        Route::resource('departments', DepartmentController::class);
+        // Pivot / assignments
+        Route::resource('teacher-subject-assignments', TeacherSubjectAssignmentController::class)->except(['show']);
+        Route::resource('teacher-programs', TeacherProgramController::class)->except(['show']);
+
+        // Admissions flow
+        Route::resource('admission-applications', AdmissionApplicationController::class);
+        Route::resource('application-documents', ApplicationDocumentController::class)->except(['show']);
+        Route::resource('application-qualifications', ApplicationQualificationController::class)->except(['show']);
+        Route::resource('students', StudentController::class);
+        Route::resource('admissions', AdmissionController::class)->except(['show']);
+        Route::resource('merit-lists', MeritListController::class)->except(['show']);
+
+        // Scholarships flow
         Route::resource('scholarships', ScholarshipController::class);
-        Route::resource('teachers', TeacherController::class);
-        Route::resource('newsevents', NewsEventController::class);
-        Route::resource('courseoutlines', CourseOutlineController::class);
-        Route::resource('semesters', semesterController::class);
-        Route::resource('subjects', subjectController::class);
-        Route::resource('admissionapplications', admissionapplicationController::class);
-         Route::resource('applicationqualifications', applicationqualificationController::class);
+        Route::resource('scholarship-applications', ScholarshipApplicationController::class);
+        Route::resource('scholarship-application-documents', ScholarshipApplicationDocumentController::class)->except(['show']);
+
+        // Content / supporting
+        Route::resource('course-outlines', CourseOutlineController::class)->except(['show']);
+        Route::resource('news-events', NewsEventController::class)->except(['show']);
+        Route::resource('materials', MaterialController::class)->except(['show']);
     });
-
 });
-
-// Dashboard
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 /*
 |--------------------------------------------------------------------------
-| Auth Routes
+| Dashboard
 |--------------------------------------------------------------------------
 */
+Route::get('/dashboard', fn () => view('admin.dashboard'))
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
+Route::get('/admin/dashboard', fn () => view('admin.dashboard'))
+    ->middleware(['auth'])
+    ->name('admin.dashboard');
+
 require __DIR__.'/auth.php';
