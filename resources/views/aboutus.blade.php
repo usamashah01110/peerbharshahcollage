@@ -116,7 +116,7 @@
             <div class="row g-0">
                 <div class="col-6 col-md-3">
                     <div class="stat-cell reveal" data-stat>
-                        <div class="num" data-target="20">0<span class="plus">+</span></div>
+                        <div class="num" data-target="{{ $stats['years'] ?? 20 }}">0<span class="plus">+</span></div>
                         <div class="lbl">Years of Excellence</div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="stat-cell reveal reveal-delay-2" data-stat>
-                        <div class="num" data-target="15">0<span class="plus">+</span></div>
+                        <div class="num" data-target="{{ $stats['programs'] ?? 15 }}">0<span class="plus">+</span></div>
                         <div class="lbl">Academic Programs</div>
                     </div>
                 </div>
@@ -158,53 +158,82 @@
             </div>
 
             <div class="row g-4">
-                <!-- Faculty 1 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="faculty-card reveal">
-                        <div class="faculty-img">
-                            <img src="{{ asset('images/principal.jpeg') }}" alt="Dr. Asma Maqbol">
-                            <div class="faculty-overlay">
-                                <span class="faculty-num">01</span>
+                @php
+                    $facultyFallbackImg = [
+                        'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80',
+                        'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80',
+                        'https://images.unsplash.com/photo-1544717305-2782549b5136?w=600&q=80',
+                    ];
+                @endphp
+                @forelse($faculty as $i => $member)
+                    @php
+                        $img   = $member->profile_image ? asset($member->profile_image) : $facultyFallbackImg[$i % count($facultyFallbackImg)];
+                        $title = $member->specialisation
+                            ?: trim(ucwords(str_replace('_', ' ', $member->designation)) . (optional($member->department)->name ? ' · ' . $member->department->name : ''));
+                    @endphp
+                    <div class="col-md-6 col-lg-4">
+                        <div class="faculty-card reveal {{ $i > 0 ? 'reveal-delay-'.$i : '' }}">
+                            <div class="faculty-img">
+                                <img src="{{ $img }}" alt="{{ $member->first_name }} {{ $member->last_name }}">
+                                <div class="faculty-overlay">
+                                    <span class="faculty-num">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                                </div>
+                            </div>
+                            <div class="faculty-meta">
+                                <h4 class="faculty-name">{{ $member->first_name }} {{ $member->last_name }}</h4>
+                                <div class="faculty-title">{{ $title }}</div>
                             </div>
                         </div>
-                        <div class="faculty-meta">
-                            <h4 class="faculty-name">Dr. Asma Maqbol</h4>
-                            <div class="faculty-title">Principal &amp; Head of Zoology</div>
+                    </div>
+                @empty
+                    <!-- Faculty 1 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="faculty-card reveal">
+                            <div class="faculty-img">
+                                <img src="{{ asset('images/principal.jpeg') }}" alt="Dr. Asma Maqbol">
+                                <div class="faculty-overlay">
+                                    <span class="faculty-num">01</span>
+                                </div>
+                            </div>
+                            <div class="faculty-meta">
+                                <h4 class="faculty-name">Dr. Asma Maqbol</h4>
+                                <div class="faculty-title">Principal &amp; Head of Zoology</div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Faculty 2 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="faculty-card reveal reveal-delay-1">
-                        <div class="faculty-img">
-                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" alt="Dr. Faiza Bukhari">
-                            <div class="faculty-overlay">
-                                <span class="faculty-num">02</span>
+                    <!-- Faculty 2 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="faculty-card reveal reveal-delay-1">
+                            <div class="faculty-img">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" alt="Dr. Faiza Bukhari">
+                                <div class="faculty-overlay">
+                                    <span class="faculty-num">02</span>
+                                </div>
+                            </div>
+                            <div class="faculty-meta">
+                                <h4 class="faculty-name">Dr. Faiza Bukhari</h4>
+                                <div class="faculty-title">Assistant Professor &amp; Head of English Literature</div>
                             </div>
                         </div>
-                        <div class="faculty-meta">
-                            <h4 class="faculty-name">Dr. Faiza Bukhari</h4>
-                            <div class="faculty-title">Assistant Professor &amp; Head of English Literature</div>
-                        </div>
                     </div>
-                </div>
 
-                <!-- Faculty 3 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="faculty-card reveal reveal-delay-2">
-                        <div class="faculty-img">
-                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80" alt="Mrs. Shahnaz Ijaz">
-                            <div class="faculty-overlay">
-                                <span class="faculty-num">03</span>
+                    <!-- Faculty 3 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="faculty-card reveal reveal-delay-2">
+                            <div class="faculty-img">
+                                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80" alt="Mrs. Shahnaz Ijaz">
+                                <div class="faculty-overlay">
+                                    <span class="faculty-num">03</span>
+                                </div>
+                            </div>
+                            <div class="faculty-meta">
+                                <h4 class="faculty-name">Mrs. Shahnaz Ijaz</h4>
+                                <div class="faculty-title">Assistant Professor &amp; Head of Political Science</div>
                             </div>
                         </div>
-                        <div class="faculty-meta">
-                            <h4 class="faculty-name">Mrs. Shahnaz Ijaz</h4>
-                            <div class="faculty-title">Assistant Professor &amp; Head of Political Science</div>
-                        </div>
                     </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>

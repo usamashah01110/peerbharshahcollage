@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "PowerShell($base=\"D:\\\\peerbharshahcollage\\\\resources\\\\views\\\\admin\"; Rename-Item -Path \"$base\\\\admissionapplications\" -NewName \"admission_applications\"; Rename-Item -Path \"$base\\\\admissionsession\" -NewName \"academic_sessions\"; Rename-Item -Path \"$base\\\\applicationqualifications\" -NewName \"application_qualifications\"; Rename-Item -Path \"$base\\\\courseoutlines\" -NewName \"course_outlines\"; Rename-Item -Path \"$base\\\\newsevents\" -NewName \"news_events\"; New-Item -ItemType Directory -Force -Path \"$base\\\\admissions\",\"$base\\\\application_documents\",\"$base\\\\scholarship_application_documents\",\"$base\\\\teacher_subject_assignments\",\"$base\\\\teacher_programs\" | Out-Null; if \\(Test-Path \"$base\\\\programs\\\\delete.blade.php\"\\) { Remove-Item \"$base\\\\programs\\\\delete.blade.php\" -Force }; Get-ChildItem $base)",
-      "Bash(php artisan *)"
+      "Bash(php artisan *)",
+      "Bash(cd /d D:\\\\peerbharshahcollage)",
+      "Bash(dir /b)"
     ]
   }
 }

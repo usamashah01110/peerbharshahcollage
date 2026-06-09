@@ -18,11 +18,11 @@
                         A community where dedicated educators, ambitious young women, and a vibrant academic culture meet — preparing the next generation of leaders, thinkers, and changemakers.
                     </p>
                     <div class="hero-actions">
-                        <a href="#" class="btn-primary-c">
+                        <a href="#programs" class="btn-primary-c">
                             Explore Programs
                             <span class="arrow"><i class="bi bi-arrow-up-right"></i></span>
                         </a>
-                        <a href="#" class="btn-ghost-c">Take a Tour</a>
+                        <a href="{{ route('about') }}" class="btn-ghost-c">Take a Tour</a>
                     </div>
                 </div>
             </div>
@@ -110,25 +110,25 @@
         <div class="row g-0">
             <div class="col-6 col-md-3">
                 <div class="stat-cell reveal" data-stat>
-                    <div class="num" data-target="7">0<span class="plus">+</span></div>
+                    <div class="num" data-target="{{ $stats['departments'] ?? 7 }}">0<span class="plus">+</span></div>
                     <div class="lbl">Academic Departments</div>
                 </div>
             </div>
             <div class="col-6 col-md-3">
                 <div class="stat-cell reveal reveal-delay-1" data-stat>
-                    <div class="num" data-target="1733">0<span class="plus">+</span></div>
+                    <div class="num" data-target="{{ $stats['students'] ?? 1733 }}">0<span class="plus">+</span></div>
                     <div class="lbl">Enrolled Students</div>
                 </div>
             </div>
             <div class="col-6 col-md-3">
                 <div class="stat-cell reveal reveal-delay-2" data-stat>
-                    <div class="num" data-target="28">0<span class="plus">+</span></div>
+                    <div class="num" data-target="{{ $stats['teachers'] ?? 28 }}">0<span class="plus">+</span></div>
                     <div class="lbl">Faculty Members</div>
                 </div>
             </div>
             <div class="col-6 col-md-3">
                 <div class="stat-cell reveal reveal-delay-3" data-stat>
-                    <div class="num" data-target="20">0<span class="plus">+</span></div>
+                    <div class="num" data-target="{{ $stats['years'] ?? 20 }}">0<span class="plus">+</span></div>
                     <div class="lbl">Years of Excellence</div>
                 </div>
             </div>
@@ -146,38 +146,49 @@
             </div>
         </div>
         <div class="row g-4">
-            <div class="col-md-6 col-lg-3">
-                <div class="program-card reveal">
-                    <div class="program-num">01 — Intermediate</div>
-                    <h4>FSc Pre-Medical</h4>
-                    <p>Build a strong foundation in biology, chemistry, and physics for medical and life-science careers.</p>
-                    <a href="#" class="program-link">Explore <i class="bi bi-arrow-right"></i></a>
+            @forelse($programs as $i => $program)
+                <div class="col-md-6 col-lg-3">
+                    <div class="program-card reveal {{ $i > 0 ? 'reveal-delay-'.$i : '' }}">
+                        <div class="program-num">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }} — {{ ucfirst($program->degree_level) }}</div>
+                        <h4>{{ $program->name }}</h4>
+                        <p>{{ \Illuminate\Support\Str::limit($program->description, 120) ?: 'Offered by the '.optional($program->department)->name.' department.' }}</p>
+                        <a href="{{ route('admissions.howtoapply') }}" class="program-link">Explore <i class="bi bi-arrow-right"></i></a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="program-card reveal reveal-delay-1">
-                    <div class="program-num">02 — Intermediate</div>
-                    <h4>FSc Pre-Engineering</h4>
-                    <p>Mathematics, physics, and chemistry curriculum tailored for engineering and technology aspirants.</p>
-                    <a href="#" class="program-link">Explore <i class="bi bi-arrow-right"></i></a>
+            @empty
+                <div class="col-md-6 col-lg-3">
+                    <div class="program-card reveal">
+                        <div class="program-num">01 — Intermediate</div>
+                        <h4>FSc Pre-Medical</h4>
+                        <p>Build a strong foundation in biology, chemistry, and physics for medical and life-science careers.</p>
+                        <a href="{{ route('pre.medical') }}" class="program-link">Explore <i class="bi bi-arrow-right"></i></a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="program-card reveal reveal-delay-2">
-                    <div class="program-num">03 — Intermediate</div>
-                    <h4>FA / ICS</h4>
-                    <p>Humanities, computer science, and arts programs for a broad and flexible academic foundation.</p>
-                    <a href="#" class="program-link">Explore <i class="bi bi-arrow-right"></i></a>
+                <div class="col-md-6 col-lg-3">
+                    <div class="program-card reveal reveal-delay-1">
+                        <div class="program-num">02 — Intermediate</div>
+                        <h4>FSc Pre-Engineering</h4>
+                        <p>Mathematics, physics, and chemistry curriculum tailored for engineering and technology aspirants.</p>
+                        <a href="{{ route('pre.engineering') }}" class="program-link">Explore <i class="bi bi-arrow-right"></i></a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="program-card reveal reveal-delay-3">
-                    <div class="program-num">04 — Bachelor's</div>
-                    <h4>BS Programs</h4>
-                    <p>Four-year undergraduate degrees across multiple disciplines, recognized by HEC Pakistan.</p>
-                    <a href="#" class="program-link">Explore <i class="bi bi-arrow-right"></i></a>
+                <div class="col-md-6 col-lg-3">
+                    <div class="program-card reveal reveal-delay-2">
+                        <div class="program-num">03 — Intermediate</div>
+                        <h4>FA / ICS</h4>
+                        <p>Humanities, computer science, and arts programs for a broad and flexible academic foundation.</p>
+                        <a href="{{ route('arts') }}" class="program-link">Explore <i class="bi bi-arrow-right"></i></a>
+                    </div>
                 </div>
-            </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="program-card reveal reveal-delay-3">
+                        <div class="program-num">04 — Bachelor's</div>
+                        <h4>BS Programs</h4>
+                        <p>Four-year undergraduate degrees across multiple disciplines, recognized by HEC Pakistan.</p>
+                        <a href="{{ route('bs.programs') }}" class="program-link">Explore <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            @endforelse
         </div>
     </div>
 </section>
@@ -231,60 +242,87 @@
                 <div class="section-eyebrow">Latest Updates</div>
                 <h2 class="section-h">News & <em>events.</em></h2>
             </div>
-            <a href="#" class="btn-view-all-c">View All News <i class="bi bi-arrow-right"></i></a>
+            <a href="{{ route('news.index') }}" class="btn-view-all-c">View All News <i class="bi bi-arrow-right"></i></a>
         </div>
         <div class="row g-4">
-            <div class="col-md-6 col-lg-4">
-                <article class="news-card reveal">
-                    <div class="news-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=700&q=80" alt="News">
-                        <div class="news-date-stamp">
-                            <span class="day">04</span>
-                            <span class="month">Apr</span>
+            @php
+                $newsImages = [
+                    'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=700&q=80',
+                    'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=700&q=80',
+                    'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=700&q=80',
+                ];
+            @endphp
+            @forelse($news as $i => $item)
+                <div class="col-md-6 col-lg-4">
+                    <article class="news-card reveal {{ $i > 0 ? 'reveal-delay-'.$i : '' }}">
+                        <div class="news-img-wrap">
+                            <img src="{{ $newsImages[$i % count($newsImages)] }}" alt="{{ $item->title }}">
+                            <div class="news-date-stamp">
+                                <span class="day">{{ optional($item->event_date)->format('d') ?? $item->created_at->format('d') }}</span>
+                                <span class="month">{{ optional($item->event_date)->format('M') ?? $item->created_at->format('M') }}</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="news-body">
-                        <span class="news-tag">Spotlight</span>
-                        <h5>College website officially launched online.</h5>
-                        <p>The new official website of the College is now live, providing students and staff with seamless access to academic resources and announcements.</p>
-                        <a href="#" class="read-more">Read Story <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </article>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <article class="news-card reveal reveal-delay-1">
-                    <div class="news-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=700&q=80" alt="Admissions">
-                        <div class="news-date-stamp">
-                            <span class="day">04</span>
-                            <span class="month">Jun</span>
+                        <div class="news-body">
+                            <span class="news-tag">{{ ucfirst($item->type) }}</span>
+                            <h5>{{ $item->title }}</h5>
+                            <p>{{ \Illuminate\Support\Str::limit($item->description, 130) }}</p>
+                            <a href="{{ route('news.show', $item) }}" class="read-more">Read Story <i class="bi bi-arrow-right"></i></a>
                         </div>
-                    </div>
-                    <div class="news-body">
-                        <span class="news-tag">Admissions</span>
-                        <h5>Admissions open for academic year 2026–27.</h5>
-                        <p>Applications are invited for Intermediate and BS programs. Limited seats available — submit your application before the deadline.</p>
-                        <a href="#" class="read-more">Apply Now <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </article>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <article class="news-card reveal reveal-delay-2">
-                    <div class="news-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=700&q=80" alt="Annual Day">
-                        <div class="news-date-stamp">
-                            <span class="day">28</span>
-                            <span class="month">May</span>
+                    </article>
+                </div>
+            @empty
+                <div class="col-md-6 col-lg-4">
+                    <article class="news-card reveal">
+                        <div class="news-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=700&q=80" alt="News">
+                            <div class="news-date-stamp">
+                                <span class="day">04</span>
+                                <span class="month">Apr</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="news-body">
-                        <span class="news-tag">Event</span>
-                        <h5>Annual prize distribution ceremony 2026.</h5>
-                        <p>Honoring this year's top-performing students. Faculty, parents, and dignitaries invited to celebrate academic and co-curricular achievement.</p>
-                        <a href="#" class="read-more">Event Details <i class="bi bi-arrow-right"></i></a>
-                    </div>
-                </article>
-            </div>
+                        <div class="news-body">
+                            <span class="news-tag">Spotlight</span>
+                            <h5>College website officially launched online.</h5>
+                            <p>The new official website of the College is now live, providing students and staff with seamless access to academic resources and announcements.</p>
+                            <a href="{{ route('news.index') }}" class="read-more">Read Story <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <article class="news-card reveal reveal-delay-1">
+                        <div class="news-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=700&q=80" alt="Admissions">
+                            <div class="news-date-stamp">
+                                <span class="day">04</span>
+                                <span class="month">Jun</span>
+                            </div>
+                        </div>
+                        <div class="news-body">
+                            <span class="news-tag">Admissions</span>
+                            <h5>Admissions open for academic year 2026–27.</h5>
+                            <p>Applications are invited for Intermediate and BS programs. Limited seats available — submit your application before the deadline.</p>
+                            <a href="{{ route('news.index') }}" class="read-more">Apply Now <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <article class="news-card reveal reveal-delay-2">
+                        <div class="news-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=700&q=80" alt="Annual Day">
+                            <div class="news-date-stamp">
+                                <span class="day">28</span>
+                                <span class="month">May</span>
+                            </div>
+                        </div>
+                        <div class="news-body">
+                            <span class="news-tag">Event</span>
+                            <h5>Annual prize distribution ceremony 2026.</h5>
+                            <p>Honoring this year's top-performing students. Faculty, parents, and dignitaries invited to celebrate academic and co-curricular achievement.</p>
+                            <a href="{{ route('news.index') }}" class="read-more">Event Details <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </article>
+                </div>
+            @endforelse
         </div>
     </div>
 </section>
@@ -299,7 +337,7 @@
                 <p class="lead-p mb-0">Admissions for 2026–27 are now open. Join a community of ambitious women and dedicated educators.</p>
             </div>
             <div class="col-lg-4 text-lg-end reveal reveal-delay-1">
-                <a href="#" class="btn-light-c">
+                <a href="{{ route('admissions.howtoapply') }}" class="btn-light-c">
                     Apply Now
                     <i class="bi bi-arrow-up-right"></i>
                 </a>

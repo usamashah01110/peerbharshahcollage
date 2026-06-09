@@ -25,6 +25,7 @@ use App\Http\Controllers\TeacherProgramController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\MeritListController;
+use App\Http\Controllers\PublicScholarshipController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,20 @@ Route::get('/profile/bs', [MainController::class, 'bs'])->name('bs.programs');
 Route::get('/profile/general-science', [MainController::class, 'generalScience'])->name('general.science');
 
 Route::get('/studentlife', fn () => view('student-life'))->name('studentlife');
+
+/*
+| News & Events (public)
+*/
+Route::get('/news', [MainController::class, 'news'])->name('news.index');
+Route::get('/news/{newsEvent}', [MainController::class, 'newsShow'])->name('news.show');
+
+/*
+| Scholarships (public) — list, detail, and online application
+*/
+Route::get('/scholarships', [PublicScholarshipController::class, 'index'])->name('scholarships.index');
+Route::get('/scholarships/{slug}/apply', [PublicScholarshipController::class, 'applyForm'])->name('scholarships.apply.form');
+Route::post('/scholarships/{slug}/apply', [PublicScholarshipController::class, 'apply'])->name('scholarships.apply');
+Route::get('/scholarships/{slug}', [PublicScholarshipController::class, 'show'])->name('scholarships.show');
 
 /*
 |--------------------------------------------------------------------------

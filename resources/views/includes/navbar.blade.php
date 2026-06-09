@@ -79,6 +79,20 @@
                     </ul>
                 </li>
 
+                <!-- SCHOLARSHIPS -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('scholarships.*') ? 'active' : '' }}" href="{{ route('scholarships.index') }}">
+                        Scholarships
+                    </a>
+                </li>
+
+                <!-- NEWS -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('news.*') ? 'active' : '' }}" href="{{ route('news.index') }}">
+                        News
+                    </a>
+                </li>
+
                 <!-- STUDENT LIFE -->
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('studentlife') ? 'active' : '' }}" href="{{ route('studentlife') }}">
