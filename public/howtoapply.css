@@ -1,0 +1,351 @@
+/* ════════════════════════════════════════════════════════════
+   HOW TO APPLY PAGE — ADDITIONS
+   Same convention as about.css / intermediate.css: page-specific
+   classes only. All new classes are prefixed `hta-` so nothing
+   here can clash with style1.css, intermediate.css or Bootstrap.
+   ════════════════════════════════════════════════════════════ */
+
+
+/* ── SECTION BANDS ── */
+.hta-band {
+    padding: 130px 0;
+    background: var(--ivory);
+}
+.hta-band-alt {
+    background: var(--cream);
+}
+
+
+/* ── JUMP LINKS (quick nav strip under the hero) ── */
+.hta-jump {
+    background: var(--ivory);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 20px 0;
+}
+.hta-jump-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+.hta-jump-lbl {
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 10px;
+}
+.hta-jump a {
+    font-size: .76rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    padding: 8px 18px;
+    border-radius: 999px;
+    transition: all .25s ease;
+}
+.hta-jump a:hover {
+    background: var(--crimson);
+    border-color: var(--crimson);
+    color: #fff;
+}
+
+
+/* ── STEP TIMELINE ── */
+.hta-steps {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+}
+/* the vertical rule threading the numerals together */
+.hta-steps::before {
+    content: '';
+    position: absolute;
+    left: 32px;
+    top: 20px;
+    bottom: 20px;
+    width: 1px;
+    background: var(--line);
+}
+.hta-step {
+    position: relative;
+    display: flex;
+    gap: 30px;
+    padding-bottom: 46px;
+}
+.hta-step:last-child {
+    padding-bottom: 0;
+}
+.hta-step-num {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--ivory);
+    color: var(--crimson);
+    font-family: 'Fraunces', serif;
+    font-size: 1.45rem;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    transition: all .35s ease;
+}
+.hta-step:hover .hta-step-num {
+    background: var(--crimson);
+    border-color: var(--crimson);
+    color: var(--gold);
+    transform: scale(1.06);
+}
+.hta-step-body {
+    padding-top: 4px;
+}
+.hta-step-eyebrow {
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+}
+.hta-step-body h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    letter-spacing: -.015em;
+    color: var(--ink);
+    margin: 0 0 12px;
+}
+.hta-step-body p {
+    font-size: .98rem;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    margin: 0;
+}
+.hta-step-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+}
+.hta-tag {
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #8a7028;
+    background: rgba(201,168,76,.18);
+    border: 1px solid rgba(201,168,76,.35);
+    padding: 4px 12px;
+    border-radius: 999px;
+}
+
+
+/* ── PANELS (documents / eligibility / rules) ── */
+.hta-panel {
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 38px 34px;
+    height: 100%;
+    transition: border-color .3s ease, box-shadow .3s ease;
+}
+.hta-panel:hover {
+    border-color: var(--crimson);
+    box-shadow: 0 14px 38px rgba(139,26,46,.08);
+}
+.hta-panel-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(139,26,46,.08);
+    color: var(--crimson);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 22px;
+    transition: all .4s ease;
+}
+.hta-panel:hover .hta-panel-icon {
+    background: var(--crimson);
+    color: var(--gold);
+    transform: scale(1.08);
+}
+.hta-panel h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: -.015em;
+    color: var(--ink);
+    margin: 0 0 12px;
+}
+.hta-panel > p {
+    font-size: .95rem;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    margin: 0;
+}
+
+
+/* ── FIELD PREVIEW (what the admission form asks for) ── */
+.hta-fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 18px;
+}
+.hta-field {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    font-size: .9rem;
+    font-weight: 500;
+    color: var(--ink);
+    transition: all .25s ease;
+}
+.hta-field:hover {
+    border-color: var(--crimson);
+    transform: translateX(4px);
+}
+.hta-field i {
+    color: var(--gold);
+    font-size: .85rem;
+    flex-shrink: 0;
+}
+
+
+/* ── HELP CARDS (phone / email / visit) ── */
+.hta-help-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 28px;
+    height: 100%;
+    text-decoration: none;
+    transition: all .3s cubic-bezier(.2,.7,.2,1);
+}
+.hta-help-card:hover {
+    border-color: var(--crimson);
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(139,26,46,.10);
+}
+.hta-help-ic {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    color: var(--crimson);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.05rem;
+    transition: all .3s ease;
+}
+.hta-help-card:hover .hta-help-ic {
+    background: var(--crimson);
+    border-color: var(--crimson);
+    color: var(--gold);
+}
+.hta-help-lbl {
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+.hta-help-val {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    line-height: 1.4;
+}
+.hta-help-sub {
+    font-size: .85rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-top: 6px;
+}
+
+
+/* ── CTA STRIP SECONDARY LINE ── */
+.hta-cta-note {
+    font-size: .9rem;
+    color: rgba(255,255,255,.8);
+    margin: 16px 0 0;
+}
+.hta-cta-note a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201,168,76,.5);
+    padding-bottom: 1px;
+    transition: color .25s ease, border-color .25s ease;
+}
+.hta-cta-note a:hover {
+    color: var(--gold-soft);
+    border-color: var(--gold-soft);
+}
+
+
+/* ── RESPONSIVE ── */
+@media (max-width: 991px) {
+    .hta-band {
+        padding: 80px 0;
+    }
+    .hta-steps::before {
+        left: 26px;
+    }
+    .hta-step {
+        gap: 20px;
+        padding-bottom: 36px;
+    }
+    .hta-step-num {
+        width: 52px;
+        height: 52px;
+        font-size: 1.2rem;
+    }
+    .hta-step-body h4 {
+        font-size: 1.2rem;
+    }
+    .hta-panel {
+        padding: 30px 26px;
+    }
+}
+
+@media (max-width: 600px) {
+    .hta-fields {
+        grid-template-columns: 1fr;
+    }
+    .hta-jump a {
+        padding: 7px 14px;
+        font-size: .72rem;
+    }
+    .hta-jump-lbl {
+        width: 100%;
+        margin-right: 0;
+    }
+    .hta-help-card {
+        padding: 22px;
+    }
+}

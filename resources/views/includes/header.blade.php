@@ -16,5 +16,6 @@
     <link rel="stylesheet" href="{{ asset('style1.css') }}"/>
     <link rel="stylesheet" href="{{ asset('about.css') }}"/>
     <link rel="stylesheet" href="{{ asset('intermediate.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('howtoapply.css') }}"/>
 </head>
 </body>

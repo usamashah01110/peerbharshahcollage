@@ -1,19 +1,6 @@
 <!-- ════════════════ TOP BAR ════════════════ -->
-<div class="announce-bar">
-    <div class="container d-flex justify-content-between align-items-center flex-wrap">
-        <div>
-            <span class="dot"></span>
-            Admissions Open · Academic Year 2026–27
-            <span class="dot"></span>
-            <a href="#">Apply Now →</a>
-        </div>
-        <div class="d-none d-md-block">
-            <i class="bi bi-telephone-fill me-2"></i> +92 56 0000000
-            <span class="mx-3" style="opacity:.4;">|</span>
-            <i class="bi bi-envelope-fill me-2"></i> info@gpbsgcw.edu.pk
-        </div>
-    </div>
-</div>
+<!-- 
+ -->
 
 <!-- ════════════════ MAIN NAVBAR ════════════════ -->
 <nav class="navbar navbar-expand-lg main-nav">
