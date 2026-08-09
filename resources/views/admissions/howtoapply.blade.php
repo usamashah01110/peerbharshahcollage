@@ -1,585 +1,708 @@
 @extends('includes.main')
-
 @section('content')
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
-
-body {
-    background: #f7f6f6;
-    font-family: 'Poppins', sans-serif;
-}
-
-/* hero-how*/
-.hero-how {
-    text-align: center;
-    padding: 70px 20px 30px;
-    background: linear-gradient(135deg, #fff5f5, #ffffff);
-    border-bottom: 2px solid #f0dede;
-}
-.hero-how h1 {
-    font-weight: 900;
-    color: #4a1c1c;
-    font-size: 2.4rem;
-    margin-bottom: 10px;
-}
-.hero-how p {
-    max-width: 680px;
-    margin: 0 auto;
-    color: #6b4b4b;
-    font-size: 1rem;
-}
-
-/* BANNER IMAGE */
-.hero-banner {
-    position: relative;
-    width: 100%;
-    height: 340px;
-    overflow: hidden;
-}
-.hero-banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 30%;
-    display: block;
-}
-.hero-banner-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to bottom,
-        rgba(74,28,28,0.18) 0%,
-        rgba(74,28,28,0.55) 100%
-    );
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-.hero-banner-overlay .badge-row {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.hero-banner-overlay .badge-pill {
-    background: rgba(255,255,255,0.18);
-    border: 1.5px solid rgba(255,255,255,0.5);
-    color: #fff;
-    padding: 6px 18px;
-    border-radius: 30px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    backdrop-filter: blur(4px);
-}
-.hero-banner-overlay h2 {
-    color: #fff;
-    font-weight: 900;
-    font-size: 2rem;
-    margin: 0;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.35);
-    letter-spacing: -0.5px;
-}
-.hero-banner-overlay p {
-    color: rgba(255,255,255,0.88);
-    font-size: 0.95rem;
-    margin: 0;
-    text-shadow: 0 1px 6px rgba(0,0,0,0.3);
-}
-
-/* SECTION */
-.section { padding: 50px 0; }
-
-/* TITLE */
-.section-title {
-    font-size: 30px;
-    font-weight: 800;
-    text-align: center;
-    margin-bottom: 35px;
-    color: #4a1c1c;
-    position: relative;
-}
-.section-title::after {
-    content: '';
-    width: 65px;
-    height: 4px;
-    background: #7a1f1f;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: -10px;
-    border-radius: 10px;
-}
-
-/* FAQ ACCORDION */
-.faq-item {
-    background: #fff;
-    border: 1px solid #f0dede;
-    border-radius: 14px;
-    margin-bottom: 10px;
-    overflow: hidden;
-    transition: box-shadow 0.3s;
-}
-.faq-item:hover { box-shadow: 0 6px 20px rgba(122,31,31,0.09); }
-
-.faq-question {
-    width: 100%;
-    background: none;
-    border: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px 22px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.97rem;
-    font-weight: 700;
-    color: #4a1c1c;
-    cursor: pointer;
-    text-align: left;
-    transition: background 0.2s;
-}
-.faq-question:hover { background: #fff5f5; }
-.faq-question.open { background: #fff5f5; color: #7a1f1f; }
-
-.faq-icon {
-    width: 28px;
-    height: 28px;
-    background: #7a1f1f;
-    color: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 1rem;
-    font-weight: 700;
-    transition: transform 0.3s;
-}
-.faq-question.open .faq-icon { transform: rotate(45deg); }
-
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.45s ease, padding 0.3s ease;
-    padding: 0 22px;
-}
-.faq-answer.open { max-height: 3000px; padding: 0 22px 22px; }
-
-.faq-answer-inner {
-    border-top: 1px solid #f0dede;
-    padding-top: 16px;
-    color: #555;
-    font-size: 0.9rem;
-    line-height: 1.7;
-}
-
-/* STEPS */
-.step { display: flex; gap: 13px; margin-bottom: 13px; align-items: flex-start; }
-.step-number {
-    width: 36px; height: 36px;
-    background: #7a1f1f; color: #fff;
-    font-weight: 700; border-radius: 50%;
-    display: flex; justify-content: center; align-items: center;
-    flex-shrink: 0; font-size: 0.88rem;
-}
-.step p { margin: 0; padding-top: 7px; color: #444; }
-
-/* INNER CARDS */
-.faq-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-@media(max-width:600px){ .faq-cards { grid-template-columns: 1fr; } }
-.faq-inner-card {
-    background: #fff5f5; border: 1px solid #f0dede;
-    border-radius: 12px; padding: 18px;
-}
-.faq-inner-card h6 { font-weight: 700; color: #4a1c1c; margin-bottom: 10px; }
-.faq-inner-card ul { padding-left: 16px; margin: 0; }
-.faq-inner-card ul li { margin-bottom: 5px; }
-
-/* FORM */
-.form-header-faq { text-align: center; margin-bottom: 20px; }
-.form-header-faq h5 { font-size: 1rem; font-weight: 800; color: #4a1c1c; margin: 0 0 4px; }
-.form-header-faq p { color: #7a1f1f; font-weight: 600; font-size: 0.85rem; margin: 0; }
-
-.program-badges { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; margin-bottom: 18px; }
-.program-badge {
-    background: #fff5f5; border: 1px solid #e8c5c5; color: #7a1f1f;
-    padding: 4px 13px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
-}
-
-.form-divider { border: none; border-top: 1px solid #f0dede; margin: 14px 0; }
-
-.field-section-label {
-    font-size: 0.78rem; font-weight: 700; color: #7a1f1f;
-    text-transform: uppercase; letter-spacing: 0.05em;
-    margin: 18px 0 10px; border-left: 3px solid #7a1f1f; padding-left: 8px;
-}
-
-.form-label { font-weight: 600; color: #4a1c1c; font-size: 0.84rem; margin-bottom: 4px; }
-.form-control, .form-select {
-    border: 1px solid #e8c5c5; border-radius: 10px;
-    padding: 8px 12px; font-size: 0.86rem; color: #333;
-    background: #fff; transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
-}
-.form-control:focus, .form-select:focus {
-    border-color: #7a1f1f; box-shadow: 0 0 0 3px rgba(122,31,31,0.1); outline: none;
-}
-
-.photo-box {
-    width: 95px; height: 110px; border: 2px dashed #e8c5c5; border-radius: 10px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    color: #b07070; font-size: 0.72rem; text-align: center;
-    background: #fff5f5; float: right; margin-left: 12px; margin-bottom: 8px;
-}
-.photo-box span { font-size: 1.5rem; display: block; margin-bottom: 4px; }
-
-.exam-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 6px; }
-.exam-table th { background: #7a1f1f; color: #fff; padding: 7px 9px; text-align: center; font-weight: 600; }
-.exam-table td { border: 1px solid #f0dede; padding: 7px 8px; text-align: center; color: #555; }
-.exam-table tr:nth-child(even) td { background: #fff8f8; }
-.exam-table .form-control { padding: 5px 7px; font-size: 0.78rem; }
-
-.declaration-box {
-    background: #fff5f5; border: 1px solid #f0dede; border-radius: 10px;
-    padding: 14px 18px; font-size: 0.82rem; color: #555; line-height: 1.7;
-}
-
-.btn-apply {
-    background: #7a1f1f; color: #fff; border: none;
-    padding: 11px 34px; border-radius: 12px; font-weight: 700;
-    font-size: 0.93rem; cursor: pointer; transition: background 0.2s, transform 0.2s;
-}
-.btn-apply:hover { background: #5c1515; transform: translateY(-2px); }
-
-/* FADE */
-.fade { opacity: 0; transform: translateY(34px); transition: 0.6s ease; }
-.fade.show { opacity: 1; transform: translateY(0); }
-</style>
-
-<!-- hero-how-->
-<div class="hero-how fade">
-    <h1>How to Apply</h1>
-    <p>Our admission process is simple and transparent. Browse the sections below to find everything you need.</p>
-</div>
-
-<!-- BANNER IMAGE -->
-<div class="hero-banner fade">
-    <img
-        src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1400&q=80&auto=format&fit=crop"
-        alt="College students admission"
-        onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1400&q=80&auto=format&fit=crop'"
-    >
-    <div class="hero-banner-overlay">
-        <h2>Begin Your Academic Journey</h2>
-        <p>Govt. Peer Bahar Shah Graduate College for Women, Sheikhupura</p>
-        <div class="badge-row">
-            <span class="badge-pill">🎓 Merit-Based</span>
-            <span class="badge-pill">📋 Simple Process</span>
-            <span class="badge-pill">✅ Transparent Admission</span>
-        </div>
-    </div>
-</div>
-
-<!-- FAQ -->
-<div class="container section fade">
-    <div class="section-title">Admission Guide</div>
-
-    <!-- 1. STEPS -->
-    <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-            <span>📋 &nbsp; What are the Admission Steps?</span>
-            <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-            <div class="faq-answer-inner">
-                <div class="step"><div class="step-number">1</div><p>Collect the admission form from the admission office or download it from the online portal.</p></div>
-                <div class="step"><div class="step-number">2</div><p>Carefully fill in the form with your personal and academic details.</p></div>
-                <div class="step"><div class="step-number">3</div><p>Attach all required documents (CNIC/B-Form, result card, passport-size photos).</p></div>
-                <div class="step"><div class="step-number">4</div><p>Submit the completed form to the admission office or via the online portal.</p></div>
-                <div class="step"><div class="step-number">5</div><p>Wait for the merit list to be announced.</p></div>
-                <div class="step"><div class="step-number">6</div><p>After selection, submit the fee to confirm your admission.</p></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 2. REQUIREMENTS -->
-    <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-            <span>📄 &nbsp; What Documents & Rules are Required?</span>
-            <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-            <div class="faq-answer-inner">
-                <div class="faq-cards">
-                    <div class="faq-inner-card">
-                        <h6>📄 Documents Required</h6>
-                        <ul class="text-muted">
-                            <li>CNIC / B-Form (original & copy)</li>
-                            <li>Matric / Intermediate Result Card</li>
-                            <li>4 Passport Size Photographs</li>
-                            <li>Domicile Certificate (if applicable)</li>
-                        </ul>
+    {{-- ════════════════ HERO ════════════════ --}}
+    <section class="hero hero-admissions">
+        <div class="hero-grid"></div>
+        <div class="container hero-content">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7">
+                    <div class="reveal in-view">
+                        <div class="hero-eyebrow">Admissions · 2026–27</div>
+                        <h1 class="hero-title">
+                            How to <span class="accent">apply</span><br>
+                            step by <span class="gold-line">step.</span>
+                        </h1>
+                        <p class="hero-sub">
+                            From collecting your form to depositing your fee — the complete
+                            admission process, the documents you need, and the rules that
+                            apply. Read it once, apply with confidence.
+                        </p>
+                        <div class="hero-actions">
+                            <a href="#steps" class="btn-primary-c">
+                                See the Steps
+                                <span class="arrow"><i class="bi bi-arrow-up-right"></i></span>
+                            </a>
+                            <a href="#checklist" class="btn-ghost-c">Document Checklist</a>
+                        </div>
                     </div>
-                    <div class="faq-inner-card">
-                        <h6>⚠️ Important Rules</h6>
-                        <ul class="text-muted">
-                            <li>Incomplete forms will be rejected</li>
-                            <li>Late submissions will not be accepted</li>
-                            <li>Admission is strictly merit-based</li>
-                            <li>Providing false information will result in cancellation</li>
-                        </ul>
+                </div>
+                <div class="col-lg-5">
+                    <div class="hero-stat-card reveal reveal-delay-2 in-view">
+                        <div class="hsc-eyebrow">At a Glance</div>
+                        <div class="hsc-row">
+                            <div class="hsc-num">7</div>
+                            <div class="hsc-lbl">Steps from form<br>to confirmed seat</div>
+                        </div>
+                        <div class="hsc-divider"></div>
+                        <div class="hsc-row">
+                            <div class="hsc-num">100<span>%</span></div>
+                            <div class="hsc-lbl">Strictly<br>Merit-Based</div>
+                        </div>
+                        <div class="hsc-divider"></div>
+                        <div class="hsc-row">
+                            <div class="hsc-num">6</div>
+                            <div class="hsc-lbl">Days a week —<br>Mon to Sat, 7 AM–2 PM</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    {{-- ════════════════ QUICK NAV ════════════════ --}}
+    <div class="hta-jump">
+        <div class="container">
+            <div class="hta-jump-row">
+                <span class="hta-jump-lbl">On this page</span>
+                <a href="#steps">The Process</a>
+                <a href="#checklist">Documents</a>
+                <a href="#form">The Form</a>
+                <a href="#dates">Dates &amp; Fee</a>
+                <a href="#faq">Questions</a>
+                <a href="#help">Get Help</a>
+            </div>
+        </div>
     </div>
 
-    <!-- 3. ADMISSION FORM -->
-    <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-            <span>📝 &nbsp; Fill & Submit the Admission Form</span>
-            <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-            <div class="faq-answer-inner">
+    {{-- ════════════════ THE PROCESS ════════════════ --}}
+    <section class="hta-band" id="steps">
+        <div class="container">
+            <div class="row mb-5 align-items-end">
+                <div class="col-lg-7 reveal">
+                    <div class="section-eyebrow">The Process</div>
+                    <h2 class="section-h">Seven steps, and<br><em>you're admitted.</em></h2>
+                </div>
+                <div class="col-lg-5 reveal reveal-delay-1 text-lg-end">
+                    <p class="lead-p mb-0">
+                        Every application follows the same route. Work through the steps in
+                        order and keep your documents ready before you start.
+                    </p>
+                </div>
+            </div>
 
-                <div class="form-header-faq">
-                    <h5>Govt. Peer Bahar Shah Graduate College for Women, Sheikhupura</h5>
-                    <p>Application for Admission — Academic Year ___________</p>
+            <div class="hta-steps">
+
+                <div class="hta-step reveal">
+                    <div class="hta-step-num">01</div>
+                    <div class="hta-step-body">
+                        <div class="hta-step-eyebrow">Step One</div>
+                        <h4>Check your eligibility</h4>
+                        <p>
+                            Confirm that you meet the requirement for the program you want. Intermediate
+                            applicants must have passed Matriculation from a recognised board; FSc
+                            Pre-Medical and Pre-Engineering additionally require at least 60% marks.
+                            BS applicants must have passed Intermediate or an equivalent examination.
+                        </p>
+                        <div class="hta-step-tags">
+                            <span class="hta-tag">Recognised Board</span>
+                            <span class="hta-tag">60% for FSc</span>
+                        </div>
+                    </div>
                 </div>
 
-                <p class="text-muted text-center mb-2" style="font-size:0.82rem;">Select Program:</p>
-                <div class="program-badges">
-                    <span class="program-badge">FA</span>
-                    <span class="program-badge">FSc</span>
-                    <span class="program-badge">ICS</span>
-                    <span class="program-badge">I.Com</span>
-                    <span class="program-badge">BS (General Science)</span>
-                    <span class="program-badge">BS (Home Economics)</span>
-                    <span class="program-badge">BS (Physical Education)</span>
-                    <span class="program-badge">BS (Urdu)</span>
+                <div class="hta-step reveal">
+                    <div class="hta-step-num">02</div>
+                    <div class="hta-step-body">
+                        <div class="hta-step-eyebrow">Step Two</div>
+                        <h4>Collect the admission form</h4>
+                        <p>
+                            Admission forms are issued at the college admission office during office
+                            hours, once the prescribed form fee has been paid. Ask for the form for the
+                            correct class and shift — Intermediate and BS use separate forms.
+                        </p>
+                        <div class="hta-step-tags">
+                            <span class="hta-tag">Mon–Sat</span>
+                            <span class="hta-tag">7:00 AM – 2:00 PM</span>
+                        </div>
+                    </div>
                 </div>
 
-                <hr class="form-divider">
-
-                <form>
-                    <div class="photo-box">
-                        <span>📷</span>
-                        Paste Photo Here
+                <div class="hta-step reveal">
+                    <div class="hta-step-num">03</div>
+                    <div class="hta-step-body">
+                        <div class="hta-step-eyebrow">Step Three</div>
+                        <h4>Fill in your details carefully</h4>
+                        <p>
+                            Complete every field in your own handwriting. Your name, your father's name
+                            and your date of birth must match your Matric certificate and B-Form/CNIC
+                            exactly — a spelling mismatch is the most common reason a form is sent back.
+                            Fill in your subject preferences in order of priority.
+                        </p>
                     </div>
+                </div>
 
-                    <div class="field-section-label">Personal Information</div>
-                    <div class="row g-3" style="clear:both;">
-                        <div class="col-md-6">
-                            <label class="form-label">01. Full Name (Urdu)</label>
-                            <input type="text" class="form-control" placeholder="Enter full name in Urdu">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">02. Father's Name (Urdu)</label>
-                            <input type="text" class="form-control" placeholder="Enter father's name in Urdu">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">03. Date of Birth</label>
-                            <input type="date" class="form-control">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Phone Numbers</label>
-                            <div class="row g-2">
-                                <div class="col-6"><input type="text" class="form-control" placeholder="Phone (i)"></div>
-                                <div class="col-6"><input type="text" class="form-control" placeholder="Phone (ii)"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">04. Nationality</label>
-                            <input type="text" class="form-control" placeholder="e.g. Pakistani">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Mother Tongue</label>
-                            <input type="text" class="form-control" placeholder="e.g. Urdu, Punjabi">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Religion</label>
-                            <input type="text" class="form-control" placeholder="e.g. Islam">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">05. Marital Status</label>
-                            <select class="form-select">
-                                <option value="">-- Select --</option>
-                                <option>Single</option>
-                                <option>Married</option>
-                                <option>Divorced</option>
-                                <option>Widow</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Father's Occupation</label>
-                            <input type="text" class="form-control" placeholder="Father's occupation">
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">06. Permanent Address</label>
-                            <input type="text" class="form-control" placeholder="Full permanent address">
+                <div class="hta-step reveal">
+                    <div class="hta-step-num">04</div>
+                    <div class="hta-step-body">
+                        <div class="hta-step-eyebrow">Step Four</div>
+                        <h4>Attach the required documents</h4>
+                        <p>
+                            Attach attested copies of every document listed in the checklist below, and
+                            affix a passport-size photograph in the space provided. Bring the originals
+                            with you for verification at the counter — they will be returned to you.
+                        </p>
+                        <div class="hta-step-tags">
+                            <span class="hta-tag">Attested Copies</span>
+                            <span class="hta-tag">Originals for Verification</span>
                         </div>
                     </div>
+                </div>
 
-                    <div class="field-section-label">Academic Information</div>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">07. Last Class Attended</label>
-                            <input type="text" class="form-control" placeholder="e.g. Matric, FA, FSc">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Previous College / School Name</label>
-                            <input type="text" class="form-control" placeholder="Name of last institution">
+                <div class="hta-step reveal">
+                    <div class="hta-step-num">05</div>
+                    <div class="hta-step-body">
+                        <div class="hta-step-eyebrow">Step Five</div>
+                        <h4>Submit before the deadline</h4>
+                        <p>
+                            Hand the completed form in at the admission office on or before the last
+                            date. Incomplete forms are not processed and late submissions are not
+                            entertained. Keep the receipt or token you are given — you will need it to
+                            check your status.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="hta-step reveal">
+                    <div class="hta-step-num">06</div>
+                    <div class="hta-step-body">
+                        <div class="hta-step-eyebrow">Step Six</div>
+                        <h4>Watch for the merit list</h4>
+                        <p>
+                            Merit lists are prepared strictly on marks obtained and are displayed on the
+                            college notice board, along with any announcement published on our
+                            <a href="{{ route('news.index') }}" style="color: var(--crimson);">News &amp; Events</a>
+                            page. If your name does not appear on the first list, watch for the
+                            subsequent lists before the seats close.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="hta-step reveal">
+                    <div class="hta-step-num">07</div>
+                    <div class="hta-step-body">
+                        <div class="hta-step-eyebrow">Step Seven</div>
+                        <h4>Deposit the fee and confirm</h4>
+                        <p>
+                            Selected candidates must deposit the admission fee within the date announced
+                            with the merit list. A seat that is not confirmed in time is offered to the
+                            next candidate on the list. Once your fee is received, your admission is
+                            complete and you will be enrolled for the session.
+                        </p>
+                        <div class="hta-step-tags">
+                            <span class="hta-tag">Admission Confirmed</span>
                         </div>
                     </div>
+                </div>
 
-                    <div class="field-section-label">Previous Examination Record</div>
-                    <div class="table-responsive">
-                        <table class="exam-table">
-                            <thead>
+            </div>
+        </div>
+    </section>
+
+    {{-- ════════════════ DOCUMENTS & ELIGIBILITY ════════════════ --}}
+    <section class="hta-band hta-band-alt" id="checklist">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 reveal">
+                    <div class="section-eyebrow">Before You Begin</div>
+                    <h2 class="section-h">What to bring, and<br>who can <em>apply.</em></h2>
+                    <p class="lead-p mb-0">
+                        Gather everything on this list before you visit the office. A complete
+                        file submitted on the first attempt saves you a second trip.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="hta-panel reveal">
+                        <div class="hta-panel-icon"><i class="bi bi-folder-check"></i></div>
+                        <h4>Required Documents</h4>
+                        <p>All copies must be attested. Bring the originals for verification.</p>
+                        <div class="doc-list">
+                            <div class="doc-item"><div class="doc-dot"></div><span>Matric (SSC) Result Card / Certificate</span></div>
+                            <div class="doc-item"><div class="doc-dot"></div><span>Intermediate (HSSC) Result Card — BS applicants</span></div>
+                            <div class="doc-item"><div class="doc-dot"></div><span>B-Form or CNIC of the applicant</span></div>
+                            <div class="doc-item"><div class="doc-dot"></div><span>Father's / Guardian's CNIC</span></div>
+                            <div class="doc-item"><div class="doc-dot"></div><span>Four passport-size photographs (1.5 × 1.5 inch)</span></div>
+                            <div class="doc-item"><div class="doc-dot"></div><span>Character Certificate from the last institution</span></div>
+                            <div class="doc-item"><div class="doc-dot"></div><span>Domicile Certificate, where applicable</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="hta-panel reveal reveal-delay-1">
+                        <div class="hta-panel-icon"><i class="bi bi-patch-check"></i></div>
+                        <h4>Eligibility &amp; Rules</h4>
+                        <p>Read these before you submit — they apply to every applicant.</p>
+                        <ul class="rule-list">
+                            <li>Matriculation from a recognised board is required for Intermediate admission.</li>
+                            <li>FSc Pre-Medical and Pre-Engineering require a minimum of 60% marks.</li>
+                            <li>Admission is granted strictly on merit and according to official rules.</li>
+                            <li>Forms must be submitted within the due date — late forms are not entertained.</li>
+                            <li>Incomplete forms, or forms with missing documents, will not be processed.</li>
+                            <li>False information or forged documents result in cancellation of admission at any stage.</li>
+                            <li>The decision of the admission committee is final.</li>
+                            <li>The college reserves the right to change the admission policy when required.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12 reveal reveal-delay-2">
+                    <div class="note-box">
+                        Not sure which program to apply for? Review the subject combinations and shift
+                        availability on the
+                        <a href="{{ route('admissions.intermediate') }}" style="color: var(--crimson);">Intermediate</a>
+                        and
+                        <a href="{{ route('admissions.bachelorofscience') }}" style="color: var(--crimson);">Bachelor of Science</a>
+                        admission pages before filling your preferences.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- ════════════════ WHAT THE FORM ASKS FOR ════════════════ --}}
+    <section class="hta-band" id="form">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 reveal">
+                    <div class="section-eyebrow">The Admission Form</div>
+                    <h2 class="section-h">Know what you'll be <em>asked.</em></h2>
+                    <p class="lead-p mb-0">
+                        The form is filled and submitted at the admission office. Here is exactly
+                        what each section asks for, so you can prepare your answers and documents
+                        in advance.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-wrap reveal reveal-delay-1">
+
+                {{-- Program selection --}}
+                <div class="faq-item active">
+                    <button class="faq-q" type="button">
+                        <span>Program Applied For</span>
+                        <span class="faq-icon"><i class="bi bi-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p>You will be asked to name the class, group and shift you are applying for. Available options include:</p>
+                        <div class="hta-fields">
+                            <div class="hta-field"><i class="bi bi-check2"></i> FA / Arts</div>
+                            <div class="hta-field"><i class="bi bi-check2"></i> FA IT</div>
+                            <div class="hta-field"><i class="bi bi-check2"></i> FSc Pre-Medical</div>
+                            <div class="hta-field"><i class="bi bi-check2"></i> FSc Pre-Engineering</div>
+                            <div class="hta-field"><i class="bi bi-check2"></i> ICS</div>
+                            <div class="hta-field"><i class="bi bi-check2"></i> I.Com</div>
+                            <div class="hta-field"><i class="bi bi-check2"></i> BS (General Science)</div>
+                            <div class="hta-field"><i class="bi bi-check2"></i> BS (Home Economics)</div>
+                            <div class="hta-field"><i class="bi bi-check2"></i> BS (Physical Education)</div>
+                            <div class="hta-field"><i class="bi bi-check2"></i> BS (Urdu)</div>
+                        </div>
+                        <div class="note-box">
+                            Morning and second shift are separate entries. You may apply for both, but
+                            final allocation depends on merit and seat availability.
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Personal --}}
+                <div class="faq-item">
+                    <button class="faq-q" type="button">
+                        <span>Personal Information</span>
+                        <span class="faq-icon"><i class="bi bi-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p>Write these exactly as they appear on your B-Form/CNIC and Matric certificate.</p>
+                        <div class="hta-fields">
+                            <div class="hta-field"><i class="bi bi-dot"></i> Full name (English &amp; Urdu)</div>
+                            <div class="hta-field"><i class="bi bi-dot"></i> Father's name (English &amp; Urdu)</div>
+                            <div class="hta-field"><i class="bi bi-dot"></i> Date of birth</div>
+                            <div class="hta-field"><i class="bi bi-dot"></i> B-Form / CNIC number</div>
+                            <div class="hta-field"><i class="bi bi-dot"></i> Nationality</div>
+                            <div class="hta-field"><i class="bi bi-dot"></i> Religion</div>
+                            <div class="hta-field"><i class="bi bi-dot"></i> Mother tongue</div>
+                            <div class="hta-field"><i class="bi bi-dot"></i> Marital status</div>
+                            <div class="hta-field"><i class="bi bi-dot"></i> Father's occupation</div>
+                            <div class="hta-field"><i class="bi bi-dot"></i> Two contact numbers</div>
+                            <div class="hta-field"><i class="bi bi-dot"></i> Email address</div>
+                            <div class="hta-field"><i class="bi bi-dot"></i> Permanent &amp; present address</div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Academic --}}
+                <div class="faq-item">
+                    <button class="faq-q" type="button">
+                        <span>Academic Record</span>
+                        <span class="faq-icon"><i class="bi bi-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p>
+                            You will name the last class you attended and your previous institution, then
+                            record each examination you have passed. Keep your result card in front of you
+                            — every column must match it.
+                        </p>
+                        <div class="table-wrap">
+                            <table class="styled-table">
+                                <thead>
                                 <tr>
                                     <th>Examination</th>
                                     <th>Board / University</th>
                                     <th>Year</th>
                                     <th>Roll No.</th>
-                                    <th>Grade</th>
                                     <th>Marks Obtained</th>
                                     <th>Total Marks</th>
-                                    <th>Certificate</th>
                                 </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><strong>Matric (SSC)</strong></td>
+                                    <td>Required</td>
+                                    <td>Required</td>
+                                    <td>Required</td>
+                                    <td>Required</td>
+                                    <td>Required</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Intermediate (HSSC)</strong></td>
+                                    <td>BS applicants</td>
+                                    <td>BS applicants</td>
+                                    <td>BS applicants</td>
+                                    <td>BS applicants</td>
+                                    <td>BS applicants</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="note-box">
+                            Your merit is calculated from the marks you declare here, verified against your
+                            attested result card.
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Preferences & additional --}}
+                <div class="faq-item">
+                    <button class="faq-q" type="button">
+                        <span>Subject Preferences &amp; Additional Questions</span>
+                        <span class="faq-icon"><i class="bi bi-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <ul class="rule-list">
+                            <li>Your optional subject preferences, in order — first, second and third choice.</li>
+                            <li>Whether you have applied to any other college for the same session.</li>
+                            <li>Whether you have ever been expelled from an institution, with details if so.</li>
+                            <li>Guardian's name, relation, contact number and occupation.</li>
+                            <li>An emergency contact name and number.</li>
+                        </ul>
+                        <div class="note-box">
+                            Decide your subject preferences before you reach the counter — they are used
+                            for allocation and are difficult to change later.
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Declaration --}}
+                <div class="faq-item">
+                    <button class="faq-q" type="button">
+                        <span>Declaration &amp; Signatures</span>
+                        <span class="faq-icon"><i class="bi bi-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p>
+                            The form closes with a declaration that every detail you have given is true,
+                            that your admission may be cancelled at any time if anything is found to be
+                            false, and that you agree to abide by the rules and regulations of the college.
+                        </p>
+                        <p>
+                            It must carry the applicant's signature and the date, and the signature of the
+                            father or guardian. The lower portion of the form — form number, class
+                            admitted, group and merit entries — is completed by the college office.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    {{-- ════════════════ DATES & FEE ════════════════ --}}
+    <section class="hta-band hta-band-alt" id="dates">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 reveal">
+                    <div class="section-eyebrow">Dates &amp; Fee</div>
+                    <h2 class="section-h">When things <em>happen.</em></h2>
+                    <p class="lead-p mb-0">
+                        The admission schedule is set each session. Exact dates and the current fee
+                        schedule are announced on the college notice board and published here.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-7">
+                    <div class="table-wrap reveal" style="margin-top: 0;">
+                        <table class="styled-table">
+                            <thead>
+                            <tr><th style="width: 90px;">Stage</th><th>What happens</th></tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Matric (SSC)</td>
-                                    <td><input type="text" class="form-control" placeholder="Board"></td>
-                                    <td><input type="text" class="form-control" placeholder="Year"></td>
-                                    <td><input type="text" class="form-control" placeholder="Roll No."></td>
-                                    <td><input type="text" class="form-control" placeholder="Grade"></td>
-                                    <td><input type="text" class="form-control" placeholder="Obtained"></td>
-                                    <td><input type="text" class="form-control" placeholder="Total"></td>
-                                    <td style="text-align:center;"><input type="checkbox"></td>
-                                </tr>
-                                <tr>
-                                    <td>Intermediate (HSSC)</td>
-                                    <td><input type="text" class="form-control" placeholder="Board"></td>
-                                    <td><input type="text" class="form-control" placeholder="Year"></td>
-                                    <td><input type="text" class="form-control" placeholder="Roll No."></td>
-                                    <td><input type="text" class="form-control" placeholder="Grade"></td>
-                                    <td><input type="text" class="form-control" placeholder="Obtained"></td>
-                                    <td><input type="text" class="form-control" placeholder="Total"></td>
-                                    <td style="text-align:center;"><input type="checkbox"></td>
-                                </tr>
+                            <tr><td><strong>01</strong></td><td>Admission advertisement &amp; issue of forms begins</td></tr>
+                            <tr><td><strong>02</strong></td><td>Last date for submission of completed forms</td></tr>
+                            <tr><td><strong>03</strong></td><td>Scrutiny of forms and document verification</td></tr>
+                            <tr><td><strong>04</strong></td><td>First merit list displayed</td></tr>
+                            <tr><td><strong>05</strong></td><td>Fee deposit by selected candidates</td></tr>
+                            <tr><td><strong>06</strong></td><td>Subsequent merit lists against vacant seats</td></tr>
+                            <tr><td><strong>07</strong></td><td>Classes commence</td></tr>
                             </tbody>
                         </table>
                     </div>
+                </div>
 
-                    <div class="field-section-label">Additional Information</div>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label">10. Have you applied to any other college?</label>
-                            <select class="form-select">
-                                <option value="">-- Select --</option>
-                                <option>Yes</option>
-                                <option>No</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">11. Preference Order for Subjects</label>
-                            <div class="row g-2">
-                                <div class="col-4"><input type="text" class="form-control" placeholder="1st"></div>
-                                <div class="col-4"><input type="text" class="form-control" placeholder="2nd"></div>
-                                <div class="col-4"><input type="text" class="form-control" placeholder="3rd"></div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label">12. Permanent Address (Complete)</label>
-                            <textarea class="form-control" rows="2" placeholder="House No., Street, Mohalla, City, District"></textarea>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">13. Have you been expelled from any institution?</label>
-                            <select class="form-select">
-                                <option value="">-- Select --</option>
-                                <option>No</option>
-                                <option>Yes (provide details below)</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">If yes, reason / details</label>
-                            <input type="text" class="form-control" placeholder="Provide details if applicable">
+                <div class="col-lg-5">
+                    <div class="hta-panel reveal reveal-delay-1">
+                        <div class="hta-panel-icon"><i class="bi bi-megaphone"></i></div>
+                        <h4>Current Session Dates</h4>
+                        <p>
+                            Admission dates and the fee schedule change every session and are notified
+                            officially. For the dates that apply to the 2026–27 session, check the college
+                            notice board or our announcements.
+                        </p>
+                        <div class="hta-step-tags" style="margin-top: 22px;">
+                            <a href="{{ route('news.index') }}" class="btn-ghost-c" style="padding: 12px 24px;">
+                                View Announcements
+                            </a>
                         </div>
                     </div>
-
-                    <div class="field-section-label">Declaration</div>
-                    <div class="declaration-box mb-4">
-                        I hereby declare that all the information provided in this form is true and correct to the best of my knowledge. I understand that if any information is found to be false or incorrect, my admission may be cancelled at any time. I agree to abide by the rules and regulations of Govt. Peer Bahar Shah Graduate College for Women, Sheikhupura.
-                        <br><br>
-                        <div class="row">
-                            <div class="col-6"><strong>Applicant's Signature:</strong> _______________________</div>
-                            <div class="col-6 text-end"><strong>Date:</strong> _______________________</div>
-                        </div>
-                    </div>
-
-                    <div class="field-section-label">For Office Use Only</div>
-                    <div class="row g-3 mb-4">
-                        <div class="col-md-4">
-                            <label class="form-label">Form No.</label>
-                            <input type="text" class="form-control" disabled placeholder="____">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Class Admitted</label>
-                            <input type="text" class="form-control" disabled placeholder="____">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Group</label>
-                            <input type="text" class="form-control" disabled placeholder="____">
-                        </div>
-                    </div>
-
-                    <div class="text-center">
-                        <button type="submit" class="btn-apply">Submit Application</button>
-                    </div>
-                </form>
-
+                </div>
             </div>
-        </div>
-    </div>
 
-    <!-- 4. NEED HELP -->
-    <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-            <span>🙋 &nbsp; Need Help with Admission?</span>
-            <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-            <div class="faq-answer-inner">
-                <p>If you have any questions or face difficulties during the admission process, please visit the admission office or contact the help desk directly.</p>
-                <div class="text-center mt-3">
-                    <button class="btn-apply">Contact Admission Office</button>
+            <div class="row mt-4">
+                <div class="col-12 reveal reveal-delay-2">
+                    <div class="note-box">
+                        Financial assistance is available. If the fee is a concern, review the
+                        <a href="{{ route('scholarships.index') }}" style="color: var(--crimson);">scholarships</a>
+                        currently open — several can be applied for online.
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-</div>
+    {{-- ════════════════ FAQ ════════════════ --}}
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 reveal">
+                    <div class="section-eyebrow">Common Questions</div>
+                    <h2 class="section-h">Asked at the counter, <em>answered here.</em></h2>
+                </div>
+            </div>
 
-<script>
-    function toggleFaq(btn) {
-        const answer = btn.nextElementSibling;
-        const isOpen = answer.classList.contains('open');
-        document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
-        document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('open'));
-        if (!isOpen) {
-            answer.classList.add('open');
-            btn.classList.add('open');
-        }
-    }
+            <div class="faq-wrap reveal reveal-delay-1">
 
-    const fadeEls = document.querySelectorAll('.fade');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
-    }, { threshold: 0.1 });
-    fadeEls.forEach(el => observer.observe(el));
-</script>
+                <div class="faq-item active">
+                    <button class="faq-q" type="button">
+                        <span>Can I apply online instead of visiting the college?</span>
+                        <span class="faq-icon"><i class="bi bi-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p>
+                            Admission forms are collected from and submitted at the college admission
+                            office in person, so that your original documents can be verified at the same
+                            time. Scholarship applications, however, can be submitted online through our
+                            <a href="{{ route('scholarships.index') }}" style="color: var(--crimson);">scholarships</a>
+                            section.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" type="button">
+                        <span>Can I apply for both the morning and second shift?</span>
+                        <span class="faq-icon"><i class="bi bi-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p>
+                            Yes. Students may apply for both shifts where the program is offered in both.
+                            Final shift allocation is decided on merit and seat availability, not on
+                            preference alone.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" type="button">
+                        <span>What happens if I miss the submission deadline?</span>
+                        <span class="faq-icon"><i class="bi bi-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p>
+                            Late applications are not entertained. If seats remain vacant after the merit
+                            lists are exhausted, any extension in the last date is announced officially —
+                            watch the notice board and our announcements rather than assuming an extension.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" type="button">
+                        <span>My documents are incomplete. Should I still submit the form?</span>
+                        <span class="faq-icon"><i class="bi bi-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p>
+                            An incomplete form will not be processed, so submitting one costs you time
+                            rather than saving it. If a document is genuinely unavailable — for example a
+                            result card that has not yet been issued — speak to the admission office
+                            before the deadline instead of leaving the section blank.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" type="button">
+                        <span>My name is spelled differently on two documents. What do I do?</span>
+                        <span class="faq-icon"><i class="bi bi-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p>
+                            Resolve it before you apply. Your form, your result card and your B-Form/CNIC
+                            must carry the same spelling, because your name is later printed on college
+                            records and forwarded to the board or university. Bring the discrepancy to the
+                            admission office at the counter.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" type="button">
+                        <span>Can I change my group or subjects after admission?</span>
+                        <span class="faq-icon"><i class="bi bi-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p>
+                            A change of group or optional subject may be considered on written application,
+                            subject to seat availability in the requested group, eligibility for that
+                            group, and the deadline set by the board. The final decision rests with the
+                            college administration.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-q" type="button">
+                        <span>How do I cancel my admission, and is the fee refunded?</span>
+                        <span class="faq-icon"><i class="bi bi-chevron-down"></i></span>
+                    </button>
+                    <div class="faq-body">
+                        <p>
+                            Submit a written application to the college administration. Refunds are made
+                            according to the college and government refund policy: usually the full fee may
+                            be refunded before classes begin, and only a portion after that. The final
+                            decision regarding a refund rests with the college administration.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    {{-- ════════════════ GET HELP ════════════════ --}}
+    <section class="hta-band hta-band-alt" id="help">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 reveal">
+                    <div class="section-eyebrow">Get Help</div>
+                    <h2 class="section-h">Stuck somewhere? <em>Ask us.</em></h2>
+                    <p class="lead-p mb-0">
+                        The admission office is open six days a week through the admission season.
+                        Call ahead if you want to confirm what to bring.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <a href="tel:0563783273" class="hta-help-card reveal">
+                        <div class="hta-help-ic"><i class="bi bi-telephone"></i></div>
+                        <div>
+                            <div class="hta-help-lbl">Call the Office</div>
+                            <div class="hta-help-val">056 3783273</div>
+                            <div class="hta-help-sub">Monday to Saturday, 7:00 AM – 2:00 PM</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <a href="mailto:info@gcwskp.edu.pk" class="hta-help-card reveal reveal-delay-1">
+                        <div class="hta-help-ic"><i class="bi bi-envelope"></i></div>
+                        <div>
+                            <div class="hta-help-lbl">Email Us</div>
+                            <div class="hta-help-val">info@gcwskp.edu.pk</div>
+                            <div class="hta-help-sub">Include your name and the program you're applying for</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <a href="{{ route('contact') }}" class="hta-help-card reveal reveal-delay-2">
+                        <div class="hta-help-ic"><i class="bi bi-geo-alt"></i></div>
+                        <div>
+                            <div class="hta-help-lbl">Visit in Person</div>
+                            <div class="hta-help-val">Admission Office</div>
+                            <div class="hta-help-sub">Govt. Pir Bahar Shah Graduate College for Women, Sheikhupura — see map &amp; directions</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- ════════════════ CTA STRIP ════════════════ --}}
+    <section class="cta-strip">
+        <div class="container">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8 reveal">
+                    <div class="section-eyebrow" style="color: var(--gold);">Take the Next Step</div>
+                    <h2 class="section-h">You know the process. Now pick your <em>program.</em></h2>
+                    <p class="lead-p mb-0">
+                        Applications for the 2026–27 session are open. Review the subject combinations
+                        and shifts before you collect your form.
+                    </p>
+                    <p class="hta-cta-note">
+                        Applying after Intermediate? See
+                        <a href="{{ route('admissions.bachelorofscience') }}">Bachelor of Science admissions</a>.
+                    </p>
+                </div>
+                <div class="col-lg-4 text-lg-end reveal reveal-delay-1">
+                    <a href="{{ route('admissions.intermediate') }}" class="btn-light-c">
+                        Intermediate Admissions
+                        <i class="bi bi-arrow-up-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- ════════════════ FAQ ACCORDION SCRIPT ════════════════ --}}
+    <script>
+        document.querySelectorAll('.faq-wrap').forEach(wrap => {
+            wrap.querySelectorAll('.faq-q').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const item = btn.closest('.faq-item');
+                    const isActive = item.classList.contains('active');
+                    wrap.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                    if (!isActive) item.classList.add('active');
+                });
+            });
+        });
+    </script>
 
 @endsection

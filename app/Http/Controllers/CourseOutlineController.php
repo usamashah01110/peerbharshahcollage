@@ -2,63 +2,90 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CourseOutline;
+use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class CourseOutlineController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $courseOutlines = CourseOutline::with('program')->latest()->get();
+        return view('admin.course_outlines.index', compact('courseOutlines'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $programs = Program::doesntHave('courseOutline')->orderBy('name')->get();
+        return view('admin.course_outlines.create', compact('programs'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'program_id'  => 'required|exists:programs,id|unique:course_outlines,program_id',
+            'description' => 'nullable|string',
+            'objectives'  => 'nullable|string',
+            'topics'      => 'nullable|string',
+            'file'        => 'nullable|file|mimes:pdf,doc,docx|max:5120',
+        ]);
+
+        if ($request->hasFile('file')) {
+            $name = time() . '.' . $request->file('file')->getClientOriginalExtension();
+            $request->file('file')->move(public_path('course_outlines'), $name);
+            $validated['file'] = $name;
+        }
+
+        CourseOutline::create($validated);
+
+        return redirect()->route('admin.course-outlines.index')
+            ->with('success', 'Course outline added successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $courseOutline = CourseOutline::findOrFail($id);
+        $programs      = Program::orderBy('name')->get();
+        return view('admin.course_outlines.edit', compact('courseOutline', 'programs'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $courseOutline = CourseOutline::findOrFail($id);
+
+        $validated = $request->validate([
+            'program_id'  => 'required|exists:programs,id|unique:course_outlines,program_id,' . $id,
+            'description' => 'nullable|string',
+            'objectives'  => 'nullable|string',
+            'topics'      => 'nullable|string',
+            'file'        => 'nullable|file|mimes:pdf,doc,docx|max:5120',
+        ]);
+
+        if ($request->hasFile('file')) {
+            if ($courseOutline->file && File::exists(public_path('course_outlines/' . $courseOutline->file))) {
+                File::delete(public_path('course_outlines/' . $courseOutline->file));
+            }
+            $name = time() . '.' . $request->file('file')->getClientOriginalExtension();
+            $request->file('file')->move(public_path('course_outlines'), $name);
+            $validated['file'] = $name;
+        }
+
+        $courseOutline->update($validated);
+
+        return redirect()->route('admin.course-outlines.index')
+            ->with('success', 'Course outline updated successfully.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
+        $courseOutline = CourseOutline::findOrFail($id);
+        if ($courseOutline->file && File::exists(public_path('course_outlines/' . $courseOutline->file))) {
+            File::delete(public_path('course_outlines/' . $courseOutline->file));
+        }
+        $courseOutline->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('admin.course-outlines.index')
+            ->with('success', 'Course outline deleted successfully.');
     }
 }

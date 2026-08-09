@@ -6,7 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name',
+        'code',
+        'description',
+        'hod_id',
+        'established_date',
+        'is_active',
+    ];
+
+    protected $casts = [
+        'established_date' => 'date',
+        'is_active'        => 'boolean',
+    ];
+
+    public function hod()
+    {
+        return $this->belongsTo(Teacher::class, 'hod_id');
+    }
 
     public function teachers()
     {
@@ -18,8 +35,8 @@ class Department extends Model
         return $this->hasMany(Program::class);
     }
 
-    public function students()
+    public function newsEvents()
     {
-        return $this->hasMany(Student::class);
+        return $this->hasMany(NewsEvent::class);
     }
 }

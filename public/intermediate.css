@@ -1,0 +1,392 @@
+/* ════════════════════════════════════════════════════════════
+   INTERMEDIATE ADMISSIONS PAGE — ADDITIONS
+   Append these to the bottom of your existing main CSS file.
+   No other changes needed.
+   ════════════════════════════════════════════════════════════ */
+
+
+/* ── HERO VARIANT for Admissions ── */
+.hero-admissions {
+    min-height: 80vh;
+    padding: 50px 0 70px;
+}
+
+
+/* ── HERO STAT CARD (right side of admissions hero) ── */
+.hero-stat-card {
+    background: var(--ink);
+    color: var(--ivory);
+    padding: 36px;
+    border-radius: 8px;
+    box-shadow: 0 24px 60px rgba(20,17,15,.18);
+    position: relative;
+    overflow: hidden;
+}
+.hero-stat-card::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(201,168,76,.18), transparent 60%);
+    pointer-events: none;
+}
+.hsc-eyebrow {
+    font-size: .68rem;
+    letter-spacing: .25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    position: relative;
+}
+.hsc-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 0;
+    position: relative;
+}
+.hsc-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -.04em;
+    color: var(--ivory);
+}
+.hsc-num span {
+    color: var(--gold);
+    font-size: .55em;
+    margin-left: 2px;
+}
+.hsc-lbl {
+    font-size: .82rem;
+    line-height: 1.4;
+    color: rgba(255,255,255,.7);
+    text-align: right;
+    letter-spacing: .02em;
+    font-weight: 500;
+}
+.hsc-divider {
+    height: 1px;
+    background: rgba(255,255,255,.08);
+}
+
+
+/* ── PROGRAM CARD ICON (extends existing .program-card) ── */
+.program-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(139,26,46,.08);
+    color: var(--crimson);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+    font-size: 1.2rem;
+    transition: all .4s ease;
+}
+.program-card:hover .program-icon {
+    background: var(--crimson);
+    color: var(--gold);
+    transform: scale(1.08);
+}
+
+
+/* ── FAQ SECTION ── */
+.faq-section {
+    padding: 130px 0;
+    background: var(--ivory);
+}
+.faq-section-alt {
+    background: var(--cream);
+}
+
+.faq-wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.faq-item {
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color .3s ease, box-shadow .3s ease;
+}
+.faq-item.active {
+    border-color: var(--crimson);
+    box-shadow: 0 14px 38px rgba(139,26,46,.08);
+}
+
+.faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 22px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-family: 'Fraunces', serif;
+    font-size: 1.08rem;
+    font-weight: 500;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    text-align: left;
+    gap: 14px;
+    transition: color .25s ease;
+}
+.faq-q:hover {
+    color: var(--crimson);
+}
+
+.faq-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--ink-soft);
+    font-size: .8rem;
+    transition: all .3s ease;
+}
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+    background: var(--crimson);
+    border-color: var(--crimson);
+    color: var(--ivory);
+}
+
+.faq-body {
+    display: none;
+    padding: 0 28px;
+}
+.faq-item.active .faq-body {
+    display: block;
+    padding: 22px 28px 26px;
+    border-top: 1px solid var(--line);
+}
+.faq-body > *:first-child {
+    margin-top: 0;
+}
+.faq-body p {
+    color: var(--ink-soft);
+    font-size: .98rem;
+    line-height: 1.85;
+    margin-bottom: 14px;
+}
+.faq-body p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* ── RULE LIST (bulleted lists in FAQ bodies) ── */
+.rule-list {
+    list-style: none;
+    padding: 0;
+    margin: 14px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.rule-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: .96rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+}
+.rule-list li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    background: var(--crimson);
+    border-radius: 50%;
+    margin-top: 11px;
+    flex-shrink: 0;
+}
+
+
+/* ── DOCUMENT CHECKLIST ── */
+.doc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 18px;
+}
+.doc-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 22px;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    transition: all .25s ease;
+}
+.doc-item:hover {
+    border-color: var(--crimson);
+    transform: translateX(4px);
+}
+.doc-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--crimson);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.doc-item span {
+    font-size: .94rem;
+    font-weight: 500;
+    color: var(--ink);
+}
+
+
+/* ── EDITORIAL TABLE ── */
+.table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    margin: 18px 0;
+}
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .9rem;
+    background: var(--ivory);
+}
+.styled-table thead {
+    background: var(--ink);
+}
+.styled-table thead th {
+    color: var(--ivory);
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: .82rem;
+    padding: 14px 18px;
+    text-align: left;
+    letter-spacing: .04em;
+}
+.styled-table tbody tr {
+    border-bottom: 1px solid var(--line);
+}
+.styled-table tbody tr:last-child {
+    border-bottom: none;
+}
+.styled-table tbody tr:nth-child(even) {
+    background: var(--cream);
+}
+.styled-table tbody tr:hover {
+    background: rgba(139,26,46,.04);
+}
+.styled-table tbody td {
+    padding: 14px 18px;
+    color: var(--ink-soft);
+    font-weight: 500;
+}
+.styled-table tbody td strong {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+
+/* ── YES / NO BADGES (used in tables) ── */
+.yes-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(201,168,76,.18);
+    color: #8a7028;
+    font-size: .7rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 999px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    border: 1px solid rgba(201,168,76,.35);
+}
+.no-badge {
+    display: inline-flex;
+    align-items: center;
+    background: var(--cream);
+    color: var(--muted);
+    font-size: .7rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 999px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    border: 1px solid var(--line);
+}
+
+
+/* ── NOTE / CALLOUT BOX ── */
+.note-box {
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    padding: 18px 24px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: .96rem;
+    color: var(--ink-soft);
+    margin: 18px 0 0;
+    line-height: 1.7;
+}
+
+
+/* ── RESPONSIVE ── */
+@media (max-width: 991px) {
+    .hero-admissions {
+        min-height: auto;
+        padding: 40px 0 60px;
+    }
+    .hero-stat-card {
+        margin-top: 40px;
+        padding: 28px;
+    }
+    .hsc-num {
+        font-size: 2.3rem;
+    }
+    .faq-section {
+        padding: 80px 0;
+    }
+    .faq-q {
+        font-size: 1rem;
+        padding: 18px 22px;
+    }
+    .faq-body {
+        padding: 0 22px;
+    }
+    .faq-item.active .faq-body {
+        padding: 18px 22px 22px;
+    }
+    .styled-table thead th,
+    .styled-table tbody td {
+        padding: 12px 14px;
+        font-size: .85rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .hsc-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    .hsc-lbl {
+        text-align: left;
+    }
+}

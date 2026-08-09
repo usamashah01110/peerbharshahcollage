@@ -1,49 +1,39 @@
 @extends('admin.main')
 
 @section('content')
-<div class="container">
-    <h2>Programs</h2>
+<h2 class="mb-3">Programs</h2>
 
-    <a href="{{ route('programs.create') }}" class="btn btn-primary mb-3">
-        Add Program
-    </a>
+<a href="{{ route('admin.programs.create') }}" class="btn btn-primary mb-3">Add Program</a>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+@if(session('success'))<div class="alert alert-success">{{ session('success') }}</div>@endif
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Department</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($programs as $program)
-            <tr>
-                <td>{{ $program->id }}</td>
-                <td>{{ $program->program_code }}</td>
-                <td>{{ $program->program_name }}</td>
-                <td>{{ $program->department->name }}</td>
-                <td>
-                    <a href="{{ route('programs.edit', $program->id) }}" class="btn btn-warning">Edit</a>
-
-                    <form action="{{ route('programs.destroy', $program->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger">Delete</button>
-                    </form>
-                   
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr><th>ID</th><th>Name</th><th>Code</th><th>Department</th><th>Degree Level</th><th>Semesters</th><th>Duration</th><th>Fee/Sem</th><th>Active</th><th width="160">Actions</th></tr>
+    </thead>
+    <tbody>
+    @forelse($programs as $p)
+        <tr>
+            <td>{{ $p->id }}</td>
+            <td>{{ $p->name }}</td>
+            <td>{{ $p->code }}</td>
+            <td>{{ $p->department->name ?? '-' }}</td>
+            <td>{{ ucfirst($p->degree_level) }}</td>
+            <td>{{ $p->total_semesters }}</td>
+            <td>{{ $p->duration_years }} yrs</td>
+            <td>{{ $p->fee_per_semester ?? '-' }}</td>
+            <td>@if($p->is_active)<span class="badge badge-success">Yes</span>@else<span class="badge badge-secondary">No</span>@endif</td>
+            <td>
+                <a href="{{ route('admin.programs.edit', $p->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <form action="{{ route('admin.programs.destroy', $p->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Delete this program?');">
+                    @csrf @method('DELETE')
+                    <button class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+    @empty
+        <tr><td colspan="10" class="text-center">No programs found.</td></tr>
+    @endforelse
+    </tbody>
+</table>
 @endsection

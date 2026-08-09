@@ -2,15 +2,61 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    protected $fillable = ['name', 'email', 'department_id'];
+    use HasFactory;
 
-    public function department()
+    protected $table = 'students';
+
+    protected $fillable = [
+        'registration_number',
+        'roll_number',
+        'first_name',
+        'last_name',
+        'father_name',
+        'email',
+        'phone',
+        'cnic',
+        'date_of_birth',
+        'gender',
+        'address',
+        'city',
+        'province',
+        'profile_image',
+        'program_id',
+        'admission_session_id',
+        'current_semester',
+        'enrollment_date',
+        'status',
+        'admission_application_id',
+    ];
+
+    protected $casts = [
+        'date_of_birth'   => 'date',
+        'enrollment_date' => 'date',
+    ];
+
+    public function program()
     {
-        return $this->belongsTo(Department::class);
+        return $this->belongsTo(Program::class);
+    }
+
+    public function session()
+    {
+        return $this->belongsTo(AcademicSession::class, 'admission_session_id');
+    }
+
+    public function application()
+    {
+        return $this->belongsTo(AdmissionApplication::class, 'admission_application_id');
+    }
+
+    public function scholarshipApplications()
+    {
+        return $this->hasMany(ScholarshipApplication::class);
     }
 
     public function admissions()
@@ -21,10 +67,5 @@ class Student extends Model
     public function meritLists()
     {
         return $this->hasMany(MeritList::class);
-    }
-
-    public function scholarshipApplications()
-    {
-        return $this->hasMany(ScholarshipApplication::class);
     }
 }

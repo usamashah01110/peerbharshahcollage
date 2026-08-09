@@ -9,7 +9,7 @@ class MeritList extends Model
     protected $fillable = [
         'student_id',
         'program_id',
-        'marks'
+        'marks',
     ];
 
     public function student()

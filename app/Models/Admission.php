@@ -10,7 +10,11 @@ class Admission extends Model
         'student_id',
         'program_id',
         'admission_date',
-        'status'
+        'status',
+    ];
+
+    protected $casts = [
+        'admission_date' => 'date',
     ];
 
     public function student()

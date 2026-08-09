@@ -2,63 +2,68 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MeritList;
+use App\Models\Student;
+use App\Models\Program;
 use Illuminate\Http\Request;
 
 class MeritListController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $meritLists = MeritList::with(['student', 'program'])->latest()->get();
+        return view('admin.merit_lists.index', compact('meritLists'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $students = Student::orderBy('first_name')->get();
+        $programs = Program::orderBy('name')->get();
+        return view('admin.merit_lists.create', compact('students', 'programs'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'student_id' => 'required|exists:students,id',
+            'program_id' => 'required|exists:programs,id',
+            'marks'      => 'required|integer|min:0',
+        ]);
+
+        MeritList::create($validated);
+
+        return redirect()->route('admin.merit-lists.index')
+            ->with('success', 'Merit list entry added.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $meritList = MeritList::findOrFail($id);
+        $students  = Student::orderBy('first_name')->get();
+        $programs  = Program::orderBy('name')->get();
+        return view('admin.merit_lists.edit', compact('meritList', 'students', 'programs'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $meritList = MeritList::findOrFail($id);
+
+        $validated = $request->validate([
+            'student_id' => 'required|exists:students,id',
+            'program_id' => 'required|exists:programs,id',
+            'marks'      => 'required|integer|min:0',
+        ]);
+
+        $meritList->update($validated);
+
+        return redirect()->route('admin.merit-lists.index')
+            ->with('success', 'Merit list entry updated.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        MeritList::findOrFail($id)->delete();
+        return redirect()->route('admin.merit-lists.index')
+            ->with('success', 'Merit list entry deleted.');
     }
 }
